@@ -9,31 +9,31 @@ const produtos = [
       { nome: "Vermelho", img: "img-jigs/urutau-vermelho-png.jpeg", bg: "#e11d2e" }
     ]
   },
-   {
-    nome: "Urutinha G2",
-    cores: [
-      { nome: "Verde", img: "img-jigs/urutau.verde.png.jpeg", bg: "#04b45c" },
-      { nome: "Preto", img: "img-jigs/urutau.preto.png.jpeg", bg: "#000000" },
-      { nome: "Vermelho", img: "img-jigs/urutau-vermelho-png.jpeg", bg: "#e11d2e" }
-    ]
-  }, 
-   {
-    nome: "Urutinha G1",
+  {
+    nome: "Urumax G2",
     cores: [
       { nome: "Verde", img: "img-jigs/urutau.verde.png.jpeg", bg: "#04b45c" },
       { nome: "Preto", img: "img-jigs/urutau.preto.png.jpeg", bg: "#000000" },
       { nome: "Vermelho", img: "img-jigs/urutau-vermelho-png.jpeg", bg: "#e11d2e" }
     ]
   },
-   {
-    nome: "Jig Spinner",
+  {
+    nome: "Urumax G1",
     cores: [
       { nome: "Verde", img: "img-jigs/urutau.verde.png.jpeg", bg: "#04b45c" },
       { nome: "Preto", img: "img-jigs/urutau.preto.png.jpeg", bg: "#000000" },
       { nome: "Vermelho", img: "img-jigs/urutau-vermelho-png.jpeg", bg: "#e11d2e" }
     ]
-  }, 
-   {
+  },
+  {
+    nome: "Spinner",
+    cores: [
+      { nome: "Verde", img: "img-jigs/urutau.verde.png.jpeg", bg: "#04b45c" },
+      { nome: "Preto", img: "img-jigs/urutau.preto.png.jpeg", bg: "#000000" },
+      { nome: "Vermelho", img: "img-jigs/urutau-vermelho-png.jpeg", bg: "#e11d2e" }
+    ]
+  },
+  {
     nome: "Jig Cristal",
     cores: [
       { nome: "Verde", img: "img-jigs/urutau.verde.png.jpeg", bg: "#04b45c" },
@@ -49,6 +49,25 @@ const finalizar = document.querySelector("#finalizar");
 const totalUnidades = document.querySelector("#totalUnidades");
 
 let carrinho = [];
+
+const toast = document.querySelector("#toast");
+
+function mostrarToast(texto, tipo = "sucesso") {
+
+  toast.textContent = texto;
+
+  toast.classList.remove("erro");
+
+  if (tipo === "erro") {
+    toast.classList.add("erro");
+  }
+
+  toast.classList.add("show");
+
+  setTimeout(() => {
+    toast.classList.remove("show");
+  }, 2000);
+}
 
 function criarCard(produto) {
   const card = document.createElement("article");
@@ -116,7 +135,17 @@ function criarCard(produto) {
   btnAdd.textContent = "Adicionar ao Carrinho";
 
   btnAdd.onclick = () => {
-    if (!corSelecionada) return;
+
+    btnAdd.classList.add("animar");
+
+    setTimeout(() => {
+      btnAdd.classList.remove("animar");
+    }, 150);
+
+    if (!corSelecionada) {
+      mostrarToast("Selecione uma cor antes de adicionar", "erro");
+      return;
+    }
 
     const existente = carrinho.find(item =>
       item.nome === produto.nome && item.cor === corSelecionada
@@ -134,6 +163,8 @@ function criarCard(produto) {
     }
 
     atualizarCarrinho();
+    salvarCarrinho();
+    mostrarToast(`${quantidade} ${produto.nome} (${corSelecionada}) adicionada ao carrinho`);
 
     quantidade = 1;
     numero.textContent = 1;
@@ -179,6 +210,10 @@ function atualizarCarrinho() {
 }
 
 finalizar.onclick = () => {
+  if (carrinho.length === 0) {
+    mostrarToast("Seu carrinho está vazio", "erro");
+    return;
+  }
   let mensagem = "Olá! Gostaria de fazer o seguinte pedido:\n\n";
   carrinho.forEach(item => {
     mensagem += `• ${item.qtd} ${item.nome} na cor ${item.cor}\n`;
@@ -188,3 +223,18 @@ finalizar.onclick = () => {
 };
 
 produtos.forEach(p => grid.appendChild(criarCard(p)));
+
+function salvarCarrinho() {
+  localStorage.setItem("carrinhoUrutau", JSON.stringify(carrinho));
+}
+
+function carregarCarrinho() {
+  const dados = localStorage.getItem("carrinhoUrutau");
+
+  if (dados) {
+    carrinho = JSON.parse(dados);
+    atualizarCarrinho();
+  }
+}
+
+carregarCarrinho();
