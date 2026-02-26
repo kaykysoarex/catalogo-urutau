@@ -271,3 +271,7 @@ function mostrarMensagem(texto, cor="#04b45c") {
     setTimeout(() => msg.remove(), 300);
   }, 2000);
 }
+
+document.addEventListener('gesturestart', function (e) {
+  e.preventDefault();
+});

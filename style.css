@@ -224,11 +224,14 @@ button {
   transition: transform 0.15s ease;
 }
 
-html {
+html, body {
   touch-action: manipulation;
+  -webkit-text-size-adjust: 100%;
 }
 
 button,
-.cor {
+.cor,
+.btn {
+  touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
 }
