@@ -197,8 +197,14 @@ function atualizarCarrinho() {
     `;
 
     div.querySelector(".remover").onclick = () => {
+      const removido = carrinho[index];
+
       carrinho.splice(index, 1);
       atualizarCarrinho();
+
+      mostrarMensagem(
+        `${removido.nome} ${removido.cor} removido do carrinho`,
+        "#b30000");
     };
 
     listaCarrinho.appendChild(div);
@@ -236,5 +242,32 @@ function carregarCarrinho() {
     atualizarCarrinho();
   }
 }
-
 carregarCarrinho();
+
+function mostrarMensagem(texto, cor="#04b45c") {
+
+  const msg = document.createElement("div");
+  msg.textContent = texto;
+
+  msg.style.position = "fixed";
+  msg.style.bottom = "20px";
+  msg.style.left = "50%";
+  msg.style.transform = "translateX(-50%)";
+  msg.style.background = cor;
+  msg.style.color = "#fff";
+  msg.style.padding = "12px 20px";
+  msg.style.borderRadius = "10px";
+  msg.style.fontSize = "14px";
+  msg.style.zIndex = "9999";
+  msg.style.opacity = "0";
+  msg.style.transition = "0.3s";
+
+  document.body.appendChild(msg);
+
+  setTimeout(() => msg.style.opacity = "1", 10);
+
+  setTimeout(() => {
+    msg.style.opacity = "0";
+    setTimeout(() => msg.remove(), 300);
+  }, 2000);
+}
