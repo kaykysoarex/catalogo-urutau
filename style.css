@@ -70,6 +70,7 @@ body {
   cursor: pointer;
   transition: .2s;
   font-size: 13px;
+  touch-action: manipulation;
 }
 
 .cor:hover {
@@ -167,31 +168,31 @@ button {
 
 /* ===== TOAST NOTIFICATION ===== */
 
-#toast{
+#toast {
   position: fixed;
   bottom: 25px;
   left: 50%;
   transform: translateX(-50%) translateY(20px);
   background: #25D366;
-  color:#fff;
-  padding:14px 18px;
-  border-radius:10px;
-  font-size:14px;
-  font-weight:500;
-  opacity:0;
-  pointer-events:none;
-  transition:.4s ease;
-  z-index:9999;
-  box-shadow:0 10px 25px rgba(0,0,0,.4);
+  color: #fff;
+  padding: 14px 18px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  opacity: 0;
+  pointer-events: none;
+  transition: .4s ease;
+  z-index: 9999;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, .4);
 }
 
-#toast.show{
-  opacity:1;
+#toast.show {
+  opacity: 1;
   transform: translateX(-50%) translateY(0);
 }
 
-#toast.erro{
-  background:#e11d2e;
+#toast.erro {
+  background: #e11d2e;
 }
 
 .undo-message {
@@ -221,4 +222,13 @@ button {
 .btn.animar {
   transform: scale(0.95);
   transition: transform 0.15s ease;
+}
+
+html {
+  touch-action: manipulation;
+}
+
+button,
+.cor {
+  -webkit-tap-highlight-color: transparent;
 }
