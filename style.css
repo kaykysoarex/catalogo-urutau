@@ -71,7 +71,7 @@ body{
 }
 
 .cor.ativa{
-  font-weight:bold;
+  font-weight:200;
 }
 
 .qtd{
@@ -93,11 +93,12 @@ body{
 
 .btn{
   width:100%;
-  padding:12px;
+  padding:10px;
   border:none;
   border-radius:12px;
   background:#25D366;
-  font-weight:bold;
+  color: white;
+  font-weight:500;
   cursor:pointer;
 }
 
@@ -145,4 +146,10 @@ body{
 h1,h2,h3,button{
   font-family: 'Montserrat', sans-serif;
   font-size: 20px;
+  font-weight: 600;
+}
+
+.footer{
+  text-align: center;
+  font-weight: 300;
 }
