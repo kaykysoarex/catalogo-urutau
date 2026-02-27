@@ -119,14 +119,41 @@ function criarCard(produto) {
   const menos = document.createElement("button");
   menos.textContent = "-";
 
-  const numero = document.createElement("span");
-  numero.textContent = quantidade;
+  const numero = document.createElement("input");
+  numero.type = "number";
+  numero.min = 1;
+  numero.value = quantidade;
+  numero.className = "input-qtd";
+
+  numero.oninput = () => {
+    let valor = parseInt(numero.value);
+
+    if (isNaN(valor) || valor < 1) {
+      valor = 1;
+    }
+
+    quantidade = valor;
+    numero.value = valor;
+  };
+
+  numero.onfocus = () => {
+    if (numero.value == 1) {
+      numero.value = "";
+    }
+  };
+
+  numero.onblur = () => {
+    if (numero.value === "" || numero.value < 1) {
+      numero.value = 1;
+      quantidade = 1;
+    }
+  };
 
   const mais = document.createElement("button");
   mais.textContent = "+";
 
-  menos.onclick = () => { if (quantidade > 1) { quantidade--; numero.textContent = quantidade; } };
-  mais.onclick = () => { quantidade++; numero.textContent = quantidade; };
+  menos.onclick = () => { if (quantidade > 1) { quantidade--; numero.value = quantidade; } };
+  mais.onclick = () => { quantidade++; numero.value = quantidade; };
 
   qtdDiv.append(menos, numero, mais);
 
@@ -141,6 +168,11 @@ function criarCard(produto) {
     setTimeout(() => {
       btnAdd.classList.remove("animar");
     }, 150);
+
+    if (quantidade === 0) {
+      mostrarMensagem("Selecione uma quantidade válida", "#b30000");
+      return;
+    }
 
     if (!corSelecionada) {
       mostrarToast("Selecione uma cor antes de adicionar", "erro");
@@ -167,7 +199,7 @@ function criarCard(produto) {
     mostrarToast(`${quantidade} ${produto.nome} (${corSelecionada}) adicionada ao carrinho`);
 
     quantidade = 1;
-    numero.textContent = 1;
+    numero.value = 1;
   };
 
   content.append(h2, coresDiv, qtdDiv, btnAdd);
@@ -244,7 +276,7 @@ function carregarCarrinho() {
 }
 carregarCarrinho();
 
-function mostrarMensagem(texto, cor="#04b45c") {
+function mostrarMensagem(texto, cor = "#04b45c") {
 
   const msg = document.createElement("div");
   msg.textContent = texto;

@@ -224,7 +224,8 @@ button {
   transition: transform 0.15s ease;
 }
 
-html, body {
+html,
+body {
   touch-action: manipulation;
   -webkit-text-size-adjust: 100%;
 }
@@ -234,4 +235,26 @@ button,
 .btn {
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
+}
+
+.input-qtd {
+  width: 60px;
+  height: 30px;
+  text-align: center;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, .2);
+  background: #000;
+  color: #fff;
+  font-weight: 600;
+  outline: none;
+}
+
+.input-qtd::-webkit-outer-spin-button,
+.input-qtd::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.input-qtd {
+  -moz-appearance: textfield;
 }
