@@ -555,7 +555,7 @@ body::before {
 }
 
 @media (max-width: 600px) {
-  .hero__logo-wrap { width: 92vw; max-width: 92vw; }
+  .hero__logo-wrap { width: 92vw; max-width: 92vw; filter: drop-shadow(0 0 24px rgba(200,20,10,.5)); }
   .cores-grid { grid-template-columns: repeat(2,1fr); gap: .6rem; padding: .85rem; }
   .cor-swatch { min-height: 110px; }
   .contato__btns { flex-direction: column; align-items: center; }

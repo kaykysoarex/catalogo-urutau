@@ -87,10 +87,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     const gal = items.map(el => ({ img: imgPath(el), nome: el.dataset.nome || el.querySelector('span')?.textContent || '' }));
     items.forEach((item, i) => {
-      const sw = item.querySelector('.cor-swatch');
-      if (sw) { const tmp = new Image(); tmp.onload = () => { sw.style.backgroundImage=`url('${imgPath(item)}')`; sw.style.backgroundSize='cover'; sw.style.backgroundPosition='center'; }; tmp.src = imgPath(item); }
       item.addEventListener('click', () => openModal(gal, i));
     });
+
+    // Carrega backgrounds dos swatches só quando o card entra na viewport
+    const swatchObs = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      swatchObs.disconnect();
+      items.forEach(item => {
+        const sw = item.querySelector('.cor-swatch');
+        if (!sw) return;
+        const tmp = new Image();
+        tmp.onload = () => { sw.style.backgroundImage=`url('${imgPath(item)}')`; sw.style.backgroundSize='cover'; sw.style.backgroundPosition='center'; };
+        tmp.src = imgPath(item);
+      });
+    }, { rootMargin: '200px' });
+    swatchObs.observe(card);
   });
 
 
