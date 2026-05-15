@@ -4,9 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Catálogo Urutau Jigs 2026</title>
-<link rel="stylesheet" href="style.css">
+
+<!-- PERF: preconnect reduz latência DNS/TLS das fontes -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<!-- PERF: preload da logo hero — é o LCP, tem que chegar primeiro -->
+<link rel="preload" href="logo-urutau.png" as="image" fetchpriority="high">
+
+<link rel="stylesheet" href="style.css">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -16,7 +22,9 @@
   <div class="nav__inner">
     <a href="#" class="nav__logo">
       <img src="logo-urutau.png" alt="Urutau Jigs" class="nav__logo-img"
-           decoding="async" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+           width="120" height="36"
+           decoding="async"
+           onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
       <span class="nav__logo-text" style="display:none">URUTAU JIGS</span>
     </a>
     <ul class="nav__links" id="navLinks">
@@ -31,7 +39,7 @@
         </svg>
         <span class="nav__cart-count" id="navCartCount">0</span>
       </button>
-      <button class="nav__hamburger" id="hamburger" aria-label="Menu">
+      <button class="nav__hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
     </div>
@@ -51,8 +59,16 @@
       <span class="hero__eyebrow-line"></span>
     </div>
     <div class="hero__logo-wrap">
+      <!--
+        PERF: fetchpriority="high" = instrução explícita para o browser
+        priorizar sobre tudo. loading="eager" = nunca lazy.
+        O JS vai adicionar .loaded no onload para o fade-in controlado.
+      -->
       <img src="logo-urutau.png" alt="Urutau Jigs" class="hero__logo-img"
-           fetchpriority="high" decoding="async"
+           width="520" height="260"
+           fetchpriority="high"
+           loading="eager"
+           decoding="async"
            onerror="this.style.display='none'">
     </div>
     <a href="#primeiro-produto" class="hero__cta">VER CATÁLOGO</a>
@@ -64,9 +80,15 @@
   <div class="container">
     <div class="produtos-grid" id="produtosGrid">
 
-      <!-- URUNAJA -->
+      <!--
+        PERF: data-priority="true" → JS carrega os swatches deste card
+        imediatamente (fora da fila e sem IntersectionObserver),
+        pois é o primeiro produto visível após o scroll do hero.
+        swatch-skeleton → shimmer animado enquanto a imagem não chegou.
+      -->
       <article class="produto-card produto-card--destaque reveal" id="primeiro-produto"
         data-categoria="urunaja" data-slug="urunaja" data-nome="Urunaja"
+        data-priority="true"
         data-gramaturas="12g,14g,16g"
         data-cores="Cor 01,Cor 02,Cor 03,Cor 04,Cor 05,Cor 06,Cor 07,Cor 08"
         data-cores-css="linear-gradient(135deg,#c8a84b,#f0d060)|linear-gradient(135deg,#a8b8c8,#e0eaf0)|linear-gradient(135deg,#e06020,#f08040)|linear-gradient(135deg,#2a6040,#4a8060)|linear-gradient(135deg,#d04080,#f060a0)|linear-gradient(135deg,#1a3a6a,#2a5a9a)|linear-gradient(135deg,#d0d8e0,#f0f4f8)|linear-gradient(135deg,#5a2080,#8040b0)">
@@ -77,14 +99,14 @@
             <span class="gram-badge">12g</span><span class="gram-badge">14g</span><span class="gram-badge">16g</span>
           </div>
           <div class="produto-gramaturas"><div class="cores-grid">
-            <div class="cor-item" data-nome="Cor 01" data-img-desktop="iscas/desktop/urunaja/cor-01.jpg" data-img-mobile="iscas/mobile/urunaja/cor-01.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#c8a84b,#f0d060)"></div><span>Cor 01</span></div>
-            <div class="cor-item" data-nome="Cor 02" data-img-desktop="iscas/desktop/urunaja/cor-02.jpg" data-img-mobile="iscas/mobile/urunaja/cor-02.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#a8b8c8,#e0eaf0)"></div><span>Cor 02</span></div>
-            <div class="cor-item" data-nome="Cor 03" data-img-desktop="iscas/desktop/urunaja/cor-03.jpg" data-img-mobile="iscas/mobile/urunaja/cor-03.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#e06020,#f08040)"></div><span>Cor 03</span></div>
-            <div class="cor-item" data-nome="Cor 04" data-img-desktop="iscas/desktop/urunaja/cor-04.jpg" data-img-mobile="iscas/mobile/urunaja/cor-04.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#2a6040,#4a8060)"></div><span>Cor 04</span></div>
-            <div class="cor-item" data-nome="Cor 05" data-img-desktop="iscas/desktop/urunaja/cor-05.jpg" data-img-mobile="iscas/mobile/urunaja/cor-05.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#d04080,#f060a0)"></div><span>Cor 05</span></div>
-            <div class="cor-item" data-nome="Cor 06" data-img-desktop="iscas/desktop/urunaja/cor-06.jpg" data-img-mobile="iscas/mobile/urunaja/cor-06.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#1a3a6a,#2a5a9a)"></div><span>Cor 06</span></div>
-            <div class="cor-item" data-nome="Cor 07" data-img-desktop="iscas/desktop/urunaja/cor-07.jpg" data-img-mobile="iscas/mobile/urunaja/cor-07.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#d0d8e0,#f0f4f8)"></div><span>Cor 07</span></div>
-            <div class="cor-item" data-nome="Cor 08" data-img-desktop="iscas/desktop/urunaja/cor-08.jpg" data-img-mobile="iscas/mobile/urunaja/cor-08.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#5a2080,#8040b0)"></div><span>Cor 08</span></div>
+            <div class="cor-item" data-nome="Cor 01" data-img-desktop="iscas/desktop/urunaja/cor-01.jpg" data-img-mobile="iscas/mobile/urunaja/cor-01.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#c8a84b,#f0d060)"></div><span>Cor 01</span></div>
+            <div class="cor-item" data-nome="Cor 02" data-img-desktop="iscas/desktop/urunaja/cor-02.jpg" data-img-mobile="iscas/mobile/urunaja/cor-02.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#a8b8c8,#e0eaf0)"></div><span>Cor 02</span></div>
+            <div class="cor-item" data-nome="Cor 03" data-img-desktop="iscas/desktop/urunaja/cor-03.jpg" data-img-mobile="iscas/mobile/urunaja/cor-03.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#e06020,#f08040)"></div><span>Cor 03</span></div>
+            <div class="cor-item" data-nome="Cor 04" data-img-desktop="iscas/desktop/urunaja/cor-04.jpg" data-img-mobile="iscas/mobile/urunaja/cor-04.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#2a6040,#4a8060)"></div><span>Cor 04</span></div>
+            <div class="cor-item" data-nome="Cor 05" data-img-desktop="iscas/desktop/urunaja/cor-05.jpg" data-img-mobile="iscas/mobile/urunaja/cor-05.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#d04080,#f060a0)"></div><span>Cor 05</span></div>
+            <div class="cor-item" data-nome="Cor 06" data-img-desktop="iscas/desktop/urunaja/cor-06.jpg" data-img-mobile="iscas/mobile/urunaja/cor-06.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#1a3a6a,#2a5a9a)"></div><span>Cor 06</span></div>
+            <div class="cor-item" data-nome="Cor 07" data-img-desktop="iscas/desktop/urunaja/cor-07.jpg" data-img-mobile="iscas/mobile/urunaja/cor-07.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#d0d8e0,#f0f4f8)"></div><span>Cor 07</span></div>
+            <div class="cor-item" data-nome="Cor 08" data-img-desktop="iscas/desktop/urunaja/cor-08.jpg" data-img-mobile="iscas/mobile/urunaja/cor-08.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#5a2080,#8040b0)"></div><span>Cor 08</span></div>
           </div></div>
           <button class="btn-add-pedido"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Adicionar ao Pedido</button>
         </div>
@@ -100,14 +122,14 @@
           <h3 class="produto-nome">Urumax G1</h3>
           <div class="produto-card__tags"><span class="gram-badge">12g</span><span class="gram-badge">14g</span><span class="gram-badge">16g</span></div>
           <div class="produto-gramaturas"><div class="cores-grid">
-            <div class="cor-item" data-nome="Cor 01" data-img-desktop="iscas/desktop/urumax-g1/cor-01.jpg" data-img-mobile="iscas/mobile/urumax-g1/cor-01.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#c8a84b,#f0d060)"></div><span>Cor 01</span></div>
-            <div class="cor-item" data-nome="Cor 02" data-img-desktop="iscas/desktop/urumax-g1/cor-02.jpg" data-img-mobile="iscas/mobile/urumax-g1/cor-02.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#a8b8c8,#e0eaf0)"></div><span>Cor 02</span></div>
-            <div class="cor-item" data-nome="Cor 03" data-img-desktop="iscas/desktop/urumax-g1/cor-03.jpg" data-img-mobile="iscas/mobile/urumax-g1/cor-03.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#e06020,#f08040)"></div><span>Cor 03</span></div>
-            <div class="cor-item" data-nome="Cor 04" data-img-desktop="iscas/desktop/urumax-g1/cor-04.jpg" data-img-mobile="iscas/mobile/urumax-g1/cor-04.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#2a6040,#4a8060)"></div><span>Cor 04</span></div>
-            <div class="cor-item" data-nome="Cor 05" data-img-desktop="iscas/desktop/urumax-g1/cor-05.jpg" data-img-mobile="iscas/mobile/urumax-g1/cor-05.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#d04080,#f060a0)"></div><span>Cor 05</span></div>
-            <div class="cor-item" data-nome="Cor 06" data-img-desktop="iscas/desktop/urumax-g1/cor-06.png" data-img-mobile="iscas/mobile/urumax-g1/cor-06.png"><div class="cor-swatch" style="background:linear-gradient(135deg,#1a3a6a,#2a5a9a)"></div><span>Cor 06</span></div>
-            <div class="cor-item" data-nome="Cor 07" data-img-desktop="iscas/desktop/urumax-g1/cor-07.jpg" data-img-mobile="iscas/mobile/urumax-g1/cor-07.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#d0d8e0,#f0f4f8)"></div><span>Cor 07</span></div>
-            <div class="cor-item" data-nome="Cor 08" data-img-desktop="iscas/desktop/urumax-g1/cor-08.jpg" data-img-mobile="iscas/mobile/urumax-g1/cor-08.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#5a2080,#8040b0)"></div><span>Cor 08</span></div>
+            <div class="cor-item" data-nome="Cor 01" data-img-desktop="iscas/desktop/urumax-g1/cor-01.jpg" data-img-mobile="iscas/mobile/urumax-g1/cor-01.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#c8a84b,#f0d060)"></div><span>Cor 01</span></div>
+            <div class="cor-item" data-nome="Cor 02" data-img-desktop="iscas/desktop/urumax-g1/cor-02.jpg" data-img-mobile="iscas/mobile/urumax-g1/cor-02.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#a8b8c8,#e0eaf0)"></div><span>Cor 02</span></div>
+            <div class="cor-item" data-nome="Cor 03" data-img-desktop="iscas/desktop/urumax-g1/cor-03.jpg" data-img-mobile="iscas/mobile/urumax-g1/cor-03.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#e06020,#f08040)"></div><span>Cor 03</span></div>
+            <div class="cor-item" data-nome="Cor 04" data-img-desktop="iscas/desktop/urumax-g1/cor-04.jpg" data-img-mobile="iscas/mobile/urumax-g1/cor-04.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#2a6040,#4a8060)"></div><span>Cor 04</span></div>
+            <div class="cor-item" data-nome="Cor 05" data-img-desktop="iscas/desktop/urumax-g1/cor-05.jpg" data-img-mobile="iscas/mobile/urumax-g1/cor-05.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#d04080,#f060a0)"></div><span>Cor 05</span></div>
+            <div class="cor-item" data-nome="Cor 06" data-img-desktop="iscas/desktop/urumax-g1/cor-06.png" data-img-mobile="iscas/mobile/urumax-g1/cor-06.png"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#1a3a6a,#2a5a9a)"></div><span>Cor 06</span></div>
+            <div class="cor-item" data-nome="Cor 07" data-img-desktop="iscas/desktop/urumax-g1/cor-07.jpg" data-img-mobile="iscas/mobile/urumax-g1/cor-07.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#d0d8e0,#f0f4f8)"></div><span>Cor 07</span></div>
+            <div class="cor-item" data-nome="Cor 08" data-img-desktop="iscas/desktop/urumax-g1/cor-08.jpg" data-img-mobile="iscas/mobile/urumax-g1/cor-08.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#5a2080,#8040b0)"></div><span>Cor 08</span></div>
           </div></div>
           <button class="btn-add-pedido"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Adicionar ao Pedido</button>
         </div>
@@ -123,14 +145,14 @@
           <h3 class="produto-nome">Urumax G2</h3>
           <div class="produto-card__tags"><span class="gram-badge">16g</span></div>
           <div class="produto-gramaturas"><div class="cores-grid">
-            <div class="cor-item" data-nome="Cor 01" data-img-desktop="iscas/desktop/urumax-g2/cor-01.jpg" data-img-mobile="iscas/mobile/urumax-g2/cor-01.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#c8a84b,#f0d060)"></div><span>Cor 01</span></div>
-            <div class="cor-item" data-nome="Cor 02" data-img-desktop="iscas/desktop/urumax-g2/cor-02.jpg" data-img-mobile="iscas/mobile/urumax-g2/cor-02.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#a8b8c8,#e0eaf0)"></div><span>Cor 02</span></div>
-            <div class="cor-item" data-nome="Cor 03" data-img-desktop="iscas/desktop/urumax-g2/cor-03.jpg" data-img-mobile="iscas/mobile/urumax-g2/cor-03.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#e06020,#f08040)"></div><span>Cor 03</span></div>
-            <div class="cor-item" data-nome="Cor 04" data-img-desktop="iscas/desktop/urumax-g2/cor-04.jpg" data-img-mobile="iscas/mobile/urumax-g2/cor-04.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#2a6040,#4a8060)"></div><span>Cor 04</span></div>
-            <div class="cor-item" data-nome="Cor 05" data-img-desktop="iscas/desktop/urumax-g2/cor-05.jpg" data-img-mobile="iscas/mobile/urumax-g2/cor-05.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#d04080,#f060a0)"></div><span>Cor 05</span></div>
-            <div class="cor-item" data-nome="Cor 06" data-img-desktop="iscas/desktop/urumax-g2/cor-06.jpg" data-img-mobile="iscas/mobile/urumax-g2/cor-06.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#1a3a6a,#2a5a9a)"></div><span>Cor 06</span></div>
-            <div class="cor-item" data-nome="Cor 07" data-img-desktop="iscas/desktop/urumax-g2/cor-07.jpg" data-img-mobile="iscas/mobile/urumax-g2/cor-07.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#d0d8e0,#f0f4f8)"></div><span>Cor 07</span></div>
-            <div class="cor-item" data-nome="Cor 08" data-img-desktop="iscas/desktop/urumax-g2/cor-08.jpg" data-img-mobile="iscas/mobile/urumax-g2/cor-08.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#5a2080,#8040b0)"></div><span>Cor 08</span></div>
+            <div class="cor-item" data-nome="Cor 01" data-img-desktop="iscas/desktop/urumax-g2/cor-01.jpg" data-img-mobile="iscas/mobile/urumax-g2/cor-01.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#c8a84b,#f0d060)"></div><span>Cor 01</span></div>
+            <div class="cor-item" data-nome="Cor 02" data-img-desktop="iscas/desktop/urumax-g2/cor-02.jpg" data-img-mobile="iscas/mobile/urumax-g2/cor-02.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#a8b8c8,#e0eaf0)"></div><span>Cor 02</span></div>
+            <div class="cor-item" data-nome="Cor 03" data-img-desktop="iscas/desktop/urumax-g2/cor-03.jpg" data-img-mobile="iscas/mobile/urumax-g2/cor-03.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#e06020,#f08040)"></div><span>Cor 03</span></div>
+            <div class="cor-item" data-nome="Cor 04" data-img-desktop="iscas/desktop/urumax-g2/cor-04.jpg" data-img-mobile="iscas/mobile/urumax-g2/cor-04.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#2a6040,#4a8060)"></div><span>Cor 04</span></div>
+            <div class="cor-item" data-nome="Cor 05" data-img-desktop="iscas/desktop/urumax-g2/cor-05.jpg" data-img-mobile="iscas/mobile/urumax-g2/cor-05.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#d04080,#f060a0)"></div><span>Cor 05</span></div>
+            <div class="cor-item" data-nome="Cor 06" data-img-desktop="iscas/desktop/urumax-g2/cor-06.jpg" data-img-mobile="iscas/mobile/urumax-g2/cor-06.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#1a3a6a,#2a5a9a)"></div><span>Cor 06</span></div>
+            <div class="cor-item" data-nome="Cor 07" data-img-desktop="iscas/desktop/urumax-g2/cor-07.jpg" data-img-mobile="iscas/mobile/urumax-g2/cor-07.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#d0d8e0,#f0f4f8)"></div><span>Cor 07</span></div>
+            <div class="cor-item" data-nome="Cor 08" data-img-desktop="iscas/desktop/urumax-g2/cor-08.jpg" data-img-mobile="iscas/mobile/urumax-g2/cor-08.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#5a2080,#8040b0)"></div><span>Cor 08</span></div>
           </div></div>
           <button class="btn-add-pedido"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Adicionar ao Pedido</button>
         </div>
@@ -146,14 +168,14 @@
           <h3 class="produto-nome">Jig-Bolinha</h3>
           <div class="produto-card__tags"><span class="gram-badge">12g</span><span class="gram-badge">14g</span><span class="gram-badge">16g</span></div>
           <div class="produto-gramaturas"><div class="cores-grid">
-            <div class="cor-item" data-nome="Cor 01" data-img-desktop="iscas/desktop/jig-bolinha/cor-01.jpg" data-img-mobile="iscas/mobile/jig-bolinha/cor-01.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#c8a84b,#f0d060)"></div><span>Cor 01</span></div>
-            <div class="cor-item" data-nome="Cor 02" data-img-desktop="iscas/desktop/jig-bolinha/cor-02.jpg" data-img-mobile="iscas/mobile/jig-bolinha/cor-02.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#a8b8c8,#e0eaf0)"></div><span>Cor 02</span></div>
-            <div class="cor-item" data-nome="Cor 03" data-img-desktop="iscas/desktop/jig-bolinha/cor-03.jpg" data-img-mobile="iscas/mobile/jig-bolinha/cor-03.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#e06020,#f08040)"></div><span>Cor 03</span></div>
-            <div class="cor-item" data-nome="Cor 04" data-img-desktop="iscas/desktop/jig-bolinha/cor-04.jpg" data-img-mobile="iscas/mobile/jig-bolinha/cor-04.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#2a6040,#4a8060)"></div><span>Cor 04</span></div>
-            <div class="cor-item" data-nome="Cor 05" data-img-desktop="iscas/desktop/jig-bolinha/cor-05.jpg" data-img-mobile="iscas/mobile/jig-bolinha/cor-05.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#d04080,#f060a0)"></div><span>Cor 05</span></div>
-            <div class="cor-item" data-nome="Cor 06" data-img-desktop="iscas/desktop/jig-bolinha/cor-06.jpg" data-img-mobile="iscas/mobile/jig-bolinha/cor-06.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#1a3a6a,#2a5a9a)"></div><span>Cor 06</span></div>
-            <div class="cor-item" data-nome="Cor 07" data-img-desktop="iscas/desktop/jig-bolinha/cor-07.jpg" data-img-mobile="iscas/mobile/jig-bolinha/cor-07.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#d0d8e0,#f0f4f8)"></div><span>Cor 07</span></div>
-            <div class="cor-item" data-nome="Cor 08" data-img-desktop="iscas/desktop/jig-bolinha/cor-08.jpg" data-img-mobile="iscas/mobile/jig-bolinha/cor-08.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#5a2080,#8040b0)"></div><span>Cor 08</span></div>
+            <div class="cor-item" data-nome="Cor 01" data-img-desktop="iscas/desktop/jig-bolinha/cor-01.jpg" data-img-mobile="iscas/mobile/jig-bolinha/cor-01.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#c8a84b,#f0d060)"></div><span>Cor 01</span></div>
+            <div class="cor-item" data-nome="Cor 02" data-img-desktop="iscas/desktop/jig-bolinha/cor-02.jpg" data-img-mobile="iscas/mobile/jig-bolinha/cor-02.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#a8b8c8,#e0eaf0)"></div><span>Cor 02</span></div>
+            <div class="cor-item" data-nome="Cor 03" data-img-desktop="iscas/desktop/jig-bolinha/cor-03.jpg" data-img-mobile="iscas/mobile/jig-bolinha/cor-03.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#e06020,#f08040)"></div><span>Cor 03</span></div>
+            <div class="cor-item" data-nome="Cor 04" data-img-desktop="iscas/desktop/jig-bolinha/cor-04.jpg" data-img-mobile="iscas/mobile/jig-bolinha/cor-04.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#2a6040,#4a8060)"></div><span>Cor 04</span></div>
+            <div class="cor-item" data-nome="Cor 05" data-img-desktop="iscas/desktop/jig-bolinha/cor-05.jpg" data-img-mobile="iscas/mobile/jig-bolinha/cor-05.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#d04080,#f060a0)"></div><span>Cor 05</span></div>
+            <div class="cor-item" data-nome="Cor 06" data-img-desktop="iscas/desktop/jig-bolinha/cor-06.jpg" data-img-mobile="iscas/mobile/jig-bolinha/cor-06.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#1a3a6a,#2a5a9a)"></div><span>Cor 06</span></div>
+            <div class="cor-item" data-nome="Cor 07" data-img-desktop="iscas/desktop/jig-bolinha/cor-07.jpg" data-img-mobile="iscas/mobile/jig-bolinha/cor-07.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#d0d8e0,#f0f4f8)"></div><span>Cor 07</span></div>
+            <div class="cor-item" data-nome="Cor 08" data-img-desktop="iscas/desktop/jig-bolinha/cor-08.jpg" data-img-mobile="iscas/mobile/jig-bolinha/cor-08.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#5a2080,#8040b0)"></div><span>Cor 08</span></div>
           </div></div>
           <button class="btn-add-pedido"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Adicionar ao Pedido</button>
         </div>
@@ -169,14 +191,14 @@
           <h3 class="produto-nome">Micro-Jig</h3>
           <div class="produto-card__tags"><span class="gram-badge">8g</span><span class="gram-badge">12g</span><span class="gram-badge">14g</span></div>
           <div class="produto-gramaturas"><div class="cores-grid">
-            <div class="cor-item" data-nome="Cor 01" data-img-desktop="iscas/desktop/micro-jig/cor-01.jpg" data-img-mobile="iscas/mobile/micro-jig/cor-01.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#c8a84b,#f0d060)"></div><span>Cor 01</span></div>
-            <div class="cor-item" data-nome="Cor 02" data-img-desktop="iscas/desktop/micro-jig/cor-02.jpg" data-img-mobile="iscas/mobile/micro-jig/cor-02.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#a8b8c8,#e0eaf0)"></div><span>Cor 02</span></div>
-            <div class="cor-item" data-nome="Cor 03" data-img-desktop="iscas/desktop/micro-jig/cor-03.jpg" data-img-mobile="iscas/mobile/micro-jig/cor-03.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#e06020,#f08040)"></div><span>Cor 03</span></div>
-            <div class="cor-item" data-nome="Cor 04" data-img-desktop="iscas/desktop/micro-jig/cor-04.jpg" data-img-mobile="iscas/mobile/micro-jig/cor-04.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#2a6040,#4a8060)"></div><span>Cor 04</span></div>
-            <div class="cor-item" data-nome="Cor 05" data-img-desktop="iscas/desktop/micro-jig/cor-05.jpg" data-img-mobile="iscas/mobile/micro-jig/cor-05.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#d04080,#f060a0)"></div><span>Cor 05</span></div>
-            <div class="cor-item" data-nome="Cor 06" data-img-desktop="iscas/desktop/micro-jig/cor-06.jpg" data-img-mobile="iscas/mobile/micro-jig/cor-06.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#1a3a6a,#2a5a9a)"></div><span>Cor 06</span></div>
-            <div class="cor-item" data-nome="Cor 07" data-img-desktop="iscas/desktop/micro-jig/cor-07.jpg" data-img-mobile="iscas/mobile/micro-jig/cor-07.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#d0d8e0,#f0f4f8)"></div><span>Cor 07</span></div>
-            <div class="cor-item" data-nome="Cor 08" data-img-desktop="iscas/desktop/micro-jig/cor-08.jpg" data-img-mobile="iscas/mobile/micro-jig/cor-08.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#5a2080,#8040b0)"></div><span>Cor 08</span></div>
+            <div class="cor-item" data-nome="Cor 01" data-img-desktop="iscas/desktop/micro-jig/cor-01.jpg" data-img-mobile="iscas/mobile/micro-jig/cor-01.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#c8a84b,#f0d060)"></div><span>Cor 01</span></div>
+            <div class="cor-item" data-nome="Cor 02" data-img-desktop="iscas/desktop/micro-jig/cor-02.jpg" data-img-mobile="iscas/mobile/micro-jig/cor-02.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#a8b8c8,#e0eaf0)"></div><span>Cor 02</span></div>
+            <div class="cor-item" data-nome="Cor 03" data-img-desktop="iscas/desktop/micro-jig/cor-03.jpg" data-img-mobile="iscas/mobile/micro-jig/cor-03.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#e06020,#f08040)"></div><span>Cor 03</span></div>
+            <div class="cor-item" data-nome="Cor 04" data-img-desktop="iscas/desktop/micro-jig/cor-04.jpg" data-img-mobile="iscas/mobile/micro-jig/cor-04.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#2a6040,#4a8060)"></div><span>Cor 04</span></div>
+            <div class="cor-item" data-nome="Cor 05" data-img-desktop="iscas/desktop/micro-jig/cor-05.jpg" data-img-mobile="iscas/mobile/micro-jig/cor-05.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#d04080,#f060a0)"></div><span>Cor 05</span></div>
+            <div class="cor-item" data-nome="Cor 06" data-img-desktop="iscas/desktop/micro-jig/cor-06.jpg" data-img-mobile="iscas/mobile/micro-jig/cor-06.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#1a3a6a,#2a5a9a)"></div><span>Cor 06</span></div>
+            <div class="cor-item" data-nome="Cor 07" data-img-desktop="iscas/desktop/micro-jig/cor-07.jpg" data-img-mobile="iscas/mobile/micro-jig/cor-07.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#d0d8e0,#f0f4f8)"></div><span>Cor 07</span></div>
+            <div class="cor-item" data-nome="Cor 08" data-img-desktop="iscas/desktop/micro-jig/cor-08.jpg" data-img-mobile="iscas/mobile/micro-jig/cor-08.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#5a2080,#8040b0)"></div><span>Cor 08</span></div>
           </div></div>
           <button class="btn-add-pedido"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Adicionar ao Pedido</button>
         </div>
@@ -192,14 +214,14 @@
           <h3 class="produto-nome">Spinner</h3>
           <div class="produto-card__tags"><span class="gram-badge">12g</span><span class="gram-badge">14g</span><span class="gram-badge">16g</span></div>
           <div class="produto-gramaturas"><div class="cores-grid">
-            <div class="cor-item" data-nome="Cor 01" data-img-desktop="iscas/desktop/spinner/cor-01.jpg" data-img-mobile="iscas/mobile/spinner/cor-01.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#c8a84b,#f0d060)"></div><span>Cor 01</span></div>
-            <div class="cor-item" data-nome="Cor 02" data-img-desktop="iscas/desktop/spinner/cor-02.jpg" data-img-mobile="iscas/mobile/spinner/cor-02.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#a8b8c8,#e0eaf0)"></div><span>Cor 02</span></div>
-            <div class="cor-item" data-nome="Cor 03" data-img-desktop="iscas/desktop/spinner/cor-03.jpg" data-img-mobile="iscas/mobile/spinner/cor-03.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#e06020,#f08040)"></div><span>Cor 03</span></div>
-            <div class="cor-item" data-nome="Cor 04" data-img-desktop="iscas/desktop/spinner/cor-04.jpg" data-img-mobile="iscas/mobile/spinner/cor-04.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#2a6040,#4a8060)"></div><span>Cor 04</span></div>
-            <div class="cor-item" data-nome="Cor 05" data-img-desktop="iscas/desktop/spinner/cor-05.jpg" data-img-mobile="iscas/mobile/spinner/cor-05.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#d04080,#f060a0)"></div><span>Cor 05</span></div>
-            <div class="cor-item" data-nome="Cor 06" data-img-desktop="iscas/desktop/spinner/cor-06.jpg" data-img-mobile="iscas/mobile/spinner/cor-06.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#1a3a6a,#2a5a9a)"></div><span>Cor 06</span></div>
-            <div class="cor-item" data-nome="Cor 07" data-img-desktop="iscas/desktop/spinner/cor-07.jpg" data-img-mobile="iscas/mobile/spinner/cor-07.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#d0d8e0,#f0f4f8)"></div><span>Cor 07</span></div>
-            <div class="cor-item" data-nome="Cor 08" data-img-desktop="iscas/desktop/spinner/cor-08.jpg" data-img-mobile="iscas/mobile/spinner/cor-08.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#5a2080,#8040b0)"></div><span>Cor 08</span></div>
+            <div class="cor-item" data-nome="Cor 01" data-img-desktop="iscas/desktop/spinner/cor-01.jpg" data-img-mobile="iscas/mobile/spinner/cor-01.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#c8a84b,#f0d060)"></div><span>Cor 01</span></div>
+            <div class="cor-item" data-nome="Cor 02" data-img-desktop="iscas/desktop/spinner/cor-02.jpg" data-img-mobile="iscas/mobile/spinner/cor-02.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#a8b8c8,#e0eaf0)"></div><span>Cor 02</span></div>
+            <div class="cor-item" data-nome="Cor 03" data-img-desktop="iscas/desktop/spinner/cor-03.jpg" data-img-mobile="iscas/mobile/spinner/cor-03.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#e06020,#f08040)"></div><span>Cor 03</span></div>
+            <div class="cor-item" data-nome="Cor 04" data-img-desktop="iscas/desktop/spinner/cor-04.jpg" data-img-mobile="iscas/mobile/spinner/cor-04.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#2a6040,#4a8060)"></div><span>Cor 04</span></div>
+            <div class="cor-item" data-nome="Cor 05" data-img-desktop="iscas/desktop/spinner/cor-05.jpg" data-img-mobile="iscas/mobile/spinner/cor-05.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#d04080,#f060a0)"></div><span>Cor 05</span></div>
+            <div class="cor-item" data-nome="Cor 06" data-img-desktop="iscas/desktop/spinner/cor-06.jpg" data-img-mobile="iscas/mobile/spinner/cor-06.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#1a3a6a,#2a5a9a)"></div><span>Cor 06</span></div>
+            <div class="cor-item" data-nome="Cor 07" data-img-desktop="iscas/desktop/spinner/cor-07.jpg" data-img-mobile="iscas/mobile/spinner/cor-07.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#d0d8e0,#f0f4f8)"></div><span>Cor 07</span></div>
+            <div class="cor-item" data-nome="Cor 08" data-img-desktop="iscas/desktop/spinner/cor-08.jpg" data-img-mobile="iscas/mobile/spinner/cor-08.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#5a2080,#8040b0)"></div><span>Cor 08</span></div>
           </div></div>
           <button class="btn-add-pedido"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Adicionar ao Pedido</button>
         </div>
@@ -215,14 +237,14 @@
           <h3 class="produto-nome">Jig Peixinho</h3>
           <div class="produto-card__tags"><span class="gram-badge">12g</span><span class="gram-badge">14g</span><span class="gram-badge">16g</span></div>
           <div class="produto-gramaturas"><div class="cores-grid">
-            <div class="cor-item" data-nome="Cor 01" data-img-desktop="iscas/desktop/jig-peixinho/cor-01.jpg" data-img-mobile="iscas/mobile/jig-peixinho/cor-01.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#c8a84b,#f0d060)"></div><span>Cor 01</span></div>
-            <div class="cor-item" data-nome="Cor 02" data-img-desktop="iscas/desktop/jig-peixinho/cor-02.jpg" data-img-mobile="iscas/mobile/jig-peixinho/cor-02.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#a8b8c8,#e0eaf0)"></div><span>Cor 02</span></div>
-            <div class="cor-item" data-nome="Cor 03" data-img-desktop="iscas/desktop/jig-peixinho/cor-03.jpg" data-img-mobile="iscas/mobile/jig-peixinho/cor-03.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#e06020,#f08040)"></div><span>Cor 03</span></div>
-            <div class="cor-item" data-nome="Cor 04" data-img-desktop="iscas/desktop/jig-peixinho/cor-04.jpg" data-img-mobile="iscas/mobile/jig-peixinho/cor-04.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#2a6040,#4a8060)"></div><span>Cor 04</span></div>
-            <div class="cor-item" data-nome="Cor 05" data-img-desktop="iscas/desktop/jig-peixinho/cor-05.jpg" data-img-mobile="iscas/mobile/jig-peixinho/cor-05.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#d04080,#f060a0)"></div><span>Cor 05</span></div>
-            <div class="cor-item" data-nome="Cor 06" data-img-desktop="iscas/desktop/jig-peixinho/cor-06.jpg" data-img-mobile="iscas/mobile/jig-peixinho/cor-06.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#1a3a6a,#2a5a9a)"></div><span>Cor 06</span></div>
-            <div class="cor-item" data-nome="Cor 07" data-img-desktop="iscas/desktop/jig-peixinho/cor-07.jpg" data-img-mobile="iscas/mobile/jig-peixinho/cor-07.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#d0d8e0,#f0f4f8)"></div><span>Cor 07</span></div>
-            <div class="cor-item" data-nome="Cor 08" data-img-desktop="iscas/desktop/jig-peixinho/cor-08.jpg" data-img-mobile="iscas/mobile/jig-peixinho/cor-08.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#5a2080,#8040b0)"></div><span>Cor 08</span></div>
+            <div class="cor-item" data-nome="Cor 01" data-img-desktop="iscas/desktop/jig-peixinho/cor-01.jpg" data-img-mobile="iscas/mobile/jig-peixinho/cor-01.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#c8a84b,#f0d060)"></div><span>Cor 01</span></div>
+            <div class="cor-item" data-nome="Cor 02" data-img-desktop="iscas/desktop/jig-peixinho/cor-02.jpg" data-img-mobile="iscas/mobile/jig-peixinho/cor-02.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#a8b8c8,#e0eaf0)"></div><span>Cor 02</span></div>
+            <div class="cor-item" data-nome="Cor 03" data-img-desktop="iscas/desktop/jig-peixinho/cor-03.jpg" data-img-mobile="iscas/mobile/jig-peixinho/cor-03.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#e06020,#f08040)"></div><span>Cor 03</span></div>
+            <div class="cor-item" data-nome="Cor 04" data-img-desktop="iscas/desktop/jig-peixinho/cor-04.jpg" data-img-mobile="iscas/mobile/jig-peixinho/cor-04.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#2a6040,#4a8060)"></div><span>Cor 04</span></div>
+            <div class="cor-item" data-nome="Cor 05" data-img-desktop="iscas/desktop/jig-peixinho/cor-05.jpg" data-img-mobile="iscas/mobile/jig-peixinho/cor-05.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#d04080,#f060a0)"></div><span>Cor 05</span></div>
+            <div class="cor-item" data-nome="Cor 06" data-img-desktop="iscas/desktop/jig-peixinho/cor-06.jpg" data-img-mobile="iscas/mobile/jig-peixinho/cor-06.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#1a3a6a,#2a5a9a)"></div><span>Cor 06</span></div>
+            <div class="cor-item" data-nome="Cor 07" data-img-desktop="iscas/desktop/jig-peixinho/cor-07.jpg" data-img-mobile="iscas/mobile/jig-peixinho/cor-07.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#d0d8e0,#f0f4f8)"></div><span>Cor 07</span></div>
+            <div class="cor-item" data-nome="Cor 08" data-img-desktop="iscas/desktop/jig-peixinho/cor-08.jpg" data-img-mobile="iscas/mobile/jig-peixinho/cor-08.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#5a2080,#8040b0)"></div><span>Cor 08</span></div>
           </div></div>
           <button class="btn-add-pedido"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Adicionar ao Pedido</button>
         </div>
@@ -238,14 +260,14 @@
           <h3 class="produto-nome">Jig Urutau</h3>
           <div class="produto-card__tags"><span class="gram-badge">12g</span></div>
           <div class="produto-gramaturas"><div class="cores-grid">
-            <div class="cor-item" data-nome="Cor 01" data-img-desktop="iscas/desktop/jig-urutau/cor-01.jpg" data-img-mobile="iscas/mobile/jig-urutau/cor-01.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#c8a84b,#f0d060)"></div><span>Cor 01</span></div>
-            <div class="cor-item" data-nome="Cor 02" data-img-desktop="iscas/desktop/jig-urutau/cor-02.jpg" data-img-mobile="iscas/mobile/jig-urutau/cor-02.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#a8b8c8,#e0eaf0)"></div><span>Cor 02</span></div>
-            <div class="cor-item" data-nome="Cor 03" data-img-desktop="iscas/desktop/jig-urutau/cor-03.jpg" data-img-mobile="iscas/mobile/jig-urutau/cor-03.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#e06020,#f08040)"></div><span>Cor 03</span></div>
-            <div class="cor-item" data-nome="Cor 04" data-img-desktop="iscas/desktop/jig-urutau/cor-04.jpg" data-img-mobile="iscas/mobile/jig-urutau/cor-04.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#2a6040,#4a8060)"></div><span>Cor 04</span></div>
-            <div class="cor-item" data-nome="Cor 05" data-img-desktop="iscas/desktop/jig-urutau/cor-05.jpg" data-img-mobile="iscas/mobile/jig-urutau/cor-05.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#d04080,#f060a0)"></div><span>Cor 05</span></div>
-            <div class="cor-item" data-nome="Cor 06" data-img-desktop="iscas/desktop/jig-urutau/cor-06.jpg" data-img-mobile="iscas/mobile/jig-urutau/cor-06.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#1a3a6a,#2a5a9a)"></div><span>Cor 06</span></div>
-            <div class="cor-item" data-nome="Cor 07" data-img-desktop="iscas/desktop/jig-urutau/cor-07.jpg" data-img-mobile="iscas/mobile/jig-urutau/cor-07.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#d0d8e0,#f0f4f8)"></div><span>Cor 07</span></div>
-            <div class="cor-item" data-nome="Cor 08" data-img-desktop="iscas/desktop/jig-urutau/cor-08.jpg" data-img-mobile="iscas/mobile/jig-urutau/cor-08.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#5a2080,#8040b0)"></div><span>Cor 08</span></div>
+            <div class="cor-item" data-nome="Cor 01" data-img-desktop="iscas/desktop/jig-urutau/cor-01.jpg" data-img-mobile="iscas/mobile/jig-urutau/cor-01.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#c8a84b,#f0d060)"></div><span>Cor 01</span></div>
+            <div class="cor-item" data-nome="Cor 02" data-img-desktop="iscas/desktop/jig-urutau/cor-02.jpg" data-img-mobile="iscas/mobile/jig-urutau/cor-02.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#a8b8c8,#e0eaf0)"></div><span>Cor 02</span></div>
+            <div class="cor-item" data-nome="Cor 03" data-img-desktop="iscas/desktop/jig-urutau/cor-03.jpg" data-img-mobile="iscas/mobile/jig-urutau/cor-03.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#e06020,#f08040)"></div><span>Cor 03</span></div>
+            <div class="cor-item" data-nome="Cor 04" data-img-desktop="iscas/desktop/jig-urutau/cor-04.jpg" data-img-mobile="iscas/mobile/jig-urutau/cor-04.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#2a6040,#4a8060)"></div><span>Cor 04</span></div>
+            <div class="cor-item" data-nome="Cor 05" data-img-desktop="iscas/desktop/jig-urutau/cor-05.jpg" data-img-mobile="iscas/mobile/jig-urutau/cor-05.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#d04080,#f060a0)"></div><span>Cor 05</span></div>
+            <div class="cor-item" data-nome="Cor 06" data-img-desktop="iscas/desktop/jig-urutau/cor-06.jpg" data-img-mobile="iscas/mobile/jig-urutau/cor-06.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#1a3a6a,#2a5a9a)"></div><span>Cor 06</span></div>
+            <div class="cor-item" data-nome="Cor 07" data-img-desktop="iscas/desktop/jig-urutau/cor-07.jpg" data-img-mobile="iscas/mobile/jig-urutau/cor-07.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#d0d8e0,#f0f4f8)"></div><span>Cor 07</span></div>
+            <div class="cor-item" data-nome="Cor 08" data-img-desktop="iscas/desktop/jig-urutau/cor-08.jpg" data-img-mobile="iscas/mobile/jig-urutau/cor-08.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#5a2080,#8040b0)"></div><span>Cor 08</span></div>
           </div></div>
           <button class="btn-add-pedido"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Adicionar ao Pedido</button>
         </div>
@@ -261,14 +283,14 @@
           <h3 class="produto-nome">Jig Articulado</h3>
           <div class="produto-card__tags"><span class="gram-badge">12g</span><span class="gram-badge">14g</span><span class="gram-badge">16g</span></div>
           <div class="produto-gramaturas"><div class="cores-grid">
-            <div class="cor-item" data-nome="Cor 01" data-img-desktop="iscas/desktop/jig-articulado/cor-01.jpg" data-img-mobile="iscas/mobile/jig-articulado/cor-01.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#c8a84b,#f0d060)"></div><span>Cor 01</span></div>
-            <div class="cor-item" data-nome="Cor 02" data-img-desktop="iscas/desktop/jig-articulado/cor-02.jpg" data-img-mobile="iscas/mobile/jig-articulado/cor-02.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#a8b8c8,#e0eaf0)"></div><span>Cor 02</span></div>
-            <div class="cor-item" data-nome="Cor 03" data-img-desktop="iscas/desktop/jig-articulado/cor-03.jpg" data-img-mobile="iscas/mobile/jig-articulado/cor-03.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#e06020,#f08040)"></div><span>Cor 03</span></div>
-            <div class="cor-item" data-nome="Cor 04" data-img-desktop="iscas/desktop/jig-articulado/cor-04.jpg" data-img-mobile="iscas/mobile/jig-articulado/cor-04.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#2a6040,#4a8060)"></div><span>Cor 04</span></div>
-            <div class="cor-item" data-nome="Cor 05" data-img-desktop="iscas/desktop/jig-articulado/cor-05.jpg" data-img-mobile="iscas/mobile/jig-articulado/cor-05.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#d04080,#f060a0)"></div><span>Cor 05</span></div>
-            <div class="cor-item" data-nome="Cor 06" data-img-desktop="iscas/desktop/jig-articulado/cor-06.jpg" data-img-mobile="iscas/mobile/jig-articulado/cor-06.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#1a3a6a,#2a5a9a)"></div><span>Cor 06</span></div>
-            <div class="cor-item" data-nome="Cor 07" data-img-desktop="iscas/desktop/jig-articulado/cor-07.jpg" data-img-mobile="iscas/mobile/jig-articulado/cor-07.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#d0d8e0,#f0f4f8)"></div><span>Cor 07</span></div>
-            <div class="cor-item" data-nome="Cor 08" data-img-desktop="iscas/desktop/jig-articulado/cor-08.jpg" data-img-mobile="iscas/mobile/jig-articulado/cor-08.jpg"><div class="cor-swatch" style="background:linear-gradient(135deg,#5a2080,#8040b0)"></div><span>Cor 08</span></div>
+            <div class="cor-item" data-nome="Cor 01" data-img-desktop="iscas/desktop/jig-articulado/cor-01.jpg" data-img-mobile="iscas/mobile/jig-articulado/cor-01.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#c8a84b,#f0d060)"></div><span>Cor 01</span></div>
+            <div class="cor-item" data-nome="Cor 02" data-img-desktop="iscas/desktop/jig-articulado/cor-02.jpg" data-img-mobile="iscas/mobile/jig-articulado/cor-02.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#a8b8c8,#e0eaf0)"></div><span>Cor 02</span></div>
+            <div class="cor-item" data-nome="Cor 03" data-img-desktop="iscas/desktop/jig-articulado/cor-03.jpg" data-img-mobile="iscas/mobile/jig-articulado/cor-03.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#e06020,#f08040)"></div><span>Cor 03</span></div>
+            <div class="cor-item" data-nome="Cor 04" data-img-desktop="iscas/desktop/jig-articulado/cor-04.jpg" data-img-mobile="iscas/mobile/jig-articulado/cor-04.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#2a6040,#4a8060)"></div><span>Cor 04</span></div>
+            <div class="cor-item" data-nome="Cor 05" data-img-desktop="iscas/desktop/jig-articulado/cor-05.jpg" data-img-mobile="iscas/mobile/jig-articulado/cor-05.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#d04080,#f060a0)"></div><span>Cor 05</span></div>
+            <div class="cor-item" data-nome="Cor 06" data-img-desktop="iscas/desktop/jig-articulado/cor-06.jpg" data-img-mobile="iscas/mobile/jig-articulado/cor-06.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#1a3a6a,#2a5a9a)"></div><span>Cor 06</span></div>
+            <div class="cor-item" data-nome="Cor 07" data-img-desktop="iscas/desktop/jig-articulado/cor-07.jpg" data-img-mobile="iscas/mobile/jig-articulado/cor-07.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#d0d8e0,#f0f4f8)"></div><span>Cor 07</span></div>
+            <div class="cor-item" data-nome="Cor 08" data-img-desktop="iscas/desktop/jig-articulado/cor-08.jpg" data-img-mobile="iscas/mobile/jig-articulado/cor-08.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#5a2080,#8040b0)"></div><span>Cor 08</span></div>
           </div></div>
           <button class="btn-add-pedido"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Adicionar ao Pedido</button>
         </div>
@@ -277,7 +299,6 @@
     </div>
   </div>
 </section>
-
 
 <!-- FOOTER -->
 <footer class="footer">
@@ -386,6 +407,7 @@
   </div>
 </div>
 
+<!-- PERF: defer = download em paralelo, executa após o HTML estar pronto -->
 <script src="script.js" defer></script>
 </body>
 </html>

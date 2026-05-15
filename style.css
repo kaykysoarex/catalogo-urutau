@@ -104,71 +104,42 @@ body::before {
 .nav__hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
 /* ═══════════════════════════════════════
-   HERO — estilo academia / impactante
+   HERO
    ═══════════════════════════════════════ */
 .hero {
   min-height: 100svh;
   display: flex; align-items: center; justify-content: center;
   position: relative; overflow: hidden; text-align: center;
 }
-
-/* FUNDO: textura de linhas horizontais tipo aço escovado */
 .hero__bg {
   position: absolute; inset: 0; z-index: 0;
   background: #0a0505;
 }
-
-/* Linhas horizontais finas — textura sutil */
 .hero__bg-scanlines {
   position: absolute; inset: 0;
   background-image: repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 3px,
-    rgba(255,255,255,.012) 3px,
-    rgba(255,255,255,.012) 4px
+    0deg, transparent, transparent 3px,
+    rgba(255,255,255,.012) 3px, rgba(255,255,255,.012) 4px
   );
 }
-
-/* Glow vermelho central — coração do hero */
 .hero__bg-glow {
   position: absolute; inset: 0;
-  background:
-    radial-gradient(ellipse 70% 55% at 50% 50%,
-      rgba(180,15,8,.55) 0%,
-      rgba(120,10,5,.25) 40%,
-      transparent 72%
-    );
+  background: radial-gradient(ellipse 70% 55% at 50% 50%,
+    rgba(180,15,8,.55) 0%, rgba(120,10,5,.25) 40%, transparent 72%
+  );
 }
-
-/* Escurecimento nas bordas */
 .hero__bg::after {
-  content: '';
-  position: absolute; inset: 0;
+  content: ''; position: absolute; inset: 0;
   background:
-    linear-gradient(to bottom,
-      rgba(8,2,2,.75) 0%,
-      transparent 20%,
-      transparent 80%,
-      rgba(8,2,2,.85) 100%
-    ),
-    linear-gradient(to right,
-      rgba(8,2,2,.6) 0%,
-      transparent 18%,
-      transparent 82%,
-      rgba(8,2,2,.6) 100%
-    );
+    linear-gradient(to bottom, rgba(8,2,2,.75) 0%, transparent 20%, transparent 80%, rgba(8,2,2,.85) 100%),
+    linear-gradient(to right,  rgba(8,2,2,.6)  0%, transparent 18%, transparent 82%, rgba(8,2,2,.6)  100%);
 }
-
 .hero__body {
   position: relative; z-index: 1;
-  display: flex; flex-direction: column;
-  align-items: center; gap: 0;
+  display: flex; flex-direction: column; align-items: center; gap: 0;
   padding: 6rem 1.5rem 3.5rem;
   width: 100%; max-width: 600px;
 }
-
-/* — EYEBROW: "CATÁLOGO 2026" com traços laterais — */
 .hero__eyebrow {
   display: flex; align-items: center; gap: 1rem;
   margin-bottom: 2.2rem;
@@ -186,11 +157,8 @@ body::before {
   font-family: var(--font-body);
   font-size: 1.35rem; font-weight: 700;
   letter-spacing: .32em; text-transform: uppercase;
-  color: rgba(220,200,180,.95);
-  white-space: nowrap;
+  color: rgba(220,200,180,.95); white-space: nowrap;
 }
-
-/* — LOGO — */
 .hero__logo-wrap {
   width: 100%; max-width: 520px;
   filter:
@@ -198,50 +166,38 @@ body::before {
     drop-shadow(0 0 80px rgba(200,20,10,.25));
   animation: logoIn .9s cubic-bezier(.16,1,.3,1) .1s both;
 }
+
+/*
+  PERFORMANCE: opacity começa em 0 para evitar flash branco quando a
+  imagem chega do cache antes do JS rodar. O JS adiciona .loaded
+  no onload (ou imediatamente se img.complete === true).
+*/
 .hero__logo-img {
   width: 100%; height: auto;
+  opacity: 0;
+  transition: opacity .35s ease;
 }
+.hero__logo-img.loaded { opacity: 1; }
 
-/* — CTA "VER CATÁLOGO" — */
 .hero__cta {
   display: inline-flex; align-items: center; justify-content: center;
-  margin-top: 2.8rem;
-  padding: .9rem 3rem;
-  font-family: var(--font-body);
-  font-size: .88rem; font-weight: 700;
-  letter-spacing: .28em; text-transform: uppercase;
-  color: var(--white);
-  background: transparent;
-  border: 1px solid rgba(192,25,15,.5);
-  border-radius: 4px;
+  margin-top: 2.8rem; padding: .9rem 3rem;
+  font-family: var(--font-body); font-size: .88rem; font-weight: 700;
+  letter-spacing: .28em; text-transform: uppercase; color: var(--white);
+  background: transparent; border: 1px solid rgba(192,25,15,.5); border-radius: 4px;
   position: relative; overflow: hidden;
   transition: border-color .25s, color .25s;
   animation: fadeUp .7s ease .35s both;
 }
-/* linha brilhante interna */
 .hero__cta::before {
-  content: '';
-  position: absolute; inset: 0;
-  background: linear-gradient(135deg,
-    rgba(192,25,15,.0) 0%,
-    rgba(192,25,15,.12) 50%,
-    rgba(192,25,15,.0) 100%
-  );
-  transition: opacity .25s;
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(192,25,15,0) 0%, rgba(192,25,15,.12) 50%, rgba(192,25,15,0) 100%);
+  transition: opacity .25s; opacity: 0;
 }
-/* animações do hero */
-@keyframes fadeDown {
-  from { opacity: 0; transform: translateY(-16px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-@keyframes logoIn {
-  from { opacity: 0; transform: scale(.92); }
-  to   { opacity: 1; transform: scale(1); }
-}
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(16px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
+
+@keyframes fadeDown { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes logoIn   { from { opacity: 0; transform: scale(.92); }        to { opacity: 1; transform: scale(1); }   }
+@keyframes fadeUp   { from { opacity: 0; transform: translateY(16px); }  to { opacity: 1; transform: translateY(0); } }
 
 /* ─── BUTTONS ─── */
 .btn {
@@ -252,27 +208,17 @@ body::before {
   border-radius: var(--radius); border: 2px solid transparent;
   cursor: pointer; transition: all .22s;
 }
-.btn--fire {
-  background: linear-gradient(135deg, var(--red), var(--orange));
-  color: #fff; box-shadow: 0 4px 20px rgba(192,25,15,.35);
-}
+.btn--fire { background: linear-gradient(135deg, var(--red), var(--orange)); color: #fff; box-shadow: 0 4px 20px rgba(192,25,15,.35); }
 .btn--whatsapp { background: #25D366; color: #fff; border-color: #25D366; }
-.btn--instagram {
-  background: linear-gradient(135deg, #f09433, #dc2743, #bc1888);
-  color: #fff; border: none;
-}
+.btn--instagram { background: linear-gradient(135deg, #f09433, #dc2743, #bc1888); color: #fff; border: none; }
 
 /* ─── SECTION HEADERS ─── */
 .section-label {
   display: inline-flex; align-items: center; gap: .6rem;
-  font-size: .68rem; font-weight: 700;
-  letter-spacing: .22em; text-transform: uppercase;
+  font-size: .68rem; font-weight: 700; letter-spacing: .22em; text-transform: uppercase;
   color: var(--orange); margin-bottom: .6rem;
 }
-.section-label::before {
-  content: ''; display: block; width: 18px; height: 2px;
-  background: linear-gradient(90deg, var(--red), var(--orange));
-}
+.section-label::before { content: ''; display: block; width: 18px; height: 2px; background: linear-gradient(90deg, var(--red), var(--orange)); }
 .section-title {
   font-family: var(--font-display);
   font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 400;
@@ -301,29 +247,23 @@ body::before {
   border: 1px solid rgba(240,120,0,.45);
   box-shadow: 0 0 0 1px rgba(240,120,0,.2), 0 4px 24px rgba(240,120,0,.12);
 }
-
 .produto-card__info { padding: 2rem; display: flex; flex-direction: column; gap: 1.25rem; }
-
 .produto-nome {
   font-family: var(--font-display); font-size: 2rem;
   letter-spacing: .06em; text-transform: uppercase;
   color: var(--white); line-height: 1; text-align: center;
 }
-
 .produto-card__tags { display: flex; gap: .4rem; flex-wrap: wrap; justify-content: center; }
 .produto-card__tags::before {
   content: 'Gramaturas'; width: 100%; text-align: center;
-  font-size: .65rem; font-weight: 700; letter-spacing: .2em;
-  text-transform: uppercase; color: var(--muted);
+  font-size: .65rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--muted);
 }
-
 .gram-badge {
   display: inline-block; padding: .18rem .6rem; border-radius: 3px;
   font-size: .7rem; font-weight: 700;
   background: rgba(192,25,15,.15); color: var(--orange);
   border: 1px solid rgba(192,25,15,.3); letter-spacing: .08em;
 }
-
 .lancamento-badge {
   display: block; width: fit-content; margin: .3rem auto .1rem;
   padding: .2rem 1.4rem; border-radius: 3px;
@@ -356,6 +296,10 @@ body::before {
   width: 100%; aspect-ratio: 1; border-radius: 5px;
   border: 1px solid rgba(255,255,255,.08); min-height: 40px;
   transition: box-shadow .2s, border-color .2s;
+  /* Declarados aqui para evitar recalc quando o JS aplica via style */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 .cor-item.active .cor-swatch {
   box-shadow: 0 4px 14px rgba(0,0,0,.5), 0 0 0 2px var(--orange);
@@ -368,6 +312,45 @@ body::before {
 }
 .cor-item.active span { color: var(--white); }
 
+/*
+  SKELETON LOADING: shimmer animado enquanto a imagem não carregou.
+  O JS adiciona .swatch-skeleton nos cards — mantém a cor do gradiente
+  como base e anima um brilho horizontal por cima.
+  Quando a imagem carrega, o JS remove .swatch-skeleton e adiciona
+  .swatch-loaded para o fade-in.
+*/
+.swatch-skeleton {
+  position: relative;
+  overflow: hidden;
+}
+.swatch-skeleton::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent       0%,
+    rgba(255,255,255,.07) 40%,
+    rgba(255,255,255,.13) 50%,
+    rgba(255,255,255,.07) 60%,
+    transparent       100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.6s infinite linear;
+  pointer-events: none;
+}
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+/* Fade-in suave quando a imagem real substitui o skeleton */
+.swatch-loaded {
+  animation: swatchIn .2s ease both;
+}
+@keyframes swatchIn {
+  from { opacity: .5; }
+  to   { opacity: 1; }
+}
+
 /* ─── BOTÃO ADICIONAR AO PEDIDO ─── */
 .btn-add-pedido {
   display: flex; align-items: center; justify-content: center; gap: .5rem;
@@ -378,6 +361,7 @@ body::before {
   letter-spacing: .15em; text-transform: uppercase;
   cursor: pointer; transition: all .2s; margin-top: .25rem;
 }
+
 /* ─── SOBRE ─── */
 .sobre { padding: 6rem 0; background: #0d0d0d; }
 .sobre__inner { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
@@ -423,18 +407,15 @@ body::before {
 .reveal { opacity: 0; transform: translateY(28px); transition: opacity .55s ease, transform .55s ease; }
 .reveal.visible { opacity: 1; transform: translateY(0); }
 
-
 /* ═══════════════════════════════════════
    SISTEMA DE PEDIDOS
    ═══════════════════════════════════════ */
-
 .pedido-overlay, .carrinho-overlay {
   display: none; position: fixed; inset: 0;
   background: rgba(4,2,2,.75); z-index: 300; cursor: pointer;
 }
 .pedido-overlay.open, .carrinho-overlay.open { display: block; }
 
-/* Bottom Sheet */
 .pedido-sheet {
   position: fixed; bottom: 0; left: 0; right: 0; z-index: 400;
   background: var(--dark); border-top: 1px solid var(--border);
@@ -460,8 +441,12 @@ body::before {
 .pedido-cores-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: .6rem; }
 .sheet-cor-item { display: flex; flex-direction: column; align-items: center; gap: .3rem; cursor: pointer; padding: .35rem; border-radius: 8px; border: 2px solid transparent; transition: all .18s; }
 .sheet-cor-item.active { border-color: var(--orange); background: rgba(224,90,16,.08); }
-.sheet-cor-swatch { width: 100%; aspect-ratio: 1; border-radius: 6px; border: 1px solid rgba(255,255,255,.1); min-height: 44px; overflow: hidden; }
-.sheet-cor-swatch img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.sheet-cor-swatch {
+  width: 100%; aspect-ratio: 1; border-radius: 6px;
+  border: 1px solid rgba(255,255,255,.1); min-height: 44px;
+  overflow: hidden;
+  /* background-size/position já definidos inline pelo JS */
+}
 .sheet-cor-item.active .sheet-cor-swatch { box-shadow: 0 0 0 2px var(--orange); }
 .sheet-cor-item span { font-size: .72rem; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--silver); text-align: center; transition: color .18s; }
 .sheet-cor-item.active span { color: var(--white); }
@@ -477,7 +462,7 @@ body::before {
 /* FAB */
 .carrinho-fab { position: fixed; bottom: 1.5rem; left: 50%; transform: translateX(-50%); z-index: 200; display: flex; flex-direction: column; align-items: center; gap: .25rem; animation: fabIn .4s cubic-bezier(.34,1.56,.64,1) both; }
 @keyframes fabIn { from { opacity: 0; transform: translateX(-50%) translateY(20px) scale(.8); } to { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); } }
-.carrinho-fab__btn { position: relative; background: linear-gradient(135deg, var(--red), var(--orange)); border: none; border-radius: 50px; padding: .85rem 2rem; color: #fff; cursor: pointer; box-shadow: 0 6px 28px rgba(192,25,15,.55); transition: transform .2s, box-shadow .2s; display: flex; align-items: center; gap: .65rem; font-family: var(--font-body); font-size: .85rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; white-space: nowrap; }
+.carrinho-fab__btn { position: relative; background: linear-gradient(135deg, var(--red), var(--orange)); border: none; border-radius: 50px; padding: .85rem 2rem; color: #fff; cursor: pointer; box-shadow: 0 6px 28px rgba(192,25,15,.55); transition: transform .2s, box-shadow .2s; display: flex; align-items: center; gap: .65rem; font-family: var(--font-body); font-size: .85rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; white-space: nowrap; will-change: transform; }
 .carrinho-fab__count { background: #fff; color: var(--red); font-weight: 700; font-size: .75rem; min-width: 22px; height: 22px; border-radius: 11px; display: flex; align-items: center; justify-content: center; padding: 0 5px; }
 .carrinho-fab__label { display: none; }
 
@@ -509,7 +494,7 @@ body::before {
 .carrinho-enviar { width: 100%; justify-content: center; padding: 1rem; font-size: .88rem; }
 .carrinho-limpar { background: none; border: none; color: var(--muted); font-size: .7rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; cursor: pointer; text-align: center; padding: .3rem; transition: color .2s; }
 
-/* ─── TOAST ADICIONADO ─── */
+/* ─── TOAST ─── */
 .added-toast {
   position: fixed; top: 1.25rem; left: 50%; z-index: 500;
   transform: translateX(-50%) translateY(-12px);
@@ -523,7 +508,6 @@ body::before {
   pointer-events: none;
 }
 .added-toast.visible { opacity: 1; transform: translateX(-50%) translateY(0); }
-
 
 /* ─── RESPONSIVO ─── */
 @media (max-width: 900px) {
@@ -567,7 +551,7 @@ body::before {
   .nav__links a:hover { color: var(--gold); }
   .nav__cart-btn:hover { background: rgba(192,25,15,.3); }
   .hero__cta:hover { border-color: var(--red); color: #fff; box-shadow: 0 0 24px rgba(192,25,15,.3), inset 0 0 12px rgba(192,25,15,.08); }
-  .hero__cta:hover::before { opacity: 2; }
+  .hero__cta:hover::before { opacity: 1; }
   .btn--fire:hover { background: linear-gradient(135deg, var(--red-hot), var(--gold)); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(192,25,15,.5); }
   .btn--whatsapp:hover { background: #1fb855; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(37,211,102,.3); }
   .btn--instagram:hover { opacity: .88; transform: translateY(-2px); }
@@ -588,6 +572,6 @@ body::before {
   .carrinho-fab__btn:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(192,25,15,.6); }
   .carrinho-painel__close:hover { background: var(--red); color: #fff; }
   .carrinho-qtd-btn:hover { background: rgba(192,25,15,.2); }
-  .carrinho-item__del:hover { color: var(--red); background: rgba(192,25,15,.1); }
+  .carrinho-item__del:hover { color: var(--red); background: rgba(192,25,16,.1); }
   .carrinho-limpar:hover { color: var(--red); }
 }
