@@ -12,9 +12,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const backTop = document.getElementById('backTop');
   const navCartBtn = document.getElementById('navCartBtn');
 
+  let scrollTick = false;
   window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 40);
-    backTop.classList.toggle('visible', window.scrollY > 400);
+    if (scrollTick) return;
+    scrollTick = true;
+    requestAnimationFrame(() => {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+      backTop.classList.toggle('visible', window.scrollY > 400);
+      scrollTick = false;
+    });
   }, { passive: true });
 
   hamburger.addEventListener('click', () => {
@@ -181,7 +187,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const imgSrc = mob ? (sheetData.imgsMobile[i] || '') : (sheetData.imgsDesktop[i] || '');
       const el = document.createElement('div');
       el.className = 'sheet-cor-item';
-      const imgTag = imgSrc ? `<img src="${imgSrc}" alt="${cor}" loading="lazy">` : '';
+      const imgTag = imgSrc ? `<img src="${imgSrc}" alt="${cor}" loading="lazy" decoding="async">` : '';
       el.innerHTML = `<div class="sheet-cor-swatch" style="background:${css}">${imgTag}</div><span>${cor}</span>`;
       el.addEventListener('click', () => { selCor = cor; selCorCss = css; sheetCoresGrid.querySelectorAll('.sheet-cor-item').forEach(e => e.classList.remove('active')); el.classList.add('active'); updateResumo(); });
       sheetCoresGrid.appendChild(el);
@@ -242,7 +248,7 @@ document.addEventListener('DOMContentLoaded', () => {
     carrinhoPainelBody.innerHTML = pedido.map((it, idx) => {
       const imgSrc = mob ? (it.imgMobile || it.imgDesktop || '') : (it.imgDesktop || it.imgMobile || '');
       const thumb = imgSrc
-        ? `<img src="${imgSrc}" alt="${it.cor}" class="carrinho-item__thumb">`
+        ? `<img src="${imgSrc}" alt="${it.cor}" class="carrinho-item__thumb" loading="lazy" decoding="async">`
         : `<div class="carrinho-item__swatch" style="background:${it.corCss}"></div>`;
       return `
       <div class="carrinho-item">
@@ -257,18 +263,19 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>`;
     }).join('');
 
-    carrinhoPainelBody.querySelectorAll('.carrinho-qtd-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const i = parseInt(btn.dataset.idx);
-        if (btn.dataset.action === 'inc') pedido[i].quantidade = Math.min(99, pedido[i].quantidade + 1);
-        else { pedido[i].quantidade--; if (pedido[i].quantidade <= 0) pedido.splice(i, 1); }
-        updateCarrinho();
-      });
-    });
-    carrinhoPainelBody.querySelectorAll('.carrinho-item__del').forEach(btn => {
-      btn.addEventListener('click', () => { pedido.splice(parseInt(btn.dataset.idx), 1); updateCarrinho(); });
-    });
   }
+
+  carrinhoPainelBody.addEventListener('click', e => {
+    const qtdBtn = e.target.closest('.carrinho-qtd-btn');
+    const delBtn = e.target.closest('.carrinho-item__del');
+    if (qtdBtn) {
+      const i = parseInt(qtdBtn.dataset.idx);
+      if (qtdBtn.dataset.action === 'inc') pedido[i].quantidade = Math.min(99, pedido[i].quantidade + 1);
+      else { pedido[i].quantidade--; if (pedido[i].quantidade <= 0) pedido.splice(i, 1); }
+      updateCarrinho();
+    }
+    if (delBtn) { pedido.splice(parseInt(delBtn.dataset.idx), 1); updateCarrinho(); }
+  });
 
   function openCarrinho() { carrinhoPainel.classList.add('open'); carrinhoOverlay.classList.add('open'); document.body.style.overflow = 'hidden'; }
   function closeCarrinho() { carrinhoPainel.classList.remove('open'); carrinhoOverlay.classList.remove('open'); document.body.style.overflow = ''; }

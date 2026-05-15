@@ -7,7 +7,6 @@
 <link rel="stylesheet" href="style.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" href="logo-urutau.png" as="image" fetchpriority="high">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -17,7 +16,7 @@
   <div class="nav__inner">
     <a href="#" class="nav__logo">
       <img src="logo-urutau.png" alt="Urutau Jigs" class="nav__logo-img"
-           onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+           decoding="async" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
       <span class="nav__logo-text" style="display:none">URUTAU JIGS</span>
     </a>
     <ul class="nav__links" id="navLinks">
@@ -285,7 +284,7 @@
   <div class="container">
     <div class="footer__inner">
       <img src="logo-urutau.png" alt="Urutau Jigs" class="footer__logo"
-           loading="lazy"
+           loading="lazy" decoding="async"
            onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
       <span class="footer__logo-text" style="display:none">URUTAU JIGS</span>
       <p class="footer__copy">© 2026 — Todos os direitos reservados</p>
