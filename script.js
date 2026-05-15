@@ -1,14 +1,11 @@
 // =============================================
 //   URUTAU JIGS — CATÁLOGO 2026
-//   script.js — v4.0 (performance build)
+//   script.js — v4.1
 // =============================================
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  // ─── DETECÇÃO MOBILE (cached — não recalcula a cada chamada) ──
-  // Problema original: window.innerWidth era chamado DENTRO de cada
-  // função de imagem, forçando layout recalc a cada execução.
-  // Solução: calcular uma vez e recalcular só no resize com debounce.
+  // ─── DETECÇÃO MOBILE ──────────────────────
   let isMobile = window.innerWidth <= 600;
   let resizeTimer;
   window.addEventListener('resize', () => {
@@ -23,9 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const backTop    = document.getElementById('backTop');
   const navCartBtn = document.getElementById('navCartBtn');
 
-  // Problema original: requestAnimationFrame com flag era redundante
-  // aqui pois classList.toggle é barato. O problema real era o passive
-  // listener que já estava certo. Simplificado sem perda.
   window.addEventListener('scroll', () => {
     nav.classList.toggle('scrolled', window.scrollY > 40);
     backTop.classList.toggle('visible', window.scrollY > 400);
@@ -60,18 +54,13 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ─── HERO LOGO FADE-IN ────────────────────
-  // Problema original: a logo aparecia sem controle de opacity,
-  // causando flash branco se a imagem já estivesse no cache.
-  // Solução: opacity:0 no CSS + classe .loaded aplicada pelo JS
-  // tanto no onload quanto se a imagem já estiver completa (cache hit).
   const heroLogoImg = document.querySelector('.hero__logo-img');
   if (heroLogoImg) {
     if (heroLogoImg.complete && heroLogoImg.naturalWidth > 0) {
-      // Cache hit — imagem já disponível antes do JS rodar
       heroLogoImg.classList.add('loaded');
     } else {
-      heroLogoImg.addEventListener('load', () => heroLogoImg.classList.add('loaded'));
-      heroLogoImg.addEventListener('error', () => heroLogoImg.classList.add('loaded')); // fallback
+      heroLogoImg.addEventListener('load',  () => heroLogoImg.classList.add('loaded'));
+      heroLogoImg.addEventListener('error', () => heroLogoImg.classList.add('loaded'));
     }
   }
 
@@ -88,11 +77,11 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
 
   // ─── MODAL LIGHTBOX ───────────────────────
-  const modal    = document.getElementById('modal');
-  const modalImg = document.getElementById('modalImg');
+  const modal     = document.getElementById('modal');
+  const modalImg  = document.getElementById('modalImg');
   const modalNome = document.getElementById('modalNome');
-  const modalCnt = document.getElementById('modalCounter');
-  const modalPH  = document.getElementById('modalPlaceholder');
+  const modalCnt  = document.getElementById('modalCounter');
+  const modalPH   = document.getElementById('modalPlaceholder');
   let gallery = [], gIdx = 0;
 
   function openModal(items, idx) {
@@ -104,7 +93,6 @@ document.addEventListener('DOMContentLoaded', () => {
   function closeModal() {
     modal.classList.remove('open');
     document.body.style.overflow = '';
-    // Limpa src depois da transição — evita manter imagem grande em memória
     setTimeout(() => { modalImg.src = ''; }, 300);
   }
   function showItem(i) {
@@ -132,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.addEventListener('keydown', e => {
     if (!modal.classList.contains('open')) return;
-    if (e.key === 'Escape')    closeModal();
+    if (e.key === 'Escape')     closeModal();
     if (e.key === 'ArrowLeft')  prev();
     if (e.key === 'ArrowRight') next();
   });
@@ -148,23 +136,14 @@ document.addEventListener('DOMContentLoaded', () => {
     return n.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\s+/g, '-');
   }
 
-  // ─── SWATCH LOADER (OTIMIZADO) ────────────
-  //
-  // Problema original:
-  // - 64 new Image() disparados simultaneamente quando os cards entravam na viewport
-  // - Sem controle de concorrência → 64 requisições simultâneas → mobile congestionado
-  // - Sem fila de prioridade → primeiro card não carregava antes dos últimos
-  //
-  // Solução:
-  // - Fila de carregamento com concorrência máxima de 4 (abaixo do limite do browser)
-  // - Primeiro card (data-priority="true") carrega IMEDIATAMENTE, fora da fila
-  // - Demais cards carregam via IntersectionObserver com rootMargin de 300px
-  // - Cada imagem entra na fila individualmente, não o card inteiro
-  // - Fade-in suave (.swatch-loaded) elimina o "pop" visual
+  // ─── FILA DE CARREGAMENTO ─────────────────
+  // Máximo 4 imagens simultâneas — respeita limite do browser no mobile.
+  // Todos os cards entram na fila imediatamente ao carregar a página.
+  // O primeiro card (data-priority="true") vai para o início da fila.
 
-  const CONCURRENCY = 4; // máximo de imagens carregando simultaneamente
+  const CONCURRENCY = 4;
   let activeLoads = 0;
-  const loadQueue = []; // fila de funções de carregamento
+  const loadQueue = [];
 
   function processQueue() {
     while (activeLoads < CONCURRENCY && loadQueue.length > 0) {
@@ -172,109 +151,82 @@ document.addEventListener('DOMContentLoaded', () => {
       activeLoads++;
       task(() => {
         activeLoads--;
-        processQueue(); // quando uma termina, inicia a próxima
+        processQueue();
       });
     }
   }
 
-  function enqueueSwatchLoad(sw, src, done) {
-    loadQueue.push(cb => {
+  function enqueueSwatchLoad(sw, src, priority = false) {
+    const task = cb => {
       const tmp = new Image();
       tmp.onload = () => {
-        // Batch DOM writes no próximo frame — evita reflow síncrono
         requestAnimationFrame(() => {
           sw.style.backgroundImage    = `url('${src}')`;
-          // background-size/position já estão definidos no CSS — não precisamos setar
+          sw.style.backgroundSize     = 'cover';
+          sw.style.backgroundPosition = 'center';
           sw.classList.remove('swatch-skeleton');
           sw.classList.add('swatch-loaded');
           cb();
-          if (done) done();
         });
       };
       tmp.onerror = () => {
-        // Falha silenciosa — mantém cor de fundo do CSS
         sw.classList.remove('swatch-skeleton');
         cb();
-        if (done) done();
       };
       tmp.src = src;
-    });
+    };
+
+    if (priority) {
+      loadQueue.unshift(task); // início da fila
+    } else {
+      loadQueue.push(task);    // fim da fila
+    }
     processQueue();
   }
 
-  function loadCardSwatches(card, priority = false) {
+  function loadCardSwatches(card) {
     const items = Array.from(card.querySelectorAll('.cor-item'));
     if (!items.length) return;
-    const slug = card.dataset.slug || '';
+
+    const slug      = card.dataset.slug || '';
+    const isPriority = card.dataset.priority === 'true';
 
     function imgPath(item) {
-      if (isMobile && item.dataset.imgMobile) return item.dataset.imgMobile;
+      if (isMobile && item.dataset.imgMobile)   return item.dataset.imgMobile;
       if (!isMobile && item.dataset.imgDesktop) return item.dataset.imgDesktop;
       return `iscas/${isMobile ? 'mobile' : 'desktop'}/${slug}-${colorSlug(item.dataset.nome || '')}.jpg`;
     }
 
-    // Galeria para o modal — construída uma vez por card
+    // Galeria para o modal
     const gal = items.map(el => ({
       img:  imgPath(el),
       nome: el.dataset.nome || el.querySelector('span')?.textContent || '',
     }));
 
-    // Event listeners do modal para cada cor
     items.forEach((item, i) => {
       item.addEventListener('click', () => openModal(gal, i));
-    });
 
-    if (priority) {
-      // Card prioritário: carrega imediatamente, sem fila, sem IntersectionObserver
-      // Usado para o primeiro produto (above-the-fold após scroll)
-      items.forEach(item => {
-        const sw  = item.querySelector('.cor-swatch');
-        const src = imgPath(item);
-        if (sw && src) enqueueSwatchLoad(sw, src);
-      });
-    } else {
-      // Demais cards: carregam quando o card se aproxima da viewport
-      // rootMargin 300px = começa a carregar 300px antes de ser visível
-      const obs = new IntersectionObserver(([entry]) => {
-        if (!entry.isIntersecting) return;
-        obs.disconnect();
-        items.forEach(item => {
-          const sw  = item.querySelector('.cor-swatch');
-          const src = imgPath(item);
-          if (sw && src) enqueueSwatchLoad(sw, src);
-        });
-      }, { rootMargin: '300px 0px' });
-      obs.observe(card);
-    }
+      const sw  = item.querySelector('.cor-swatch');
+      const src = imgPath(item);
+      if (sw && src) enqueueSwatchLoad(sw, src, isPriority);
+    });
   }
 
-  // Inicializa todos os cards
-  document.querySelectorAll('.produto-card').forEach(card => {
-    const isPriority = card.dataset.priority === 'true';
-    loadCardSwatches(card, isPriority);
-  });
+  // Inicializa todos os cards — todos carregam via fila desde o início
+  document.querySelectorAll('.produto-card').forEach(card => loadCardSwatches(card));
 
 
   // ═══════════════════════════════════════════
   //   SISTEMA DE PEDIDOS
   // ═══════════════════════════════════════════
 
-  // Problema original: localStorage.getItem era chamado inline e síncrono.
-  // Solução: wrappado em try/catch (localStorage pode estar bloqueado em
-  // modo privado / Safari ITP) + leitura única na inicialização.
   function readPedido() {
-    try {
-      return JSON.parse(localStorage.getItem('urutau_pedido') || '[]');
-    } catch {
-      return [];
-    }
+    try { return JSON.parse(localStorage.getItem('urutau_pedido') || '[]'); }
+    catch { return []; }
   }
   function savePedido(data) {
-    try {
-      localStorage.setItem('urutau_pedido', JSON.stringify(data));
-    } catch {
-      // localStorage cheio ou bloqueado — continua funcionando sem persistência
-    }
+    try { localStorage.setItem('urutau_pedido', JSON.stringify(data)); }
+    catch { /* localStorage bloqueado */ }
   }
 
   let pedido = readPedido();
@@ -309,12 +261,11 @@ document.addEventListener('DOMContentLoaded', () => {
       e.stopPropagation();
       const card = btn.closest('.produto-card');
 
-      sheetData.nome        = card.dataset.nome || '';
-      sheetData.gramaturas  = (card.dataset.gramaturas || '').split(',').filter(Boolean);
-      sheetData.cores       = (card.dataset.cores || '').split(',').filter(Boolean);
-      sheetData.coresCss    = (card.dataset.coresCss || '').split('|').filter(Boolean);
+      sheetData.nome       = card.dataset.nome || '';
+      sheetData.gramaturas = (card.dataset.gramaturas || '').split(',').filter(Boolean);
+      sheetData.cores      = (card.dataset.cores || '').split(',').filter(Boolean);
+      sheetData.coresCss   = (card.dataset.coresCss || '').split('|').filter(Boolean);
 
-      // Captura paths de imagem dos cor-items do card
       const corItems = Array.from(card.querySelectorAll('.cor-item'));
       sheetData.imgsDesktop = corItems.map(el => el.dataset.imgDesktop || '');
       sheetData.imgsMobile  = corItems.map(el => el.dataset.imgMobile  || '');
@@ -359,16 +310,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function buildCores() {
-    // Problema original: criava <img> tags com loading="lazy" dentro de um painel
-    // com transform:translateX(100%) — o browser NÃO carrega lazy images em
-    // elementos fora da viewport/ocultos por transform.
-    // Resultado: painel abria e imagens ainda não tinham sido baixadas.
-    //
-    // Solução: manter o swatch como background-image (igual ao catálogo),
-    // sem <img> tag — carrega imediatamente via CSS background.
-    // As imagens reais do swatch JÁ estão em cache se o usuário as rolou
-    // no catálogo antes de clicar em "Adicionar ao Pedido".
-
     sheetCoresGrid.innerHTML = '';
     sheetData.cores.forEach((cor, i) => {
       const css    = sheetData.coresCss[i] || '#888';
@@ -379,8 +320,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const el = document.createElement('div');
       el.className = 'sheet-cor-item';
 
-      // Swatch: se a imagem existir, usa como background (aproveita cache do catálogo)
-      // Se não existir ainda, mantém o gradiente CSS como fallback
       const swatchStyle = imgSrc
         ? `background:${css};background-image:url('${imgSrc}');background-size:cover;background-position:center`
         : `background:${css}`;
@@ -416,7 +355,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Toast de confirmação
   function showAddedToast(nome, gram, cor, quantidade) {
     const prev = document.getElementById('addedToast');
     if (prev) prev.remove();
@@ -450,7 +388,6 @@ document.addEventListener('DOMContentLoaded', () => {
     updateCarrinho();
     showAddedToast(sheetData.nome, selGram, selCor, qtd);
 
-    // Reset seleção de cor e quantidade para permitir adicionar outra variação
     selCor = null; selCorCss = null; qtd = 1;
     sheetCoresGrid.querySelectorAll('.sheet-cor-item').forEach(e => e.classList.remove('active'));
     qtdNumEl.textContent = 1;
@@ -461,11 +398,8 @@ document.addEventListener('DOMContentLoaded', () => {
   function updateCarrinho() {
     const total = pedido.reduce((s, i) => s + i.quantidade, 0);
 
-    // Visibilidade do FAB e botão da nav
-    const showFab = total > 0;
-    carrinhoFab.style.display = showFab ? 'flex' : 'none';
-    navCartBtn.style.display  = showFab ? 'flex' : 'none';
-
+    carrinhoFab.style.display = total > 0 ? 'flex' : 'none';
+    navCartBtn.style.display  = total > 0 ? 'flex' : 'none';
     carrinhoCount.textContent = total;
     const navCount = navCartBtn.querySelector('.nav__cart-count');
     if (navCount) navCount.textContent = total;
@@ -484,13 +418,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    // Problema original: innerHTML era reconstruído inteiro a cada update,
-    // e event listeners eram adicionados via querySelectorAll depois.
-    // Isso causava múltiplos listeners acumulados.
-    // Solução: event delegation — UM listener no container, não um por botão.
     carrinhoPainelBody.innerHTML = pedido.map((it, idx) => {
-      // Thumbnail: usa a imagem da cor se disponível (provavelmente já em cache)
-      // Fallback: swatch colorido via background
       const imgSrc = isMobile
         ? (it.imgMobile  || it.imgDesktop || '')
         : (it.imgDesktop || it.imgMobile  || '');
@@ -507,11 +435,11 @@ document.addEventListener('DOMContentLoaded', () => {
             <span>${it.gramatura} · ${it.cor}</span>
           </div>
           <div class="carrinho-item__qtd">
-            <button class="carrinho-qtd-btn" data-action="dec" data-idx="${idx}" aria-label="Diminuir">−</button>
+            <button class="carrinho-qtd-btn" data-action="dec" data-idx="${idx}">−</button>
             <span>${it.quantidade}</span>
-            <button class="carrinho-qtd-btn" data-action="inc" data-idx="${idx}" aria-label="Aumentar">+</button>
+            <button class="carrinho-qtd-btn" data-action="inc" data-idx="${idx}">+</button>
           </div>
-          <button class="carrinho-item__del" data-idx="${idx}" aria-label="Remover item">
+          <button class="carrinho-item__del" data-idx="${idx}" aria-label="Remover">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
               <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
             </svg>
@@ -520,11 +448,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }).join('');
   }
 
-  // Problema original: event listener adicionado dentro de updateCarrinho()
-  // → a cada update, novos listeners eram adicionados nos botões novos,
-  // acumulando handlers e causando execuções múltiplas.
-  // Solução: event delegation — listener único no body do carrinho,
-  // adicionado UMA VEZ fora do updateCarrinho.
+  // Event delegation — um listener, não um por botão
   carrinhoPainelBody.addEventListener('click', e => {
     const qtdBtn = e.target.closest('.carrinho-qtd-btn');
     const delBtn = e.target.closest('.carrinho-item__del');
@@ -544,16 +468,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (delBtn) {
       const i = parseInt(delBtn.dataset.idx);
-      if (!isNaN(i)) {
-        pedido.splice(i, 1);
-        savePedido(pedido);
-        updateCarrinho();
-      }
+      if (!isNaN(i)) { pedido.splice(i, 1); savePedido(pedido); updateCarrinho(); }
     }
   });
 
-  // ── Abrir / Fechar carrinho ──────────────────
-  function openCarrinho() {
+  function openCarrinho()  {
     carrinhoPainel.classList.add('open');
     carrinhoOverlay.classList.add('open');
     document.body.style.overflow = 'hidden';
@@ -569,14 +488,9 @@ document.addEventListener('DOMContentLoaded', () => {
   carrinhoPainelClose.addEventListener('click', closeCarrinho);
   carrinhoOverlay.addEventListener('click', closeCarrinho);
 
-  // Swipe para fechar no mobile
   let cTouchStart = 0;
-  carrinhoPainel.addEventListener('touchstart', e => {
-    cTouchStart = e.touches[0].clientY;
-  }, { passive: true });
-  carrinhoPainel.addEventListener('touchend', e => {
-    if (e.changedTouches[0].clientY - cTouchStart > 80) closeCarrinho();
-  });
+  carrinhoPainel.addEventListener('touchstart', e => { cTouchStart = e.touches[0].clientY; }, { passive: true });
+  carrinhoPainel.addEventListener('touchend',   e => { if (e.changedTouches[0].clientY - cTouchStart > 80) closeCarrinho(); });
 
   carrinhoLimpar.addEventListener('click', () => {
     if (!pedido.length) return;
@@ -598,7 +512,6 @@ document.addEventListener('DOMContentLoaded', () => {
     window.open(`https://wa.me/553199762918?text=${encodeURIComponent(msg)}`, '_blank');
   });
 
-  // Inicializa o carrinho com dados do localStorage
   updateCarrinho();
 
 });
