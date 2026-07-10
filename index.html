@@ -314,12 +314,18 @@
   <div class="modal__content">
     <button class="modal__close" id="modalClose" aria-label="Fechar">✕</button>
     <button class="modal__nav modal__nav--prev" id="modalPrev" aria-label="Anterior">‹</button>
-    <div class="modal__img-wrap">
-      <img src="" alt="" class="modal__img" id="modalImg">
-      <div class="modal__placeholder" id="modalPlaceholder">
-        <svg viewBox="0 0 120 60" fill="none" width="120"><path d="M10 30 Q30 10 60 30 Q90 50 110 30" stroke="currentColor" stroke-width="2" fill="none" opacity="0.4"/></svg>
+    <div class="modal__center">
+      <div class="modal__img-wrap">
+        <img src="" alt="" class="modal__img" id="modalImg">
+        <div class="modal__placeholder" id="modalPlaceholder">
+          <svg viewBox="0 0 120 60" fill="none" width="120"><path d="M10 30 Q30 10 60 30 Q90 50 110 30" stroke="currentColor" stroke-width="2" fill="none" opacity="0.4"/></svg>
+        </div>
+        <div class="modal__info"><span id="modalNome"></span><span id="modalCounter"></span></div>
       </div>
-      <div class="modal__info"><span id="modalNome"></span><span id="modalCounter"></span></div>
+      <button class="modal__add-btn" id="modalAddBtn" aria-label="Adicionar ao pedido">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Adicionar ao Pedido
+      </button>
     </div>
     <button class="modal__nav modal__nav--next" id="modalNext" aria-label="Próxima">›</button>
   </div>

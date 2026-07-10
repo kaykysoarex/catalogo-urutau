@@ -82,10 +82,17 @@ document.addEventListener('DOMContentLoaded', () => {
   const modalNome = document.getElementById('modalNome');
   const modalCnt  = document.getElementById('modalCounter');
   const modalPH   = document.getElementById('modalPlaceholder');
-  let gallery = [], gIdx = 0;
+  let gallery = [], gIdx = 0, modalCard = null;
 
-  function openModal(items, idx) {
-    gallery = items; gIdx = idx;
+  function preloadAdjacent(i) {
+    [1, -1].forEach(d => {
+      const adj = gallery[(i + d + gallery.length) % gallery.length];
+      if (adj?.img) { const p = new Image(); p.src = adj.img; }
+    });
+  }
+
+  function openModal(items, idx, card) {
+    gallery = items; gIdx = idx; modalCard = card || null;
     showItem(gIdx);
     modal.classList.add('open');
     document.body.style.overflow = 'hidden';
@@ -103,12 +110,17 @@ document.addEventListener('DOMContentLoaded', () => {
     if (it.img) {
       modalPH.style.display  = 'none';
       modalImg.style.display = 'block';
-      modalImg.src = it.img;
+      modalImg.style.opacity = '0';
       modalImg.alt = it.nome;
+      modalImg.onload = () => { modalImg.style.opacity = '1'; };
+      modalImg.src = it.img;
+      // se já estava em cache, onload não dispara — força opacidade
+      if (modalImg.complete && modalImg.naturalWidth > 0) modalImg.style.opacity = '1';
     } else {
       modalImg.style.display = 'none';
       modalPH.style.display  = 'flex';
     }
+    preloadAdjacent(i);
   }
   function prev() { gIdx = (gIdx - 1 + gallery.length) % gallery.length; showItem(gIdx); }
   function next() { gIdx = (gIdx + 1) % gallery.length; showItem(gIdx); }
@@ -117,6 +129,43 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('modalClose').addEventListener('click', closeModal);
   document.getElementById('modalPrev').addEventListener('click', prev);
   document.getElementById('modalNext').addEventListener('click', next);
+
+  document.getElementById('modalAddBtn').addEventListener('click', () => {
+    if (!modalCard) return;
+    closeModal();
+
+    sheetData.nome       = modalCard.dataset.nome || '';
+    sheetData.gramaturas = (modalCard.dataset.gramaturas || '').split(',').filter(Boolean);
+    sheetData.cores      = (modalCard.dataset.cores || '').split(',').filter(Boolean);
+    sheetData.coresCss   = (modalCard.dataset.coresCss || '').split('|').filter(Boolean);
+
+    const corItems = Array.from(modalCard.querySelectorAll('.cor-item'));
+    sheetData.imgsDesktop = corItems.map(el => el.dataset.imgDesktop || '');
+    sheetData.imgsMobile  = corItems.map(el => el.dataset.imgMobile  || '');
+
+    selGram = sheetData.gramaturas.length === 1 ? sheetData.gramaturas[0] : null;
+
+    const currentCorNome = gallery[gIdx]?.nome || null;
+    const corIdx = currentCorNome ? sheetData.cores.indexOf(currentCorNome) : -1;
+    selCor    = corIdx >= 0 ? sheetData.cores[corIdx]   : null;
+    selCorCss = corIdx >= 0 ? sheetData.coresCss[corIdx] : null;
+    qtd = 1;
+
+    sheetNome.textContent = sheetData.nome;
+    buildGram();
+    buildCores();
+    qtdNumEl.textContent = 1;
+
+    if (corIdx >= 0) {
+      const sheetItems = sheetCoresGrid.querySelectorAll('.sheet-cor-item');
+      if (sheetItems[corIdx]) sheetItems[corIdx].classList.add('active');
+    }
+
+    updateResumo();
+    pedidoSheet.classList.add('open');
+    pedidoOverlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  });
 
   document.addEventListener('keydown', e => {
     if (!modal.classList.contains('open')) return;
@@ -204,7 +253,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }));
 
     items.forEach((item, i) => {
-      item.addEventListener('click', () => openModal(gal, i));
+      item.addEventListener('click', () => openModal(gal, i, card));
 
       const sw  = item.querySelector('.cor-swatch');
       const src = imgPath(item);
