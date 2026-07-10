@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const modalNome = document.getElementById('modalNome');
   const modalCnt  = document.getElementById('modalCounter');
   const modalPH   = document.getElementById('modalPlaceholder');
-  let gallery = [], gIdx = 0, modalCard = null;
+  let gallery = [], gIdx = 0;
 
   function preloadAdjacent(i) {
     [1, -1].forEach(d => {
@@ -91,8 +91,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  function openModal(items, idx, card) {
-    gallery = items; gIdx = idx; modalCard = card || null;
+  function openModal(items, idx) {
+    gallery = items; gIdx = idx;
     showItem(gIdx);
     modal.classList.add('open');
     document.body.style.overflow = 'hidden';
@@ -129,43 +129,6 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('modalClose').addEventListener('click', closeModal);
   document.getElementById('modalPrev').addEventListener('click', prev);
   document.getElementById('modalNext').addEventListener('click', next);
-
-  document.getElementById('modalAddBtn').addEventListener('click', () => {
-    if (!modalCard) return;
-    closeModal();
-
-    sheetData.nome       = modalCard.dataset.nome || '';
-    sheetData.gramaturas = (modalCard.dataset.gramaturas || '').split(',').filter(Boolean);
-    sheetData.cores      = (modalCard.dataset.cores || '').split(',').filter(Boolean);
-    sheetData.coresCss   = (modalCard.dataset.coresCss || '').split('|').filter(Boolean);
-
-    const corItems = Array.from(modalCard.querySelectorAll('.cor-item'));
-    sheetData.imgsDesktop = corItems.map(el => el.dataset.imgDesktop || '');
-    sheetData.imgsMobile  = corItems.map(el => el.dataset.imgMobile  || '');
-
-    selGram = sheetData.gramaturas.length === 1 ? sheetData.gramaturas[0] : null;
-
-    const currentCorNome = gallery[gIdx]?.nome || null;
-    const corIdx = currentCorNome ? sheetData.cores.indexOf(currentCorNome) : -1;
-    selCor    = corIdx >= 0 ? sheetData.cores[corIdx]   : null;
-    selCorCss = corIdx >= 0 ? sheetData.coresCss[corIdx] : null;
-    qtd = 1;
-
-    sheetNome.textContent = sheetData.nome;
-    buildGram();
-    buildCores();
-    qtdNumEl.textContent = 1;
-
-    if (corIdx >= 0) {
-      const sheetItems = sheetCoresGrid.querySelectorAll('.sheet-cor-item');
-      if (sheetItems[corIdx]) sheetItems[corIdx].classList.add('active');
-    }
-
-    updateResumo();
-    pedidoSheet.classList.add('open');
-    pedidoOverlay.classList.add('open');
-    document.body.style.overflow = 'hidden';
-  });
 
   document.addEventListener('keydown', e => {
     if (!modal.classList.contains('open')) return;
@@ -253,7 +216,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }));
 
     items.forEach((item, i) => {
-      item.addEventListener('click', () => openModal(gal, i, card));
+      item.addEventListener('click', () => openModal(gal, i));
 
       const sw  = item.querySelector('.cor-swatch');
       const src = imgPath(item);

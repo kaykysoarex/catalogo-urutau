@@ -388,18 +388,13 @@ body::before {
 .modal { display: none; position: fixed; inset: 0; z-index: 1000; align-items: center; justify-content: center; }
 .modal.open { display: flex; }
 .modal__overlay { position: absolute; inset: 0; background: rgba(4,2,2,.96); cursor: pointer; }
-.modal__content { position: relative; z-index: 1; display: flex; align-items: center; gap: 1rem; max-width: 96vw; max-height: 96vh; }
-.modal__center { display: flex; flex-direction: column; align-items: center; gap: .75rem; }
-.modal__img-wrap { position: relative; background: #0e0e0e; border: 1px solid rgba(192,25,15,.3); border-radius: var(--radius-lg); overflow: hidden; min-width: 280px; min-height: 260px; display: flex; align-items: center; justify-content: center; }
+.modal__content { position: relative; z-index: 1; display: flex; align-items: center; gap: 1rem; max-width: 96vw; max-height: 96vh; }.modal__img-wrap { position: relative; background: #0e0e0e; border: 1px solid rgba(192,25,15,.3); border-radius: var(--radius-lg); overflow: hidden; min-width: 280px; min-height: 260px; display: flex; align-items: center; justify-content: center; }
 .modal__img-wrap::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--red), var(--orange), var(--gold)); }
 .modal__img { width: 90vw; height: 70vh; object-fit: contain; display: block; transition: opacity .18s ease; }
 .modal__placeholder { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: var(--muted); opacity: .3; }
 .modal__info { position: absolute; bottom: 0; left: 0; right: 0; padding: .7rem 1rem; background: linear-gradient(transparent, rgba(8,8,8,.95)); display: flex; justify-content: space-between; align-items: center; }
 #modalNome { font-size: .82rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--white); }
-#modalCounter { font-size: .7rem; color: var(--muted); }
-.modal__add-btn { display: flex; align-items: center; gap: .4rem; background: var(--red); border: none; color: var(--white); font-size: .88rem; font-weight: 700; font-family: inherit; letter-spacing: .06em; text-transform: uppercase; padding: .6rem 1.4rem; border-radius: var(--radius); cursor: pointer; white-space: nowrap; transition: background .2s, transform .15s; box-shadow: 0 4px 16px rgba(192,25,15,.4); }
-.modal__add-btn:hover { background: var(--red-hot); transform: translateY(-1px); }
-.modal__close { position: absolute; top: -2rem; right: 0; width: 30px; height: 30px; border-radius: 40%; background: rgba(192,25,15,.2); border: 1px solid rgba(192,25,15,.4); color: var(--white); cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; transition: background .2s; }
+#modalCounter { font-size: .7rem; color: var(--muted); }.modal__close { position: absolute; top: -2rem; right: 0; width: 30px; height: 30px; border-radius: 40%; background: rgba(192,25,15,.2); border: 1px solid rgba(192,25,15,.4); color: var(--white); cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; transition: background .2s; }
 .modal__nav { width: 42px; height: 42px; border-radius: 50%; background: rgba(192,25,15,.25); border: 1px solid var(--red); color: var(--white); cursor: pointer; font-size: 1.8rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background .2s, transform .15s; }
 
 /* ─── BACK TO TOP ─── */
@@ -531,10 +526,8 @@ body::before {
   .modal__nav--next { right: .4rem; }
   .modal__nav:active { transform: translateY(-50%) scale(.9); background: var(--red); }
   .modal__content { max-width: 100vw; max-height: 100vh; width: 100vw; height: 100vh; }
-  .modal__center { width: 100vw; height: 100vh; justify-content: flex-end; gap: 0; }
-  .modal__img-wrap { width: 100vw; height: calc(100vh - 72px); border-radius: 0; }
+  .modal__img-wrap { width: 100vw; height: 100vh; border-radius: 0; }
   .modal__img { width: 100%; height: 100%; object-fit: contain; }
-  .modal__add-btn { width: 100%; height: 56px; border-radius: 0; justify-content: center; box-shadow: none; font-size: .95rem; }
   .modal__close { position: fixed; top: 25px; right: 25px; z-index: 10; }
   .footer__inner { flex-direction: column; text-align: center; }
   .carrinho-fab { left: 50%; transform: translateX(-50%); bottom: 1.5rem; }
