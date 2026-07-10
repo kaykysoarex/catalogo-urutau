@@ -97,7 +97,7 @@ body::before {
 }
 .nav__hamburger span {
   display: block; width: 24px; height: 2px;
-  background: var(--silver); border-radius: 2px; transition: all .3s;
+  background: var(--silver); border-radius: 2px; transition: background .3s, transform .3s;
 }
 .nav__hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
 .nav__hamburger.open span:nth-child(2) { opacity: 0; }
@@ -206,7 +206,7 @@ body::before {
   font-family: var(--font-body); font-size: .85rem; font-weight: 700;
   letter-spacing: .15em; text-transform: uppercase;
   border-radius: var(--radius); border: 2px solid transparent;
-  cursor: pointer; transition: all .22s;
+  cursor: pointer; transition: background .22s, box-shadow .22s, transform .22s, border-color .22s;
 }
 .btn--fire { background: linear-gradient(135deg, var(--red), var(--orange)); color: #fff; box-shadow: 0 4px 20px rgba(192,25,15,.35); }
 .btn--whatsapp { background: #25D366; color: #fff; border-color: #25D366; }
@@ -236,6 +236,8 @@ body::before {
   border-radius: var(--radius-lg); overflow: hidden;
   position: relative; transition: border-color .3s, box-shadow .3s;
   contain: layout style;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 520px;
 }
 .produto-card::before {
   content: ''; position: absolute; top: 0; left: 0;
@@ -359,7 +361,7 @@ body::before {
   border-radius: var(--radius); color: var(--orange);
   font-family: var(--font-body); font-size: .82rem; font-weight: 700;
   letter-spacing: .15em; text-transform: uppercase;
-  cursor: pointer; transition: all .2s; margin-top: .25rem;
+  cursor: pointer; transition: background .2s, border-color .2s, color .2s, transform .2s, box-shadow .2s; margin-top: .25rem;
 }
 
 /* ─── SOBRE ─── */
@@ -385,7 +387,7 @@ body::before {
 .footer__tagline { font-size: .72rem; color: rgba(240,184,0,.45); letter-spacing: .1em; text-transform: uppercase; }
 
 /* ─── MODAL ─── */
-.modal { display: none; position: fixed; inset: 0; z-index: 1000; align-items: center; justify-content: center; }
+.modal { display: none; position: fixed; inset: 0; z-index: 1000; align-items: center; justify-content: center; contain: layout style; }
 .modal.open { display: flex; }
 .modal__overlay { position: absolute; inset: 0; background: rgba(4,2,2,.96); cursor: pointer; }
 .modal__content { position: relative; z-index: 1; display: flex; align-items: center; gap: 1rem; max-width: 96vw; max-height: 96vh; }.modal__img-wrap { position: relative; background: #0e0e0e; border: 1px solid rgba(192,25,15,.3); border-radius: var(--radius-lg); overflow: hidden; min-width: 280px; min-height: 260px; display: flex; align-items: center; justify-content: center; }
@@ -421,7 +423,7 @@ body::before {
   padding-bottom: env(safe-area-inset-bottom,0);
   transform: translateY(100%); transition: transform .35s cubic-bezier(.32,.72,0,1);
   max-height: 92svh; display: flex; flex-direction: column; overflow: hidden;
-  will-change: transform;
+  will-change: transform; contain: layout style;
 }
 .pedido-sheet::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--red), var(--orange), var(--gold)); }
 .pedido-sheet.open { transform: translateY(0); }
@@ -434,10 +436,10 @@ body::before {
 .pedido-step__label { display: flex; align-items: center; gap: .6rem; font-size: .72rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--silver); margin-bottom: .65rem; }
 .pedido-step__num { width: 20px; height: 20px; border-radius: 50%; background: linear-gradient(135deg, var(--red), var(--orange)); color: #fff; font-size: .65rem; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .pedido-gram-opts { display: flex; gap: .5rem; flex-wrap: wrap; }
-.sheet-gram-btn { padding: .55rem 1.25rem; border-radius: 6px; border: 1px solid var(--border); background: rgba(255,255,255,.04); color: var(--silver); font-family: var(--font-body); font-size: .85rem; font-weight: 700; letter-spacing: .1em; cursor: pointer; transition: all .18s; min-width: 64px; text-align: center; }
+.sheet-gram-btn { padding: .55rem 1.25rem; border-radius: 6px; border: 1px solid var(--border); background: rgba(255,255,255,.04); color: var(--silver); font-family: var(--font-body); font-size: .85rem; font-weight: 700; letter-spacing: .1em; cursor: pointer; transition: background .18s, border-color .18s, color .18s; min-width: 64px; text-align: center; }
 .sheet-gram-btn.active { background: linear-gradient(135deg, var(--red), var(--orange)); border-color: transparent; color: #fff; box-shadow: 0 3px 12px rgba(192,25,15,.35); }
 .pedido-cores-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: .6rem; }
-.sheet-cor-item { display: flex; flex-direction: column; align-items: center; gap: .3rem; cursor: pointer; padding: .35rem; border-radius: 8px; border: 2px solid transparent; transition: all .18s; }
+.sheet-cor-item { display: flex; flex-direction: column; align-items: center; gap: .3rem; cursor: pointer; padding: .35rem; border-radius: 8px; border: 2px solid transparent; transition: border-color .18s, background .18s; }
 .sheet-cor-item.active { border-color: var(--orange); background: rgba(224,90,16,.08); }
 .sheet-cor-swatch {
   width: 100%; aspect-ratio: 1; border-radius: 6px;
@@ -465,7 +467,7 @@ body::before {
 .carrinho-fab__label { display: none; }
 
 /* Painel carrinho */
-.carrinho-painel { position: fixed; bottom: 0; left: 0; right: 0; z-index: 400; background: var(--dark); border-top: 1px solid var(--border); border-radius: 20px 20px 0 0; max-height: 90svh; display: flex; flex-direction: column; transform: translateY(100%); transition: transform .35s cubic-bezier(.32,.72,0,1); overflow: hidden; padding-bottom: env(safe-area-inset-bottom,0); will-change: transform; }
+.carrinho-painel { position: fixed; bottom: 0; left: 0; right: 0; z-index: 400; background: var(--dark); border-top: 1px solid var(--border); border-radius: 20px 20px 0 0; max-height: 90svh; display: flex; flex-direction: column; transform: translateY(100%); transition: transform .35s cubic-bezier(.32,.72,0,1); overflow: hidden; padding-bottom: env(safe-area-inset-bottom,0); will-change: transform; contain: layout style; }
 .carrinho-painel::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--red), var(--orange), var(--gold)); }
 .carrinho-painel.open { transform: translateY(0); }
 .carrinho-painel__header { display: flex; align-items: flex-start; justify-content: space-between; padding: 1.1rem 1.25rem .75rem; border-bottom: 1px solid var(--border); flex-shrink: 0; }

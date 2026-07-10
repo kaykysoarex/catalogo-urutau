@@ -20,9 +20,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const backTop    = document.getElementById('backTop');
   const navCartBtn = document.getElementById('navCartBtn');
 
+  let scrollTick = false;
   window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 40);
-    backTop.classList.toggle('visible', window.scrollY > 400);
+    if (!scrollTick) {
+      requestAnimationFrame(() => {
+        nav.classList.toggle('scrolled', window.scrollY > 40);
+        backTop.classList.toggle('visible', window.scrollY > 400);
+        scrollTick = false;
+      });
+      scrollTick = true;
+    }
   }, { passive: true });
 
   hamburger.addEventListener('click', () => {
@@ -224,8 +231,21 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Inicializa todos os cards — todos carregam via fila desde o início
-  document.querySelectorAll('.produto-card').forEach(card => loadCardSwatches(card));
+  // Card prioritário carrega imediatamente
+  const priorityCard = document.querySelector('.produto-card[data-priority="true"]');
+  if (priorityCard) loadCardSwatches(priorityCard);
+
+  // Demais cards: inicializam só quando próximos da viewport
+  const cardObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        loadCardSwatches(e.target);
+        cardObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0, rootMargin: '300px' });
+
+  document.querySelectorAll('.produto-card:not([data-priority="true"])').forEach(card => cardObs.observe(card));
 
 
   // ═══════════════════════════════════════════
