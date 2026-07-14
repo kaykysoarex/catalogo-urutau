@@ -1,409 +1,736 @@
 ﻿<!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Catálogo Urutau Jigs 2026</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Catálogo Urutau Jigs 2026</title>
 
-<!-- PERF: preconnect reduz latência DNS/TLS das fontes -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="dns-prefetch" href="https://fonts.googleapis.com">
-<link rel="dns-prefetch" href="https://fonts.gstatic.com">
+  <!-- PERF: preconnect reduz latência DNS/TLS das fontes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
 
-<!-- PERF: preload da logo hero — é o LCP, tem que chegar primeiro -->
-<link rel="preload" href="logo-urutau.png" as="image" fetchpriority="high">
+  <!-- PERF: preload da logo hero — é o LCP, tem que chegar primeiro -->
+  <link rel="preload" href="logo-urutau.png" as="image" fetchpriority="high">
 
-<link rel="stylesheet" href="style.css">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+    rel="stylesheet">
 </head>
+
 <body>
 
-<!-- NAV -->
-<nav class="nav" id="nav">
-  <div class="nav__inner">
-    <a href="#" class="nav__logo">
-      <img src="logo-urutau.png" alt="Urutau Jigs" class="nav__logo-img"
-           width="120" height="36"
-           decoding="async"
-           onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
-      <span class="nav__logo-text" style="display:none">URUTAU JIGS</span>
-    </a>
-    <ul class="nav__links" id="navLinks">
-      <li><a href="#catalogo">Catálogo</a></li>
-    </ul>
-    <div class="nav__right">
-      <button class="nav__cart-btn" id="navCartBtn" aria-label="Ver pedido" style="display:none">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
-          <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
-          <line x1="3" y1="6" x2="21" y2="6"/>
-          <path d="M16 10a4 4 0 01-8 0"/>
-        </svg>
-        <span class="nav__cart-count" id="navCartCount">0</span>
-      </button>
-      <button class="nav__hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="#" class="nav__logo">
+        <img src="logo-urutau.png" alt="Urutau Jigs" class="nav__logo-img" width="120" height="36" decoding="async"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+        <span class="nav__logo-text" style="display:none">URUTAU JIGS</span>
+      </a>
+      <ul class="nav__links" id="navLinks">
+        <li><a href="#catalogo">Catálogo</a></li>
+      </ul>
+      <div class="nav__right">
+        <button class="nav__cart-btn" id="navCartBtn" aria-label="Ver pedido" style="display:none">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <path d="M16 10a4 4 0 01-8 0" />
+          </svg>
+          <span class="nav__cart-count" id="navCartCount">0</span>
+        </button>
+        <button class="nav__hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
     </div>
-  </div>
-</nav>
+  </nav>
 
-<!-- HERO -->
-<section class="hero" id="inicio">
-  <div class="hero__bg">
-    <div class="hero__bg-glow"></div>
-    <div class="hero__bg-scanlines"></div>
-  </div>
-  <div class="hero__body">
-    <div class="hero__eyebrow">
-      <span class="hero__eyebrow-line"></span>
-      <span class="hero__eyebrow-text">CATÁLOGO 2026</span>
-      <span class="hero__eyebrow-line"></span>
+  <!-- HERO -->
+  <section class="hero" id="inicio">
+    <div class="hero__bg">
+      <div class="hero__bg-glow"></div>
+      <div class="hero__bg-scanlines"></div>
     </div>
-    <div class="hero__logo-wrap">
-      <!--
+    <div class="hero__body">
+      <div class="hero__eyebrow">
+        <span class="hero__eyebrow-line"></span>
+        <span class="hero__eyebrow-text">CATÁLOGO 2026</span>
+        <span class="hero__eyebrow-line"></span>
+      </div>
+      <div class="hero__logo-wrap">
+        <!--
         PERF: fetchpriority="high" = instrução explícita para o browser
         priorizar sobre tudo. loading="eager" = nunca lazy.
         O JS vai adicionar .loaded no onload para o fade-in controlado.
       -->
-      <img src="logo-urutau.png" alt="Urutau Jigs" class="hero__logo-img"
-           width="520" height="260"
-           fetchpriority="high"
-           loading="eager"
-           decoding="async"
-           onerror="this.style.display='none'">
+        <img src="logo-urutau.png" alt="Urutau Jigs" class="hero__logo-img" width="520" height="260"
+          fetchpriority="high" loading="eager" decoding="async" onerror="this.style.display='none'">
+      </div>
+      <a href="#primeiro-produto" class="hero__cta">VER CATÁLOGO</a>
     </div>
-    <a href="#primeiro-produto" class="hero__cta">VER CATÁLOGO</a>
-  </div>
-</section>
+  </section>
 
-<!-- CATÁLOGO -->
-<section class="catalogo" id="catalogo">
-  <div class="container">
-    <div class="produtos-grid" id="produtosGrid">
+  <!-- CATÁLOGO -->
+  <section class="catalogo" id="catalogo">
+    <div class="container">
+      <div class="produtos-grid" id="produtosGrid">
 
-      <!--
+        <!--
         PERF: data-priority="true" → JS carrega os swatches deste card
         imediatamente (fora da fila e sem IntersectionObserver),
         pois é o primeiro produto visível após o scroll do hero.
         swatch-skeleton → shimmer animado enquanto a imagem não chegou.
       -->
-      <article class="produto-card produto-card--destaque reveal" id="primeiro-produto"
-        data-categoria="urunaja" data-slug="urunaja" data-nome="Urunaja"
-        data-priority="true"
-        data-gramaturas="12g,14g,16g"
-        data-cores="Cor 01,Cor 02,Cor 03,Cor 04,Cor 05,Cor 06,Cor 07,Cor 08,Cor 09"
-        data-cores-css="linear-gradient(135deg,#c8a84b,#f0d060)|linear-gradient(135deg,#a8b8c8,#e0eaf0)|linear-gradient(135deg,#e06020,#f08040)|linear-gradient(135deg,#2a6040,#4a8060)|linear-gradient(135deg,#d04080,#f060a0)|linear-gradient(135deg,#1a3a6a,#2a5a9a)|linear-gradient(135deg,#d0d8e0,#f0f4f8)|linear-gradient(135deg,#5a2080,#8040b0)|linear-gradient(135deg,#8a7a50,#b0a070)">
-        <div class="produto-card__info">
-          <h3 class="produto-nome">Urunaja</h3>
-          <span class="lancamento-badge">Lançamento</span>
-          <div class="produto-card__tags">
-            <span class="gram-badge">10g</span><span class="gram-badge">12g</span>
+        <article class="produto-card produto-card--destaque reveal" id="primeiro-produto" data-categoria="urunaja"
+          data-slug="urunaja" data-nome="Urunaja" data-priority="true" data-gramaturas="12g,14g,16g"
+          data-cores="Cor 01,Cor 02,Cor 03,Cor 04,Cor 05,Cor 06,Cor 07,Cor 08,Cor 09"
+          data-cores-css="linear-gradient(135deg,#c8a84b,#f0d060)|linear-gradient(135deg,#a8b8c8,#e0eaf0)|linear-gradient(135deg,#e06020,#f08040)|linear-gradient(135deg,#2a6040,#4a8060)|linear-gradient(135deg,#d04080,#f060a0)|linear-gradient(135deg,#1a3a6a,#2a5a9a)|linear-gradient(135deg,#d0d8e0,#f0f4f8)|linear-gradient(135deg,#5a2080,#8040b0)|linear-gradient(135deg,#8a7a50,#b0a070)">
+          <div class="produto-card__info">
+            <h3 class="produto-nome">Urunaja</h3>
+            <span class="lancamento-badge">Lançamento</span>
+            <div class="produto-card__tags">
+              <span class="gram-badge">10g</span><span class="gram-badge">12g</span>
+            </div>
+            <div class="produto-gramaturas">
+              <div class="cores-grid">
+                <div class="cor-item" data-nome="Cor 01" data-img-desktop="iscas/desktop/urunaja/cor-01.jpg"
+                  data-img-mobile="iscas/mobile/urunaja/cor-01.jpg">
+                  <div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#c8a84b,#f0d060)">
+                  </div><span>Cor 01</span>
+                </div>
+                <div class="cor-item" data-nome="Cor 02" data-img-desktop="iscas/desktop/urunaja/cor-02.jpg"
+                  data-img-mobile="iscas/mobile/urunaja/cor-02.jpg">
+                  <div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#a8b8c8,#e0eaf0)">
+                  </div><span>Cor 02</span>
+                </div>
+                <div class="cor-item" data-nome="Cor 03" data-img-desktop="iscas/desktop/urunaja/cor-03.jpg"
+                  data-img-mobile="iscas/mobile/urunaja/cor-03.jpg">
+                  <div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#e06020,#f08040)">
+                  </div><span>Cor 03</span>
+                </div>
+                <div class="cor-item" data-nome="Cor 04" data-img-desktop="iscas/desktop/urunaja/cor-04.jpg"
+                  data-img-mobile="iscas/mobile/urunaja/cor-04.jpg">
+                  <div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#2a6040,#4a8060)">
+                  </div><span>Cor 04</span>
+                </div>
+                <div class="cor-item" data-nome="Cor 05" data-img-desktop="iscas/desktop/urunaja/cor-05.jpg"
+                  data-img-mobile="iscas/mobile/urunaja/cor-05.jpg">
+                  <div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#d04080,#f060a0)">
+                  </div><span>Cor 05</span>
+                </div>
+                <div class="cor-item" data-nome="Cor 06" data-img-desktop="iscas/desktop/urunaja/cor-06.jpg"
+                  data-img-mobile="iscas/mobile/urunaja/cor-06.jpg">
+                  <div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#1a3a6a,#2a5a9a)">
+                  </div><span>Cor 06</span>
+                </div>
+                <div class="cor-item" data-nome="Cor 07" data-img-desktop="iscas/desktop/urunaja/cor-07.jpg"
+                  data-img-mobile="iscas/mobile/urunaja/cor-07.jpg">
+                  <div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#d0d8e0,#f0f4f8)">
+                  </div><span>Cor 07</span>
+                </div>
+                <div class="cor-item" data-nome="Cor 08" data-img-desktop="iscas/desktop/urunaja/cor-08.jpg"
+                  data-img-mobile="iscas/mobile/urunaja/cor-08.jpg">
+                  <div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#5a2080,#8040b0)">
+                  </div><span>Cor 08</span>
+                </div>
+                <div class="cor-item" data-nome="Cor 09" data-img-desktop="iscas/desktop/urunaja/cor-09.jpg"
+                  data-img-mobile="iscas/mobile/urunaja/cor-09.jpg">
+                  <div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#8a7a50,#b0a070)">
+                  </div><span>Cor 09</span>
+                </div>
+              </div>
+            </div>
+            <button class="btn-add-pedido"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                width="14" height="14">
+                <line x1="12" y1="5" x2="12" y2="19" />
+                <line x1="5" y1="12" x2="19" y2="12" />
+              </svg>Adicionar ao Pedido</button>
           </div>
-          <div class="produto-gramaturas"><div class="cores-grid">
-            <div class="cor-item" data-nome="Cor 01" data-img-desktop="iscas/desktop/urunaja/cor-01.jpg" data-img-mobile="iscas/mobile/urunaja/cor-01.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#c8a84b,#f0d060)"></div><span>Cor 01</span></div>
-            <div class="cor-item" data-nome="Cor 02" data-img-desktop="iscas/desktop/urunaja/cor-02.jpg" data-img-mobile="iscas/mobile/urunaja/cor-02.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#a8b8c8,#e0eaf0)"></div><span>Cor 02</span></div>
-            <div class="cor-item" data-nome="Cor 03" data-img-desktop="iscas/desktop/urunaja/cor-03.jpg" data-img-mobile="iscas/mobile/urunaja/cor-03.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#e06020,#f08040)"></div><span>Cor 03</span></div>
-            <div class="cor-item" data-nome="Cor 04" data-img-desktop="iscas/desktop/urunaja/cor-04.jpg" data-img-mobile="iscas/mobile/urunaja/cor-04.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#2a6040,#4a8060)"></div><span>Cor 04</span></div>
-            <div class="cor-item" data-nome="Cor 05" data-img-desktop="iscas/desktop/urunaja/cor-05.jpg" data-img-mobile="iscas/mobile/urunaja/cor-05.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#d04080,#f060a0)"></div><span>Cor 05</span></div>
-            <div class="cor-item" data-nome="Cor 06" data-img-desktop="iscas/desktop/urunaja/cor-06.jpg" data-img-mobile="iscas/mobile/urunaja/cor-06.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#1a3a6a,#2a5a9a)"></div><span>Cor 06</span></div>
-            <div class="cor-item" data-nome="Cor 07" data-img-desktop="iscas/desktop/urunaja/cor-07.jpg" data-img-mobile="iscas/mobile/urunaja/cor-07.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#d0d8e0,#f0f4f8)"></div><span>Cor 07</span></div>
-            <div class="cor-item" data-nome="Cor 08" data-img-desktop="iscas/desktop/urunaja/cor-08.jpg" data-img-mobile="iscas/mobile/urunaja/cor-08.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#5a2080,#8040b0)"></div><span>Cor 08</span></div>
-            <div class="cor-item" data-nome="Cor 09" data-img-desktop="iscas/desktop/urunaja/cor-09.jpg" data-img-mobile="iscas/mobile/urunaja/cor-09.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#8a7a50,#b0a070)"></div><span>Cor 09</span></div>
-          </div></div>
-          <button class="btn-add-pedido"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Adicionar ao Pedido</button>
-        </div>
-      </article>
+        </article>
 
-      <!-- URUMAX G1 -->
-      <article class="produto-card reveal"
-        data-categoria="urumax" data-slug="urumax-g1" data-nome="Urumax G1"
-        data-gramaturas="12g,14g,16g"
-        data-cores="Cor 01,Cor 02,Cor 03,Cor 04,Cor 05,Cor 06,Cor 07,Cor 08"
-        data-cores-css="linear-gradient(135deg,#c8a84b,#f0d060)|linear-gradient(135deg,#a8b8c8,#e0eaf0)|linear-gradient(135deg,#e06020,#f08040)|linear-gradient(135deg,#2a6040,#4a8060)|linear-gradient(135deg,#d04080,#f060a0)|linear-gradient(135deg,#1a3a6a,#2a5a9a)|linear-gradient(135deg,#d0d8e0,#f0f4f8)|linear-gradient(135deg,#5a2080,#8040b0)">
-        <div class="produto-card__info">
-          <h3 class="produto-nome">Urumax G1</h3>
-          <div class="produto-card__tags"><span class="gram-badge">13g</span><span class="gram-badge">16g</span></div>
-          <div class="produto-gramaturas"><div class="cores-grid">
-            <div class="cor-item" data-nome="Cor 01" data-img-desktop="iscas/desktop/urumax-g1/cor-01.jpg" data-img-mobile="iscas/mobile/urumax-g1/cor-01.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#c8a84b,#f0d060)"></div><span>Cor 01</span></div>
-            <div class="cor-item" data-nome="Cor 02" data-img-desktop="iscas/desktop/urumax-g1/cor-02.jpg" data-img-mobile="iscas/mobile/urumax-g1/cor-02.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#a8b8c8,#e0eaf0)"></div><span>Cor 02</span></div>
-            <div class="cor-item" data-nome="Cor 03" data-img-desktop="iscas/desktop/urumax-g1/cor-03.jpg" data-img-mobile="iscas/mobile/urumax-g1/cor-03.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#e06020,#f08040)"></div><span>Cor 03</span></div>
-            <div class="cor-item" data-nome="Cor 04" data-img-desktop="iscas/desktop/urumax-g1/cor-04.jpg" data-img-mobile="iscas/mobile/urumax-g1/cor-04.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#2a6040,#4a8060)"></div><span>Cor 04</span></div>
-            <div class="cor-item" data-nome="Cor 05" data-img-desktop="iscas/desktop/urumax-g1/cor-05.jpg" data-img-mobile="iscas/mobile/urumax-g1/cor-05.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#d04080,#f060a0)"></div><span>Cor 05</span></div>
-            <div class="cor-item" data-nome="Cor 06" data-img-desktop="iscas/desktop/urumax-g1/cor-06.jpg" data-img-mobile="iscas/mobile/urumax-g1/cor-06.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#1a3a6a,#2a5a9a)"></div><span>Cor 06</span></div>
-            <div class="cor-item" data-nome="Cor 07" data-img-desktop="iscas/desktop/urumax-g1/cor-07.jpg" data-img-mobile="iscas/mobile/urumax-g1/cor-07.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#d0d8e0,#f0f4f8)"></div><span>Cor 07</span></div>
-            <div class="cor-item" data-nome="Cor 08" data-img-desktop="iscas/desktop/urumax-g1/cor-08.jpg" data-img-mobile="iscas/mobile/urumax-g1/cor-08.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#5a2080,#8040b0)"></div><span>Cor 08</span></div>
-          </div></div>
-          <button class="btn-add-pedido"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Adicionar ao Pedido</button>
-        </div>
-      </article>
+        <!-- URUMAX G1 -->
+        <article class="produto-card reveal" data-categoria="urumax" data-slug="urumax-g1" data-nome="Urumax G1"
+          data-gramaturas="12g,14g,16g" data-cores="Cor 01,Cor 02,Cor 03,Cor 04,Cor 05,Cor 06,Cor 07,Cor 08,Cor 09,Cor 10"
+          data-cores-css="linear-gradient(135deg,#c8a84b,#f0d060)|linear-gradient(135deg,#a8b8c8,#e0eaf0)|linear-gradient(135deg,#e06020,#f08040)|linear-gradient(135deg,#2a6040,#4a8060)|linear-gradient(135deg,#d04080,#f060a0)|linear-gradient(135deg,#1a3a6a,#2a5a9a)|linear-gradient(135deg,#d0d8e0,#f0f4f8)|linear-gradient(135deg,#5a2080,#8040b0)|linear-gradient(135deg,#8b4513,#c87941)|linear-gradient(135deg,#1a1a1a,#3a3a3a)">
+          <div class="produto-card__info">
+            <h3 class="produto-nome">Urumax G1</h3>
+            <div class="produto-card__tags"><span class="gram-badge">13g</span><span class="gram-badge">16g</span></div>
+            <div class="produto-gramaturas">
+              <div class="cores-grid">
+                <div class="cor-item" data-nome="Cor 01" data-img-desktop="iscas/desktop/urumax-g1/cor-01.jpg"
+                  data-img-mobile="iscas/mobile/urumax-g1/cor-01.jpg">
+                  <div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#c8a84b,#f0d060)">
+                  </div><span>Cor 01</span>
+                </div>
+                <div class="cor-item" data-nome="Cor 02" data-img-desktop="iscas/desktop/urumax-g1/cor-02.jpg"
+                  data-img-mobile="iscas/mobile/urumax-g1/cor-02.jpg">
+                  <div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#a8b8c8,#e0eaf0)">
+                  </div><span>Cor 02</span>
+                </div>
+                <div class="cor-item" data-nome="Cor 03" data-img-desktop="iscas/desktop/urumax-g1/cor-03.jpg"
+                  data-img-mobile="iscas/mobile/urumax-g1/cor-03.jpg">
+                  <div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#e06020,#f08040)">
+                  </div><span>Cor 03</span>
+                </div>
+                <div class="cor-item" data-nome="Cor 04" data-img-desktop="iscas/desktop/urumax-g1/cor-04.jpg"
+                  data-img-mobile="iscas/mobile/urumax-g1/cor-04.jpg">
+                  <div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#2a6040,#4a8060)">
+                  </div><span>Cor 04</span>
+                </div>
+                <div class="cor-item" data-nome="Cor 05" data-img-desktop="iscas/desktop/urumax-g1/cor-05.jpg"
+                  data-img-mobile="iscas/mobile/urumax-g1/cor-05.jpg">
+                  <div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#d04080,#f060a0)">
+                  </div><span>Cor 05</span>
+                </div>
+                <div class="cor-item" data-nome="Cor 06" data-img-desktop="iscas/desktop/urumax-g1/cor-06.jpg"
+                  data-img-mobile="iscas/mobile/urumax-g1/cor-06.jpg">
+                  <div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#1a3a6a,#2a5a9a)">
+                  </div><span>Cor 06</span>
+                </div>
+                <div class="cor-item" data-nome="Cor 07" data-img-desktop="iscas/desktop/urumax-g1/cor-07.jpg"
+                  data-img-mobile="iscas/mobile/urumax-g1/cor-07.jpg">
+                  <div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#d0d8e0,#f0f4f8)">
+                  </div><span>Cor 07</span>
+                </div>
+                <div class="cor-item" data-nome="Cor 08" data-img-desktop="iscas/desktop/urumax-g1/cor-08.jpg"
+                  data-img-mobile="iscas/mobile/urumax-g1/cor-08.jpg">
+                  <div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#5a2080,#8040b0)">
+                  </div><span>Cor 08</span>
+                </div>
+                <div class="cor-item" data-nome="Cor 09" data-img-desktop="iscas/desktop/urumax-g1/cor-09.jpg"
+                  data-img-mobile="iscas/mobile/urumax-g1/cor-09.jpg">
+                  <div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#8b4513,#c87941)">
+                  </div><span>Cor 09</span>
+                </div>
+                <div class="cor-item" data-nome="Cor 10" data-img-desktop="iscas/desktop/urumax-g1/cor-10.jpg"
+                  data-img-mobile="iscas/mobile/urumax-g1/cor-10.jpg">
+                  <div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#1a1a1a,#3a3a3a)">
+                  </div><span>Cor 10</span>
+                </div>
+              </div>
+            </div>
+            <button class="btn-add-pedido"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                width="14" height="14">
+                <line x1="12" y1="5" x2="12" y2="19" />
+                <line x1="5" y1="12" x2="19" y2="12" />
+              </svg>Adicionar ao Pedido</button>
+          </div>
+        </article>
 
-      <!-- URUMAX G2 -->
-      <article class="produto-card reveal"
-        data-categoria="urumax" data-slug="urumax-g2" data-nome="Urumax G2"
-        data-gramaturas="16g"
-        data-cores="Cor 01,Cor 02,Cor 03,Cor 04,Cor 05,Cor 06,Cor 07,Cor 08"
-        data-cores-css="linear-gradient(135deg,#c8a84b,#f0d060)|linear-gradient(135deg,#a8b8c8,#e0eaf0)|linear-gradient(135deg,#e06020,#f08040)|linear-gradient(135deg,#2a6040,#4a8060)|linear-gradient(135deg,#d04080,#f060a0)|linear-gradient(135deg,#1a3a6a,#2a5a9a)|linear-gradient(135deg,#d0d8e0,#f0f4f8)|linear-gradient(135deg,#5a2080,#8040b0)">
-        <div class="produto-card__info">
-          <h3 class="produto-nome">Urumax G2</h3>
-          <div class="produto-card__tags"><span class="gram-badge">16g</span></div>
-          <div class="produto-gramaturas"><div class="cores-grid">
-            <div class="cor-item" data-nome="Cor 01" data-img-desktop="iscas/desktop/urumax-g2/cor-01.jpg" data-img-mobile="iscas/mobile/urumax-g2/cor-01.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#c8a84b,#f0d060)"></div><span>Cor 01</span></div>
-            <div class="cor-item" data-nome="Cor 02" data-img-desktop="iscas/desktop/urumax-g2/cor-02.jpg" data-img-mobile="iscas/mobile/urumax-g2/cor-02.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#a8b8c8,#e0eaf0)"></div><span>Cor 02</span></div>
-            <div class="cor-item" data-nome="Cor 03" data-img-desktop="iscas/desktop/urumax-g2/cor-03.jpg" data-img-mobile="iscas/mobile/urumax-g2/cor-03.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#e06020,#f08040)"></div><span>Cor 03</span></div>
-            <div class="cor-item" data-nome="Cor 04" data-img-desktop="iscas/desktop/urumax-g2/cor-04.jpg" data-img-mobile="iscas/mobile/urumax-g2/cor-04.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#2a6040,#4a8060)"></div><span>Cor 04</span></div>
-            <div class="cor-item" data-nome="Cor 05" data-img-desktop="iscas/desktop/urumax-g2/cor-05.jpg" data-img-mobile="iscas/mobile/urumax-g2/cor-05.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#d04080,#f060a0)"></div><span>Cor 05</span></div>
-            <div class="cor-item" data-nome="Cor 06" data-img-desktop="iscas/desktop/urumax-g2/cor-06.jpg" data-img-mobile="iscas/mobile/urumax-g2/cor-06.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#1a3a6a,#2a5a9a)"></div><span>Cor 06</span></div>
-            <div class="cor-item" data-nome="Cor 07" data-img-desktop="iscas/desktop/urumax-g2/cor-07.jpg" data-img-mobile="iscas/mobile/urumax-g2/cor-07.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#d0d8e0,#f0f4f8)"></div><span>Cor 07</span></div>
-            <div class="cor-item" data-nome="Cor 08" data-img-desktop="iscas/desktop/urumax-g2/cor-08.jpg" data-img-mobile="iscas/mobile/urumax-g2/cor-08.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#5a2080,#8040b0)"></div><span>Cor 08</span></div>
-          </div></div>
-          <button class="btn-add-pedido"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Adicionar ao Pedido</button>
-        </div>
-      </article>
+        <!-- URUMAX G2 -->
+        <article class="produto-card reveal" data-categoria="urumax" data-slug="urumax-g2" data-nome="Urumax G2"
+          data-gramaturas="16g" data-cores="Cor 01,Cor 02,Cor 03,Cor 04,Cor 05,Cor 06,Cor 07,Cor 08"
+          data-cores-css="linear-gradient(135deg,#c8a84b,#f0d060)|linear-gradient(135deg,#a8b8c8,#e0eaf0)|linear-gradient(135deg,#e06020,#f08040)|linear-gradient(135deg,#2a6040,#4a8060)|linear-gradient(135deg,#d04080,#f060a0)|linear-gradient(135deg,#1a3a6a,#2a5a9a)|linear-gradient(135deg,#d0d8e0,#f0f4f8)|linear-gradient(135deg,#5a2080,#8040b0)">
+          <div class="produto-card__info">
+            <h3 class="produto-nome">Urumax G2</h3>
+            <div class="produto-card__tags"><span class="gram-badge">16g</span></div>
+            <div class="produto-gramaturas">
+              <div class="cores-grid">
+                <div class="cor-item" data-nome="Cor 01" data-img-desktop="iscas/desktop/urumax-g2/cor-01.jpg"
+                  data-img-mobile="iscas/mobile/urumax-g2/cor-01.jpg">
+                  <div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#c8a84b,#f0d060)">
+                  </div><span>Cor 01</span>
+                </div>
+                <div class="cor-item" data-nome="Cor 02" data-img-desktop="iscas/desktop/urumax-g2/cor-02.jpg"
+                  data-img-mobile="iscas/mobile/urumax-g2/cor-02.jpg">
+                  <div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#a8b8c8,#e0eaf0)">
+                  </div><span>Cor 02</span>
+                </div>
+                <div class="cor-item" data-nome="Cor 03" data-img-desktop="iscas/desktop/urumax-g2/cor-03.jpg"
+                  data-img-mobile="iscas/mobile/urumax-g2/cor-03.jpg">
+                  <div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#e06020,#f08040)">
+                  </div><span>Cor 03</span>
+                </div>
+                <div class="cor-item" data-nome="Cor 04" data-img-desktop="iscas/desktop/urumax-g2/cor-04.jpg"
+                  data-img-mobile="iscas/mobile/urumax-g2/cor-04.jpg">
+                  <div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#2a6040,#4a8060)">
+                  </div><span>Cor 04</span>
+                </div>
+                <div class="cor-item" data-nome="Cor 05" data-img-desktop="iscas/desktop/urumax-g2/cor-05.jpg"
+                  data-img-mobile="iscas/mobile/urumax-g2/cor-05.jpg">
+                  <div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#d04080,#f060a0)">
+                  </div><span>Cor 05</span>
+                </div>
+                <div class="cor-item" data-nome="Cor 06" data-img-desktop="iscas/desktop/urumax-g2/cor-06.jpg"
+                  data-img-mobile="iscas/mobile/urumax-g2/cor-06.jpg">
+                  <div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#1a3a6a,#2a5a9a)">
+                  </div><span>Cor 06</span>
+                </div>
+                <div class="cor-item" data-nome="Cor 07" data-img-desktop="iscas/desktop/urumax-g2/cor-07.jpg"
+                  data-img-mobile="iscas/mobile/urumax-g2/cor-07.jpg">
+                  <div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#d0d8e0,#f0f4f8)">
+                  </div><span>Cor 07</span>
+                </div>
+                <div class="cor-item" data-nome="Cor 08" data-img-desktop="iscas/desktop/urumax-g2/cor-08.jpg"
+                  data-img-mobile="iscas/mobile/urumax-g2/cor-08.jpg">
+                  <div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#5a2080,#8040b0)">
+                  </div><span>Cor 08</span>
+                </div>
+              </div>
+            </div>
+            <button class="btn-add-pedido"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                width="14" height="14">
+                <line x1="12" y1="5" x2="12" y2="19" />
+                <line x1="5" y1="12" x2="19" y2="12" />
+              </svg>Adicionar ao Pedido</button>
+          </div>
+        </article>
 
-      <!-- JIG-BOLINHA -->
-      <article class="produto-card reveal"
-        data-categoria="jig" data-slug="jig-bolinha" data-nome="Jig-Bolinha"
-        data-gramaturas="12g,14g,16g"
-        data-cores="Cor 01,Cor 02,Cor 03"
-        data-cores-css="linear-gradient(135deg,#c8a84b,#f0d060)|linear-gradient(135deg,#a8b8c8,#e0eaf0)|linear-gradient(135deg,#e06020,#f08040)">
-        <div class="produto-card__info">
-          <h3 class="produto-nome">Jig-Bolinha</h3>
-          <div class="produto-card__tags"><span class="gram-badge">12g</span><span class="gram-badge">14g</span><span class="gram-badge">16g</span></div>
-          <div class="produto-gramaturas"><div class="cores-grid">
-            <div class="cor-item" data-nome="Cor 01" data-img-desktop="iscas/desktop/jig-bolinha/cor-01.jpg" data-img-mobile="iscas/mobile/jig-bolinha/cor-01.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#c8a84b,#f0d060)"></div><span>Cor 01</span></div>
-            <div class="cor-item" data-nome="Cor 02" data-img-desktop="iscas/desktop/jig-bolinha/cor-02.jpg" data-img-mobile="iscas/mobile/jig-bolinha/cor-02.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#a8b8c8,#e0eaf0)"></div><span>Cor 02</span></div>
-            <div class="cor-item" data-nome="Cor 03" data-img-desktop="iscas/desktop/jig-bolinha/cor-03.jpg" data-img-mobile="iscas/mobile/jig-bolinha/cor-03.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#e06020,#f08040)"></div><span>Cor 03</span></div>
-          </div></div>
-          <button class="btn-add-pedido"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Adicionar ao Pedido</button>
-        </div>
-      </article>
+        <!-- JIG-BOLINHA -->
+        <article class="produto-card reveal" data-categoria="jig" data-slug="jig-bolinha" data-nome="Jig-Bolinha"
+          data-gramaturas="12g,14g,16g" data-cores="Cor 01,Cor 02,Cor 03"
+          data-cores-css="linear-gradient(135deg,#c8a84b,#f0d060)|linear-gradient(135deg,#a8b8c8,#e0eaf0)|linear-gradient(135deg,#e06020,#f08040)">
+          <div class="produto-card__info">
+            <h3 class="produto-nome">Jig-Bolinha</h3>
+            <div class="produto-card__tags"><span class="gram-badge">12g</span><span class="gram-badge">14g</span><span
+                class="gram-badge">16g</span></div>
+            <div class="produto-gramaturas">
+              <div class="cores-grid">
+                <div class="cor-item" data-nome="Cor 01" data-img-desktop="iscas/desktop/jig-bolinha/cor-01.jpg"
+                  data-img-mobile="iscas/mobile/jig-bolinha/cor-01.jpg">
+                  <div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#c8a84b,#f0d060)">
+                  </div><span>Cor 01</span>
+                </div>
+                <div class="cor-item" data-nome="Cor 02" data-img-desktop="iscas/desktop/jig-bolinha/cor-02.jpg"
+                  data-img-mobile="iscas/mobile/jig-bolinha/cor-02.jpg">
+                  <div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#a8b8c8,#e0eaf0)">
+                  </div><span>Cor 02</span>
+                </div>
+                <div class="cor-item" data-nome="Cor 03" data-img-desktop="iscas/desktop/jig-bolinha/cor-03.jpg"
+                  data-img-mobile="iscas/mobile/jig-bolinha/cor-03.jpg">
+                  <div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#e06020,#f08040)">
+                  </div><span>Cor 03</span>
+                </div>
+              </div>
+            </div>
+            <button class="btn-add-pedido"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                width="14" height="14">
+                <line x1="12" y1="5" x2="12" y2="19" />
+                <line x1="5" y1="12" x2="19" y2="12" />
+              </svg>Adicionar ao Pedido</button>
+          </div>
+        </article>
 
-      <!-- MICRO-JIG -->
-      <article class="produto-card reveal"
-        data-categoria="jig" data-slug="micro-jig" data-nome="Micro-Jig"
-        data-gramaturas="8g,12g,14g"
-        data-cores="Cor 01,Cor 02,Cor 03,Cor 04,Cor 05,Cor 06"
-        data-cores-css="linear-gradient(135deg,#c8a84b,#f0d060)|linear-gradient(135deg,#a8b8c8,#e0eaf0)|linear-gradient(135deg,#e06020,#f08040)|linear-gradient(135deg,#2a6040,#4a8060)|linear-gradient(135deg,#d04080,#f060a0)|linear-gradient(135deg,#1a3a6a,#2a5a9a)">
-        <div class="produto-card__info">
-          <h3 class="produto-nome">Micro-Jig</h3>
-          <div class="produto-card__tags"><span class="gram-badge">8g</span><span class="gram-badge">12g</span><span class="gram-badge">14g</span></div>
-          <div class="produto-gramaturas"><div class="cores-grid">
-            <div class="cor-item" data-nome="Cor 01" data-img-desktop="iscas/desktop/micro-jig/cor-01.jpg" data-img-mobile="iscas/mobile/micro-jig/cor-01.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#c8a84b,#f0d060)"></div><span>Cor 01</span></div>
-            <div class="cor-item" data-nome="Cor 02" data-img-desktop="iscas/desktop/micro-jig/cor-02.jpg" data-img-mobile="iscas/mobile/micro-jig/cor-02.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#a8b8c8,#e0eaf0)"></div><span>Cor 02</span></div>
-            <div class="cor-item" data-nome="Cor 03" data-img-desktop="iscas/desktop/micro-jig/cor-03.jpg" data-img-mobile="iscas/mobile/micro-jig/cor-03.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#e06020,#f08040)"></div><span>Cor 03</span></div>
-            <div class="cor-item" data-nome="Cor 04" data-img-desktop="iscas/desktop/micro-jig/cor-04.jpg" data-img-mobile="iscas/mobile/micro-jig/cor-04.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#2a6040,#4a8060)"></div><span>Cor 04</span></div>
-            <div class="cor-item" data-nome="Cor 05" data-img-desktop="iscas/desktop/micro-jig/cor-05.jpg" data-img-mobile="iscas/mobile/micro-jig/cor-05.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#d04080,#f060a0)"></div><span>Cor 05</span></div>
-            <div class="cor-item" data-nome="Cor 06" data-img-desktop="iscas/desktop/micro-jig/cor-06.jpg" data-img-mobile="iscas/mobile/micro-jig/cor-06.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#1a3a6a,#2a5a9a)"></div><span>Cor 06</span></div>
-          </div></div>
-          <button class="btn-add-pedido"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Adicionar ao Pedido</button>
-        </div>
-      </article>
+        <!-- MICRO-JIG -->
+        <article class="produto-card reveal" data-categoria="jig" data-slug="micro-jig" data-nome="Micro-Jig"
+          data-gramaturas="8g,12g,14g" data-cores="Cor 01,Cor 02,Cor 03,Cor 04,Cor 05,Cor 06"
+          data-cores-css="linear-gradient(135deg,#c8a84b,#f0d060)|linear-gradient(135deg,#a8b8c8,#e0eaf0)|linear-gradient(135deg,#e06020,#f08040)|linear-gradient(135deg,#2a6040,#4a8060)|linear-gradient(135deg,#d04080,#f060a0)|linear-gradient(135deg,#1a3a6a,#2a5a9a)">
+          <div class="produto-card__info">
+            <h3 class="produto-nome">Micro-Jig</h3>
+            <div class="produto-card__tags"><span class="gram-badge">8g</span><span class="gram-badge">12g</span><span
+                class="gram-badge">14g</span></div>
+            <div class="produto-gramaturas">
+              <div class="cores-grid">
+                <div class="cor-item" data-nome="Cor 01" data-img-desktop="iscas/desktop/micro-jig/cor-01.jpg"
+                  data-img-mobile="iscas/mobile/micro-jig/cor-01.jpg">
+                  <div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#c8a84b,#f0d060)">
+                  </div><span>Cor 01</span>
+                </div>
+                <div class="cor-item" data-nome="Cor 02" data-img-desktop="iscas/desktop/micro-jig/cor-02.jpg"
+                  data-img-mobile="iscas/mobile/micro-jig/cor-02.jpg">
+                  <div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#a8b8c8,#e0eaf0)">
+                  </div><span>Cor 02</span>
+                </div>
+                <div class="cor-item" data-nome="Cor 03" data-img-desktop="iscas/desktop/micro-jig/cor-03.jpg"
+                  data-img-mobile="iscas/mobile/micro-jig/cor-03.jpg">
+                  <div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#e06020,#f08040)">
+                  </div><span>Cor 03</span>
+                </div>
+                <div class="cor-item" data-nome="Cor 04" data-img-desktop="iscas/desktop/micro-jig/cor-04.jpg"
+                  data-img-mobile="iscas/mobile/micro-jig/cor-04.jpg">
+                  <div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#2a6040,#4a8060)">
+                  </div><span>Cor 04</span>
+                </div>
+                <div class="cor-item" data-nome="Cor 05" data-img-desktop="iscas/desktop/micro-jig/cor-05.jpg"
+                  data-img-mobile="iscas/mobile/micro-jig/cor-05.jpg">
+                  <div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#d04080,#f060a0)">
+                  </div><span>Cor 05</span>
+                </div>
+                <div class="cor-item" data-nome="Cor 06" data-img-desktop="iscas/desktop/micro-jig/cor-06.jpg"
+                  data-img-mobile="iscas/mobile/micro-jig/cor-06.jpg">
+                  <div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#1a3a6a,#2a5a9a)">
+                  </div><span>Cor 06</span>
+                </div>
+              </div>
+            </div>
+            <button class="btn-add-pedido"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                width="14" height="14">
+                <line x1="12" y1="5" x2="12" y2="19" />
+                <line x1="5" y1="12" x2="19" y2="12" />
+              </svg>Adicionar ao Pedido</button>
+          </div>
+        </article>
 
-      <!-- SPINNER -->
-      <article class="produto-card reveal"
-        data-categoria="spinner" data-slug="spinner" data-nome="Spinner"
-        data-gramaturas="12g,14g,16g"
-        data-cores="Cor 01,Cor 02,Cor 03,Cor 04,Cor 05,Cor 06,Cor 07,Cor 08"
-        data-cores-css="linear-gradient(135deg,#c8a84b,#f0d060)|linear-gradient(135deg,#a8b8c8,#e0eaf0)|linear-gradient(135deg,#e06020,#f08040)|linear-gradient(135deg,#2a6040,#4a8060)|linear-gradient(135deg,#d04080,#f060a0)|linear-gradient(135deg,#1a3a6a,#2a5a9a)|linear-gradient(135deg,#d0d8e0,#f0f4f8)|linear-gradient(135deg,#5a2080,#8040b0)">
-        <div class="produto-card__info">
-          <h3 class="produto-nome">Spinner</h3>
-          <div class="produto-card__tags"><span class="gram-badge">12g</span><span class="gram-badge">14g</span><span class="gram-badge">16g</span></div>
-          <div class="produto-gramaturas"><div class="cores-grid">
-            <div class="cor-item" data-nome="Cor 01" data-img-desktop="iscas/desktop/spinner/cor-01.jpg" data-img-mobile="iscas/mobile/spinner/cor-01.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#c8a84b,#f0d060)"></div><span>Cor 01</span></div>
-            <div class="cor-item" data-nome="Cor 02" data-img-desktop="iscas/desktop/spinner/cor-02.jpg" data-img-mobile="iscas/mobile/spinner/cor-02.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#a8b8c8,#e0eaf0)"></div><span>Cor 02</span></div>
-            <div class="cor-item" data-nome="Cor 03" data-img-desktop="iscas/desktop/spinner/cor-03.jpg" data-img-mobile="iscas/mobile/spinner/cor-03.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#e06020,#f08040)"></div><span>Cor 03</span></div>
-            <div class="cor-item" data-nome="Cor 04" data-img-desktop="iscas/desktop/spinner/cor-04.jpg" data-img-mobile="iscas/mobile/spinner/cor-04.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#2a6040,#4a8060)"></div><span>Cor 04</span></div>
-            <div class="cor-item" data-nome="Cor 05" data-img-desktop="iscas/desktop/spinner/cor-05.jpg" data-img-mobile="iscas/mobile/spinner/cor-05.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#d04080,#f060a0)"></div><span>Cor 05</span></div>
-            <div class="cor-item" data-nome="Cor 06" data-img-desktop="iscas/desktop/spinner/cor-06.jpg" data-img-mobile="iscas/mobile/spinner/cor-06.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#1a3a6a,#2a5a9a)"></div><span>Cor 06</span></div>
-            <div class="cor-item" data-nome="Cor 07" data-img-desktop="iscas/desktop/spinner/cor-07.jpg" data-img-mobile="iscas/mobile/spinner/cor-07.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#d0d8e0,#f0f4f8)"></div><span>Cor 07</span></div>
-            <div class="cor-item" data-nome="Cor 08" data-img-desktop="iscas/desktop/spinner/cor-08.jpg" data-img-mobile="iscas/mobile/spinner/cor-08.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#5a2080,#8040b0)"></div><span>Cor 08</span></div>
-          </div></div>
-          <button class="btn-add-pedido"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Adicionar ao Pedido</button>
-        </div>
-      </article>
+        <!-- SPINNER -->
+        <article class="produto-card reveal" data-categoria="spinner" data-slug="spinner" data-nome="Spinner"
+          data-gramaturas="12g,14g,16g" data-cores="Cor 01,Cor 02,Cor 03,Cor 04,Cor 05,Cor 06,Cor 07,Cor 08"
+          data-cores-css="linear-gradient(135deg,#c8a84b,#f0d060)|linear-gradient(135deg,#a8b8c8,#e0eaf0)|linear-gradient(135deg,#e06020,#f08040)|linear-gradient(135deg,#2a6040,#4a8060)|linear-gradient(135deg,#d04080,#f060a0)|linear-gradient(135deg,#1a3a6a,#2a5a9a)|linear-gradient(135deg,#d0d8e0,#f0f4f8)|linear-gradient(135deg,#5a2080,#8040b0)">
+          <div class="produto-card__info">
+            <h3 class="produto-nome">Spinner</h3>
+            <div class="produto-card__tags"><span class="gram-badge">12g</span><span class="gram-badge">14g</span><span
+                class="gram-badge">16g</span></div>
+            <div class="produto-gramaturas">
+              <div class="cores-grid">
+                <div class="cor-item" data-nome="Cor 01" data-img-desktop="iscas/desktop/spinner/cor-01.jpg"
+                  data-img-mobile="iscas/mobile/spinner/cor-01.jpg">
+                  <div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#c8a84b,#f0d060)">
+                  </div><span>Cor 01</span>
+                </div>
+                <div class="cor-item" data-nome="Cor 02" data-img-desktop="iscas/desktop/spinner/cor-02.jpg"
+                  data-img-mobile="iscas/mobile/spinner/cor-02.jpg">
+                  <div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#a8b8c8,#e0eaf0)">
+                  </div><span>Cor 02</span>
+                </div>
+                <div class="cor-item" data-nome="Cor 03" data-img-desktop="iscas/desktop/spinner/cor-03.jpg"
+                  data-img-mobile="iscas/mobile/spinner/cor-03.jpg">
+                  <div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#e06020,#f08040)">
+                  </div><span>Cor 03</span>
+                </div>
+                <div class="cor-item" data-nome="Cor 04" data-img-desktop="iscas/desktop/spinner/cor-04.jpg"
+                  data-img-mobile="iscas/mobile/spinner/cor-04.jpg">
+                  <div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#2a6040,#4a8060)">
+                  </div><span>Cor 04</span>
+                </div>
+                <div class="cor-item" data-nome="Cor 05" data-img-desktop="iscas/desktop/spinner/cor-05.jpg"
+                  data-img-mobile="iscas/mobile/spinner/cor-05.jpg">
+                  <div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#d04080,#f060a0)">
+                  </div><span>Cor 05</span>
+                </div>
+                <div class="cor-item" data-nome="Cor 06" data-img-desktop="iscas/desktop/spinner/cor-06.jpg"
+                  data-img-mobile="iscas/mobile/spinner/cor-06.jpg">
+                  <div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#1a3a6a,#2a5a9a)">
+                  </div><span>Cor 06</span>
+                </div>
+                <div class="cor-item" data-nome="Cor 07" data-img-desktop="iscas/desktop/spinner/cor-07.jpg"
+                  data-img-mobile="iscas/mobile/spinner/cor-07.jpg">
+                  <div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#d0d8e0,#f0f4f8)">
+                  </div><span>Cor 07</span>
+                </div>
+                <div class="cor-item" data-nome="Cor 08" data-img-desktop="iscas/desktop/spinner/cor-08.jpg"
+                  data-img-mobile="iscas/mobile/spinner/cor-08.jpg">
+                  <div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#5a2080,#8040b0)">
+                  </div><span>Cor 08</span>
+                </div>
+              </div>
+            </div>
+            <button class="btn-add-pedido"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                width="14" height="14">
+                <line x1="12" y1="5" x2="12" y2="19" />
+                <line x1="5" y1="12" x2="19" y2="12" />
+              </svg>Adicionar ao Pedido</button>
+          </div>
+        </article>
 
-      <!-- JIG PEIXINHO -->
-      <article class="produto-card reveal"
-        data-categoria="jig" data-slug="jig-peixinho" data-nome="Jig Peixinho"
-        data-gramaturas="12g,14g,16g"
-        data-cores="Cor 01,Cor 02,Cor 03,Cor 04,Cor 05,Cor 06,Cor 07,Cor 08"
-        data-cores-css="linear-gradient(135deg,#c8a84b,#f0d060)|linear-gradient(135deg,#a8b8c8,#e0eaf0)|linear-gradient(135deg,#e06020,#f08040)|linear-gradient(135deg,#2a6040,#4a8060)|linear-gradient(135deg,#d04080,#f060a0)|linear-gradient(135deg,#1a3a6a,#2a5a9a)|linear-gradient(135deg,#d0d8e0,#f0f4f8)|linear-gradient(135deg,#5a2080,#8040b0)">
-        <div class="produto-card__info">
-          <h3 class="produto-nome">Jig Peixinho</h3>
-          <div class="produto-card__tags"><span class="gram-badge">12g</span><span class="gram-badge">14g</span></div>
-          <div class="produto-gramaturas"><div class="cores-grid">
-            <div class="cor-item" data-nome="Cor 01" data-img-desktop="iscas/desktop/jig-peixinho/cor-01.jpg" data-img-mobile="iscas/mobile/jig-peixinho/cor-01.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#c8a84b,#f0d060)"></div><span>Cor 01</span></div>
-            <div class="cor-item" data-nome="Cor 02" data-img-desktop="iscas/desktop/jig-peixinho/cor-02.jpg" data-img-mobile="iscas/mobile/jig-peixinho/cor-02.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#a8b8c8,#e0eaf0)"></div><span>Cor 02</span></div>
-            <div class="cor-item" data-nome="Cor 03" data-img-desktop="iscas/desktop/jig-peixinho/cor-03.jpg" data-img-mobile="iscas/mobile/jig-peixinho/cor-03.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#e06020,#f08040)"></div><span>Cor 03</span></div>
-            <div class="cor-item" data-nome="Cor 04" data-img-desktop="iscas/desktop/jig-peixinho/cor-04.jpg" data-img-mobile="iscas/mobile/jig-peixinho/cor-04.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#2a6040,#4a8060)"></div><span>Cor 04</span></div>
-            <div class="cor-item" data-nome="Cor 05" data-img-desktop="iscas/desktop/jig-peixinho/cor-05.jpg" data-img-mobile="iscas/mobile/jig-peixinho/cor-05.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#d04080,#f060a0)"></div><span>Cor 05</span></div>
-            <div class="cor-item" data-nome="Cor 06" data-img-desktop="iscas/desktop/jig-peixinho/cor-06.jpg" data-img-mobile="iscas/mobile/jig-peixinho/cor-06.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#1a3a6a,#2a5a9a)"></div><span>Cor 06</span></div>
-            <div class="cor-item" data-nome="Cor 07" data-img-desktop="iscas/desktop/jig-peixinho/cor-07.jpg" data-img-mobile="iscas/mobile/jig-peixinho/cor-07.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#d0d8e0,#f0f4f8)"></div><span>Cor 07</span></div>
-            <div class="cor-item" data-nome="Cor 08" data-img-desktop="iscas/desktop/jig-peixinho/cor-08.jpg" data-img-mobile="iscas/mobile/jig-peixinho/cor-08.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#5a2080,#8040b0)"></div><span>Cor 08</span></div>
-          </div></div>
-          <button class="btn-add-pedido"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Adicionar ao Pedido</button>
-        </div>
-      </article>
+        <!-- JIG PEIXINHO -->
+        <article class="produto-card reveal" data-categoria="jig" data-slug="jig-peixinho" data-nome="Jig Peixinho"
+          data-gramaturas="12g,14g,16g" data-cores="Cor 01,Cor 02,Cor 03,Cor 04,Cor 05,Cor 06,Cor 07,Cor 08"
+          data-cores-css="linear-gradient(135deg,#c8a84b,#f0d060)|linear-gradient(135deg,#a8b8c8,#e0eaf0)|linear-gradient(135deg,#e06020,#f08040)|linear-gradient(135deg,#2a6040,#4a8060)|linear-gradient(135deg,#d04080,#f060a0)|linear-gradient(135deg,#1a3a6a,#2a5a9a)|linear-gradient(135deg,#d0d8e0,#f0f4f8)|linear-gradient(135deg,#5a2080,#8040b0)">
+          <div class="produto-card__info">
+            <h3 class="produto-nome">Jig Peixinho</h3>
+            <div class="produto-card__tags"><span class="gram-badge">12g</span><span class="gram-badge">14g</span></div>
+            <div class="produto-gramaturas">
+              <div class="cores-grid">
+                <div class="cor-item" data-nome="Cor 01" data-img-desktop="iscas/desktop/jig-peixinho/cor-01.jpg"
+                  data-img-mobile="iscas/mobile/jig-peixinho/cor-01.jpg">
+                  <div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#c8a84b,#f0d060)">
+                  </div><span>Cor 01</span>
+                </div>
+                <div class="cor-item" data-nome="Cor 02" data-img-desktop="iscas/desktop/jig-peixinho/cor-02.jpg"
+                  data-img-mobile="iscas/mobile/jig-peixinho/cor-02.jpg">
+                  <div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#a8b8c8,#e0eaf0)">
+                  </div><span>Cor 02</span>
+                </div>
+                <div class="cor-item" data-nome="Cor 03" data-img-desktop="iscas/desktop/jig-peixinho/cor-03.jpg"
+                  data-img-mobile="iscas/mobile/jig-peixinho/cor-03.jpg">
+                  <div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#e06020,#f08040)">
+                  </div><span>Cor 03</span>
+                </div>
+                <div class="cor-item" data-nome="Cor 04" data-img-desktop="iscas/desktop/jig-peixinho/cor-04.jpg"
+                  data-img-mobile="iscas/mobile/jig-peixinho/cor-04.jpg">
+                  <div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#2a6040,#4a8060)">
+                  </div><span>Cor 04</span>
+                </div>
+                <div class="cor-item" data-nome="Cor 05" data-img-desktop="iscas/desktop/jig-peixinho/cor-05.jpg"
+                  data-img-mobile="iscas/mobile/jig-peixinho/cor-05.jpg">
+                  <div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#d04080,#f060a0)">
+                  </div><span>Cor 05</span>
+                </div>
+                <div class="cor-item" data-nome="Cor 06" data-img-desktop="iscas/desktop/jig-peixinho/cor-06.jpg"
+                  data-img-mobile="iscas/mobile/jig-peixinho/cor-06.jpg">
+                  <div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#1a3a6a,#2a5a9a)">
+                  </div><span>Cor 06</span>
+                </div>
+                <div class="cor-item" data-nome="Cor 07" data-img-desktop="iscas/desktop/jig-peixinho/cor-07.jpg"
+                  data-img-mobile="iscas/mobile/jig-peixinho/cor-07.jpg">
+                  <div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#d0d8e0,#f0f4f8)">
+                  </div><span>Cor 07</span>
+                </div>
+                <div class="cor-item" data-nome="Cor 08" data-img-desktop="iscas/desktop/jig-peixinho/cor-08.jpg"
+                  data-img-mobile="iscas/mobile/jig-peixinho/cor-08.jpg">
+                  <div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#5a2080,#8040b0)">
+                  </div><span>Cor 08</span>
+                </div>
+              </div>
+            </div>
+            <button class="btn-add-pedido"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                width="14" height="14">
+                <line x1="12" y1="5" x2="12" y2="19" />
+                <line x1="5" y1="12" x2="19" y2="12" />
+              </svg>Adicionar ao Pedido</button>
+          </div>
+        </article>
 
-      <!-- JIG URUTAU -->
-      <article class="produto-card reveal"
-        data-categoria="jig" data-slug="jig-urutau" data-nome="Jig Urutau"
-        data-gramaturas="13g"
-        data-cores="Cor 01,Cor 02,Cor 03,Cor 04,Cor 05,Cor 06,Cor 07,Cor 08"
-        data-cores-css="linear-gradient(135deg,#c8a84b,#f0d060)|linear-gradient(135deg,#a8b8c8,#e0eaf0)|linear-gradient(135deg,#e06020,#f08040)|linear-gradient(135deg,#2a6040,#4a8060)|linear-gradient(135deg,#d04080,#f060a0)|linear-gradient(135deg,#1a3a6a,#2a5a9a)|linear-gradient(135deg,#d0d8e0,#f0f4f8)|linear-gradient(135deg,#5a2080,#8040b0)">
-        <div class="produto-card__info">
-          <h3 class="produto-nome">Jig Urutau</h3>
-          <div class="produto-card__tags"><span class="gram-badge">12g</span></div>
-          <div class="produto-gramaturas"><div class="cores-grid">
-            <div class="cor-item" data-nome="Cor 01" data-img-desktop="iscas/desktop/jig-urutau/cor-01.jpg" data-img-mobile="iscas/mobile/jig-urutau/cor-01.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#c8a84b,#f0d060)"></div><span>Cor 01</span></div>
-            <div class="cor-item" data-nome="Cor 02" data-img-desktop="iscas/desktop/jig-urutau/cor-02.jpg" data-img-mobile="iscas/mobile/jig-urutau/cor-02.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#a8b8c8,#e0eaf0)"></div><span>Cor 02</span></div>
-            <div class="cor-item" data-nome="Cor 03" data-img-desktop="iscas/desktop/jig-urutau/cor-03.jpg" data-img-mobile="iscas/mobile/jig-urutau/cor-03.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#e06020,#f08040)"></div><span>Cor 03</span></div>
-            <div class="cor-item" data-nome="Cor 04" data-img-desktop="iscas/desktop/jig-urutau/cor-04.jpg" data-img-mobile="iscas/mobile/jig-urutau/cor-04.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#2a6040,#4a8060)"></div><span>Cor 04</span></div>
-            <div class="cor-item" data-nome="Cor 05" data-img-desktop="iscas/desktop/jig-urutau/cor-05.jpg" data-img-mobile="iscas/mobile/jig-urutau/cor-05.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#d04080,#f060a0)"></div><span>Cor 05</span></div>
-            <div class="cor-item" data-nome="Cor 06" data-img-desktop="iscas/desktop/jig-urutau/cor-06.jpg" data-img-mobile="iscas/mobile/jig-urutau/cor-06.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#1a3a6a,#2a5a9a)"></div><span>Cor 06</span></div>
-            <div class="cor-item" data-nome="Cor 07" data-img-desktop="iscas/desktop/jig-urutau/cor-07.jpg" data-img-mobile="iscas/mobile/jig-urutau/cor-07.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#d0d8e0,#f0f4f8)"></div><span>Cor 07</span></div>
-            <div class="cor-item" data-nome="Cor 08" data-img-desktop="iscas/desktop/jig-urutau/cor-08.jpg" data-img-mobile="iscas/mobile/jig-urutau/cor-08.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#5a2080,#8040b0)"></div><span>Cor 08</span></div>
-          </div></div>
-          <button class="btn-add-pedido"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Adicionar ao Pedido</button>
-        </div>
-      </article>
+        <!-- JIG URUTAU -->
+        <article class="produto-card reveal" data-categoria="jig" data-slug="jig-urutau" data-nome="Jig Urutau"
+          data-gramaturas="13g" data-cores="Cor 01,Cor 02,Cor 03,Cor 04,Cor 05,Cor 06,Cor 07,Cor 08"
+          data-cores-css="linear-gradient(135deg,#c8a84b,#f0d060)|linear-gradient(135deg,#a8b8c8,#e0eaf0)|linear-gradient(135deg,#e06020,#f08040)|linear-gradient(135deg,#2a6040,#4a8060)|linear-gradient(135deg,#d04080,#f060a0)|linear-gradient(135deg,#1a3a6a,#2a5a9a)|linear-gradient(135deg,#d0d8e0,#f0f4f8)|linear-gradient(135deg,#5a2080,#8040b0)">
+          <div class="produto-card__info">
+            <h3 class="produto-nome">Jig Urutau</h3>
+            <div class="produto-card__tags"><span class="gram-badge">12g</span></div>
+            <div class="produto-gramaturas">
+              <div class="cores-grid">
+                <div class="cor-item" data-nome="Cor 01" data-img-desktop="iscas/desktop/jig-urutau/cor-01.jpg"
+                  data-img-mobile="iscas/mobile/jig-urutau/cor-01.jpg">
+                  <div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#c8a84b,#f0d060)">
+                  </div><span>Cor 01</span>
+                </div>
+                <div class="cor-item" data-nome="Cor 02" data-img-desktop="iscas/desktop/jig-urutau/cor-02.jpg"
+                  data-img-mobile="iscas/mobile/jig-urutau/cor-02.jpg">
+                  <div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#a8b8c8,#e0eaf0)">
+                  </div><span>Cor 02</span>
+                </div>
+                <div class="cor-item" data-nome="Cor 03" data-img-desktop="iscas/desktop/jig-urutau/cor-03.jpg"
+                  data-img-mobile="iscas/mobile/jig-urutau/cor-03.jpg">
+                  <div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#e06020,#f08040)">
+                  </div><span>Cor 03</span>
+                </div>
+                <div class="cor-item" data-nome="Cor 04" data-img-desktop="iscas/desktop/jig-urutau/cor-04.jpg"
+                  data-img-mobile="iscas/mobile/jig-urutau/cor-04.jpg">
+                  <div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#2a6040,#4a8060)">
+                  </div><span>Cor 04</span>
+                </div>
+                <div class="cor-item" data-nome="Cor 05" data-img-desktop="iscas/desktop/jig-urutau/cor-05.jpg"
+                  data-img-mobile="iscas/mobile/jig-urutau/cor-05.jpg">
+                  <div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#d04080,#f060a0)">
+                  </div><span>Cor 05</span>
+                </div>
+                <div class="cor-item" data-nome="Cor 06" data-img-desktop="iscas/desktop/jig-urutau/cor-06.jpg"
+                  data-img-mobile="iscas/mobile/jig-urutau/cor-06.jpg">
+                  <div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#1a3a6a,#2a5a9a)">
+                  </div><span>Cor 06</span>
+                </div>
+                <div class="cor-item" data-nome="Cor 07" data-img-desktop="iscas/desktop/jig-urutau/cor-07.jpg"
+                  data-img-mobile="iscas/mobile/jig-urutau/cor-07.jpg">
+                  <div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#d0d8e0,#f0f4f8)">
+                  </div><span>Cor 07</span>
+                </div>
+                <div class="cor-item" data-nome="Cor 08" data-img-desktop="iscas/desktop/jig-urutau/cor-08.jpg"
+                  data-img-mobile="iscas/mobile/jig-urutau/cor-08.jpg">
+                  <div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#5a2080,#8040b0)">
+                  </div><span>Cor 08</span>
+                </div>
+              </div>
+            </div>
+            <button class="btn-add-pedido"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                width="14" height="14">
+                <line x1="12" y1="5" x2="12" y2="19" />
+                <line x1="5" y1="12" x2="19" y2="12" />
+              </svg>Adicionar ao Pedido</button>
+          </div>
+        </article>
 
-      <!-- JIG ARTICULADO -->
-      <article class="produto-card reveal"
-        data-categoria="jig" data-slug="jig-articulado" data-nome="Jig Articulado"
-        data-gramaturas="12g,14g,16g"
-        data-cores="Cor 01,Cor 02,Cor 03,Cor 04,Cor 05,Cor 06,Cor 07,Cor 08"
-        data-cores-css="linear-gradient(135deg,#c8a84b,#f0d060)|linear-gradient(135deg,#a8b8c8,#e0eaf0)|linear-gradient(135deg,#e06020,#f08040)|linear-gradient(135deg,#2a6040,#4a8060)|linear-gradient(135deg,#d04080,#f060a0)|linear-gradient(135deg,#1a3a6a,#2a5a9a)|linear-gradient(135deg,#d0d8e0,#f0f4f8)|linear-gradient(135deg,#5a2080,#8040b0)">
-        <div class="produto-card__info">
-          <h3 class="produto-nome">Jig Articulado</h3>
-          <div class="produto-card__tags"><span class="gram-badge">12g</span><span class="gram-badge">14g</span><span class="gram-badge">16g</span></div>
-          <div class="produto-gramaturas"><div class="cores-grid">
-            <div class="cor-item" data-nome="Cor 01" data-img-desktop="iscas/desktop/jig-articulado/cor-01.jpg" data-img-mobile="iscas/mobile/jig-articulado/cor-01.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#c8a84b,#f0d060)"></div><span>Cor 01</span></div>
-            <div class="cor-item" data-nome="Cor 02" data-img-desktop="iscas/desktop/jig-articulado/cor-02.jpg" data-img-mobile="iscas/mobile/jig-articulado/cor-02.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#a8b8c8,#e0eaf0)"></div><span>Cor 02</span></div>
-            <div class="cor-item" data-nome="Cor 03" data-img-desktop="iscas/desktop/jig-articulado/cor-03.jpg" data-img-mobile="iscas/mobile/jig-articulado/cor-03.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#e06020,#f08040)"></div><span>Cor 03</span></div>
-            <div class="cor-item" data-nome="Cor 04" data-img-desktop="iscas/desktop/jig-articulado/cor-04.jpg" data-img-mobile="iscas/mobile/jig-articulado/cor-04.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#2a6040,#4a8060)"></div><span>Cor 04</span></div>
-            <div class="cor-item" data-nome="Cor 05" data-img-desktop="iscas/desktop/jig-articulado/cor-05.jpg" data-img-mobile="iscas/mobile/jig-articulado/cor-05.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#d04080,#f060a0)"></div><span>Cor 05</span></div>
-            <div class="cor-item" data-nome="Cor 06" data-img-desktop="iscas/desktop/jig-articulado/cor-06.jpg" data-img-mobile="iscas/mobile/jig-articulado/cor-06.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#1a3a6a,#2a5a9a)"></div><span>Cor 06</span></div>
-            <div class="cor-item" data-nome="Cor 07" data-img-desktop="iscas/desktop/jig-articulado/cor-07.jpg" data-img-mobile="iscas/mobile/jig-articulado/cor-07.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#d0d8e0,#f0f4f8)"></div><span>Cor 07</span></div>
-            <div class="cor-item" data-nome="Cor 08" data-img-desktop="iscas/desktop/jig-articulado/cor-08.jpg" data-img-mobile="iscas/mobile/jig-articulado/cor-08.jpg"><div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#5a2080,#8040b0)"></div><span>Cor 08</span></div>
-          </div></div>
-          <button class="btn-add-pedido"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Adicionar ao Pedido</button>
-        </div>
-      </article>
+        <!-- JIG ARTICULADO -->
+        <article class="produto-card reveal" data-categoria="jig" data-slug="jig-articulado" data-nome="Jig Articulado"
+          data-gramaturas="12g,14g,16g" data-cores="Cor 01,Cor 02,Cor 03,Cor 04,Cor 05,Cor 06,Cor 07,Cor 08"
+          data-cores-css="linear-gradient(135deg,#c8a84b,#f0d060)|linear-gradient(135deg,#a8b8c8,#e0eaf0)|linear-gradient(135deg,#e06020,#f08040)|linear-gradient(135deg,#2a6040,#4a8060)|linear-gradient(135deg,#d04080,#f060a0)|linear-gradient(135deg,#1a3a6a,#2a5a9a)|linear-gradient(135deg,#d0d8e0,#f0f4f8)|linear-gradient(135deg,#5a2080,#8040b0)">
+          <div class="produto-card__info">
+            <h3 class="produto-nome">Jig Articulado</h3>
+            <div class="produto-card__tags"><span class="gram-badge">12g</span><span class="gram-badge">14g</span><span
+                class="gram-badge">16g</span></div>
+            <div class="produto-gramaturas">
+              <div class="cores-grid">
+                <div class="cor-item" data-nome="Cor 01" data-img-desktop="iscas/desktop/jig-articulado/cor-01.jpg"
+                  data-img-mobile="iscas/mobile/jig-articulado/cor-01.jpg">
+                  <div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#c8a84b,#f0d060)">
+                  </div><span>Cor 01</span>
+                </div>
+                <div class="cor-item" data-nome="Cor 02" data-img-desktop="iscas/desktop/jig-articulado/cor-02.jpg"
+                  data-img-mobile="iscas/mobile/jig-articulado/cor-02.jpg">
+                  <div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#a8b8c8,#e0eaf0)">
+                  </div><span>Cor 02</span>
+                </div>
+                <div class="cor-item" data-nome="Cor 03" data-img-desktop="iscas/desktop/jig-articulado/cor-03.jpg"
+                  data-img-mobile="iscas/mobile/jig-articulado/cor-03.jpg">
+                  <div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#e06020,#f08040)">
+                  </div><span>Cor 03</span>
+                </div>
+                <div class="cor-item" data-nome="Cor 04" data-img-desktop="iscas/desktop/jig-articulado/cor-04.jpg"
+                  data-img-mobile="iscas/mobile/jig-articulado/cor-04.jpg">
+                  <div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#2a6040,#4a8060)">
+                  </div><span>Cor 04</span>
+                </div>
+                <div class="cor-item" data-nome="Cor 05" data-img-desktop="iscas/desktop/jig-articulado/cor-05.jpg"
+                  data-img-mobile="iscas/mobile/jig-articulado/cor-05.jpg">
+                  <div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#d04080,#f060a0)">
+                  </div><span>Cor 05</span>
+                </div>
+                <div class="cor-item" data-nome="Cor 06" data-img-desktop="iscas/desktop/jig-articulado/cor-06.jpg"
+                  data-img-mobile="iscas/mobile/jig-articulado/cor-06.jpg">
+                  <div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#1a3a6a,#2a5a9a)">
+                  </div><span>Cor 06</span>
+                </div>
+                <div class="cor-item" data-nome="Cor 07" data-img-desktop="iscas/desktop/jig-articulado/cor-07.jpg"
+                  data-img-mobile="iscas/mobile/jig-articulado/cor-07.jpg">
+                  <div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#d0d8e0,#f0f4f8)">
+                  </div><span>Cor 07</span>
+                </div>
+                <div class="cor-item" data-nome="Cor 08" data-img-desktop="iscas/desktop/jig-articulado/cor-08.jpg"
+                  data-img-mobile="iscas/mobile/jig-articulado/cor-08.jpg">
+                  <div class="cor-swatch swatch-skeleton" style="background:linear-gradient(135deg,#5a2080,#8040b0)">
+                  </div><span>Cor 08</span>
+                </div>
+              </div>
+            </div>
+            <button class="btn-add-pedido"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                width="14" height="14">
+                <line x1="12" y1="5" x2="12" y2="19" />
+                <line x1="5" y1="12" x2="19" y2="12" />
+              </svg>Adicionar ao Pedido</button>
+          </div>
+        </article>
 
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer class="footer">
-  <div class="container">
-    <div class="footer__inner">
-      <img src="logo-urutau.png" alt="Urutau Jigs" class="footer__logo"
-           width="120" height="36" loading="lazy" decoding="async"
-           onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
-      <span class="footer__logo-text" style="display:none">URUTAU JIGS</span>
-      <p class="footer__copy">© 2026 — Todos os direitos reservados</p>
-      <p class="footer__tagline">Qualidade é o nosso foco</p>
-    </div>
-  </div>
-</footer>
-
-<!-- MODAL LIGHTBOX -->
-<div class="modal" id="modal" role="dialog" aria-modal="true">
-  <div class="modal__overlay" id="modalOverlay"></div>
-  <div class="modal__content">
-    <button class="modal__close" id="modalClose" aria-label="Fechar">✕</button>
-    <button class="modal__nav modal__nav--prev" id="modalPrev" aria-label="Anterior">‹</button>
-    <div class="modal__img-wrap">
-      <img src="" alt="" class="modal__img" id="modalImg">
-      <div class="modal__placeholder" id="modalPlaceholder">
-        <svg viewBox="0 0 120 60" fill="none" width="120"><path d="M10 30 Q30 10 60 30 Q90 50 110 30" stroke="currentColor" stroke-width="2" fill="none" opacity="0.4"/></svg>
       </div>
-      <div class="modal__info"><span id="modalNome"></span><span id="modalCounter"></span></div>
     </div>
-    <button class="modal__nav modal__nav--next" id="modalNext" aria-label="Próxima">›</button>
-  </div>
-</div>
+  </section>
 
-<!-- BACK TO TOP -->
-<button class="back-top" id="backTop" aria-label="Voltar ao topo">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><polyline points="18 15 12 9 6 15"/></svg>
-</button>
-
-<!-- PEDIDO — BOTTOM SHEET -->
-<div class="pedido-overlay" id="pedidoOverlay"></div>
-<div class="pedido-sheet" id="pedidoSheet" role="dialog" aria-modal="true">
-  <div class="pedido-sheet__handle"></div>
-  <div class="pedido-sheet__header">
-    <div>
-      <p class="pedido-sheet__label">Montar Pedido</p>
-      <h3 class="pedido-sheet__title" id="sheetProdutoNome"></h3>
-    </div>
-    <button class="pedido-sheet__close" id="sheetClose" aria-label="Fechar">✕</button>
-  </div>
-  <div class="pedido-sheet__body">
-    <div class="pedido-step">
-      <p class="pedido-step__label"><span class="pedido-step__num">1</span>Gramatura</p>
-      <div class="pedido-gram-opts" id="sheetGramOpts"></div>
-    </div>
-    <div class="pedido-step">
-      <p class="pedido-step__label"><span class="pedido-step__num">2</span>Cor</p>
-      <div class="pedido-cores-grid" id="sheetCoresGrid"></div>
-    </div>
-    <div class="pedido-step">
-      <p class="pedido-step__label"><span class="pedido-step__num">3</span>Quantidade</p>
-      <div class="pedido-qtd-wrap">
-        <button class="pedido-qtd-btn" id="qtdMinus">−</button>
-        <span class="pedido-qtd-num" id="qtdNum">1</span>
-        <button class="pedido-qtd-btn" id="qtdPlus">+</button>
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <img src="logo-urutau.png" alt="Urutau Jigs" class="footer__logo" width="120" height="36" loading="lazy"
+          decoding="async" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+        <span class="footer__logo-text" style="display:none">URUTAU JIGS</span>
+        <p class="footer__copy">© 2026 — Todos os direitos reservados</p>
+        <p class="footer__tagline">Qualidade é o nosso foco</p>
       </div>
     </div>
-  </div>
-  <div class="pedido-sheet__footer">
-    <div class="pedido-resumo"><span id="resumoTexto">Selecione gramatura e cor</span></div>
-    <button class="btn btn--fire pedido-confirmar" id="pedidoConfirmar" disabled>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-      Adicionar ao Pedido
-    </button>
-  </div>
-</div>
+  </footer>
 
-<!-- CARRINHO FAB -->
-<div class="carrinho-fab" id="carrinhoFab" style="display:none">
-  <button class="carrinho-fab__btn" id="carrinhoFabBtn" aria-label="Ver pedido">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-    Meu Pedido
-    <span class="carrinho-fab__count" id="carrinhoCount">0</span>
+  <!-- MODAL LIGHTBOX -->
+  <div class="modal" id="modal" role="dialog" aria-modal="true">
+    <div class="modal__overlay" id="modalOverlay"></div>
+    <div class="modal__content">
+      <button class="modal__close" id="modalClose" aria-label="Fechar">✕</button>
+      <button class="modal__nav modal__nav--prev" id="modalPrev" aria-label="Anterior">‹</button>
+      <div class="modal__img-wrap">
+        <img src="" alt="" class="modal__img" id="modalImg">
+        <div class="modal__placeholder" id="modalPlaceholder">
+          <svg viewBox="0 0 120 60" fill="none" width="120">
+            <path d="M10 30 Q30 10 60 30 Q90 50 110 30" stroke="currentColor" stroke-width="2" fill="none"
+              opacity="0.4" />
+          </svg>
+        </div>
+        <div class="modal__info"><span id="modalNome"></span><span id="modalCounter"></span></div>
+      </div>
+      <button class="modal__nav modal__nav--next" id="modalNext" aria-label="Próxima">›</button>
+    </div>
+  </div>
+
+  <!-- BACK TO TOP -->
+  <button class="back-top" id="backTop" aria-label="Voltar ao topo">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+      <polyline points="18 15 12 9 6 15" />
+    </svg>
   </button>
-</div>
 
-<!-- CARRINHO PAINEL -->
-<div class="carrinho-overlay" id="carrinhoOverlay"></div>
-<div class="carrinho-painel" id="carrinhoPainel" role="dialog" aria-modal="true">
-  <div class="carrinho-painel__header">
-    <div>
-      <p class="carrinho-painel__label">Urutau Jigs</p>
-      <h3 class="carrinho-painel__title">Meu Pedido</h3>
+  <!-- PEDIDO — BOTTOM SHEET -->
+  <div class="pedido-overlay" id="pedidoOverlay"></div>
+  <div class="pedido-sheet" id="pedidoSheet" role="dialog" aria-modal="true">
+    <div class="pedido-sheet__handle"></div>
+    <div class="pedido-sheet__header">
+      <div>
+        <p class="pedido-sheet__label">Montar Pedido</p>
+        <h3 class="pedido-sheet__title" id="sheetProdutoNome"></h3>
+      </div>
+      <button class="pedido-sheet__close" id="sheetClose" aria-label="Fechar">✕</button>
     </div>
-    <button class="carrinho-painel__close" id="carrinhoPainelClose" aria-label="Fechar">✕</button>
+    <div class="pedido-sheet__body">
+      <div class="pedido-step">
+        <p class="pedido-step__label"><span class="pedido-step__num">1</span>Gramatura</p>
+        <div class="pedido-gram-opts" id="sheetGramOpts"></div>
+      </div>
+      <div class="pedido-step">
+        <p class="pedido-step__label"><span class="pedido-step__num">2</span>Cor</p>
+        <div class="pedido-cores-grid" id="sheetCoresGrid"></div>
+      </div>
+      <div class="pedido-step">
+        <p class="pedido-step__label"><span class="pedido-step__num">3</span>Quantidade</p>
+        <div class="pedido-qtd-wrap">
+          <button class="pedido-qtd-btn" id="qtdMinus">−</button>
+          <span class="pedido-qtd-num" id="qtdNum">1</span>
+          <button class="pedido-qtd-btn" id="qtdPlus">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="pedido-sheet__footer">
+      <div class="pedido-resumo"><span id="resumoTexto">Selecione gramatura e cor</span></div>
+      <button class="btn btn--fire pedido-confirmar" id="pedidoConfirmar" disabled>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14">
+          <line x1="12" y1="5" x2="12" y2="19" />
+          <line x1="5" y1="12" x2="19" y2="12" />
+        </svg>
+        Adicionar ao Pedido
+      </button>
+    </div>
   </div>
-  <div class="carrinho-painel__body" id="carrinhoPainelBody"></div>
-  <div class="carrinho-painel__footer">
-    <div class="carrinho-total">
-      <span class="carrinho-total__label">Total de itens</span>
-      <span class="carrinho-total__num" id="carrinhoTotalItens">0 unidades</span>
-    </div>
-    <button class="btn btn--whatsapp carrinho-enviar" id="carrinhoEnviar">
-      <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-      Enviar Pedido via WhatsApp
+
+  <!-- CARRINHO FAB -->
+  <div class="carrinho-fab" id="carrinhoFab" style="display:none">
+    <button class="carrinho-fab__btn" id="carrinhoFabBtn" aria-label="Ver pedido">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
+        <line x1="3" y1="6" x2="21" y2="6" />
+        <path d="M16 10a4 4 0 01-8 0" />
+      </svg>
+      Meu Pedido
+      <span class="carrinho-fab__count" id="carrinhoCount">0</span>
     </button>
-    <button class="carrinho-limpar" id="carrinhoLimpar">Limpar pedido</button>
   </div>
-</div>
 
-<!-- PERF: defer = download em paralelo, executa após o HTML estar pronto -->
-<script src="script.js" defer></script>
+  <!-- CARRINHO PAINEL -->
+  <div class="carrinho-overlay" id="carrinhoOverlay"></div>
+  <div class="carrinho-painel" id="carrinhoPainel" role="dialog" aria-modal="true">
+    <div class="carrinho-painel__header">
+      <div>
+        <p class="carrinho-painel__label">Urutau Jigs</p>
+        <h3 class="carrinho-painel__title">Meu Pedido</h3>
+      </div>
+      <button class="carrinho-painel__close" id="carrinhoPainelClose" aria-label="Fechar">✕</button>
+    </div>
+    <div class="carrinho-painel__body" id="carrinhoPainelBody"></div>
+    <div class="carrinho-painel__footer">
+      <div class="carrinho-total">
+        <span class="carrinho-total__label">Total de itens</span>
+        <span class="carrinho-total__num" id="carrinhoTotalItens">0 unidades</span>
+      </div>
+      <button class="btn btn--whatsapp carrinho-enviar" id="carrinhoEnviar">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+          <path
+            d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+        </svg>
+        Enviar Pedido via WhatsApp
+      </button>
+      <button class="carrinho-limpar" id="carrinhoLimpar">Limpar pedido</button>
+    </div>
+  </div>
+
+  <!-- PERF: defer = download em paralelo, executa após o HTML estar pronto -->
+  <script src="script.js" defer></script>
 </body>
+
 </html>

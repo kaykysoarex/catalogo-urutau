@@ -14,10 +14,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }, { passive: true });
 
   // ─── NAV ──────────────────────────────────
-  const nav        = document.getElementById('nav');
-  const hamburger  = document.getElementById('hamburger');
-  const navLinks   = document.getElementById('navLinks');
-  const backTop    = document.getElementById('backTop');
+  const nav = document.getElementById('nav');
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+  const backTop = document.getElementById('backTop');
   const navCartBtn = document.getElementById('navCartBtn');
 
   let scrollTick = false;
@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (heroLogoImg.complete && heroLogoImg.naturalWidth > 0) {
       heroLogoImg.classList.add('loaded');
     } else {
-      heroLogoImg.addEventListener('load',  () => heroLogoImg.classList.add('loaded'));
+      heroLogoImg.addEventListener('load', () => heroLogoImg.classList.add('loaded'));
       heroLogoImg.addEventListener('error', () => heroLogoImg.classList.add('loaded'));
     }
   }
@@ -84,11 +84,11 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
 
   // ─── MODAL LIGHTBOX ───────────────────────
-  const modal     = document.getElementById('modal');
-  const modalImg  = document.getElementById('modalImg');
+  const modal = document.getElementById('modal');
+  const modalImg = document.getElementById('modalImg');
   const modalNome = document.getElementById('modalNome');
-  const modalCnt  = document.getElementById('modalCounter');
-  const modalPH   = document.getElementById('modalPlaceholder');
+  const modalCnt = document.getElementById('modalCounter');
+  const modalPH = document.getElementById('modalPlaceholder');
   let gallery = [], gIdx = 0;
 
   function preloadAdjacent(i) {
@@ -113,9 +113,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const it = gallery[i];
     if (!it) return;
     modalNome.textContent = it.nome;
-    modalCnt.textContent  = `${i + 1} / ${gallery.length}`;
+    modalCnt.textContent = `${i + 1} / ${gallery.length}`;
     if (it.img) {
-      modalPH.style.display  = 'none';
+      modalPH.style.display = 'none';
       modalImg.style.display = 'block';
       modalImg.style.opacity = '0';
       modalImg.alt = it.nome;
@@ -125,7 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (modalImg.complete && modalImg.naturalWidth > 0) modalImg.style.opacity = '1';
     } else {
       modalImg.style.display = 'none';
-      modalPH.style.display  = 'flex';
+      modalPH.style.display = 'flex';
     }
     preloadAdjacent(i);
   }
@@ -139,8 +139,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.addEventListener('keydown', e => {
     if (!modal.classList.contains('open')) return;
-    if (e.key === 'Escape')     closeModal();
-    if (e.key === 'ArrowLeft')  prev();
+    if (e.key === 'Escape') closeModal();
+    if (e.key === 'ArrowLeft') prev();
     if (e.key === 'ArrowRight') next();
   });
 
@@ -180,8 +180,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const tmp = new Image();
       tmp.onload = () => {
         requestAnimationFrame(() => {
-          sw.style.backgroundImage    = `url('${src}')`;
-          sw.style.backgroundSize     = 'cover';
+          sw.style.backgroundImage = `url('${src}')`;
+          sw.style.backgroundSize = 'cover';
           sw.style.backgroundPosition = 'center';
           sw.classList.remove('swatch-skeleton');
           sw.classList.add('swatch-loaded');
@@ -207,25 +207,25 @@ document.addEventListener('DOMContentLoaded', () => {
     const items = Array.from(card.querySelectorAll('.cor-item'));
     if (!items.length) return;
 
-    const slug      = card.dataset.slug || '';
+    const slug = card.dataset.slug || '';
     const isPriority = card.dataset.priority === 'true';
 
     function imgPath(item) {
-      if (isMobile && item.dataset.imgMobile)   return item.dataset.imgMobile;
+      if (isMobile && item.dataset.imgMobile) return item.dataset.imgMobile;
       if (!isMobile && item.dataset.imgDesktop) return item.dataset.imgDesktop;
       return `iscas/${isMobile ? 'mobile' : 'desktop'}/${slug}-${colorSlug(item.dataset.nome || '')}.jpg`;
     }
 
     // Galeria para o modal
     const gal = items.map(el => ({
-      img:  imgPath(el),
+      img: imgPath(el),
       nome: el.dataset.nome || el.querySelector('span')?.textContent || '',
     }));
 
     items.forEach((item, i) => {
       item.addEventListener('click', () => openModal(gal, i));
 
-      const sw  = item.querySelector('.cor-swatch');
+      const sw = item.querySelector('.cor-swatch');
       const src = imgPath(item);
       if (sw && src) enqueueSwatchLoad(sw, src, isPriority);
     });
@@ -265,27 +265,27 @@ document.addEventListener('DOMContentLoaded', () => {
   let sheetData = { nome: '', gramaturas: [], cores: [], coresCss: [], imgsDesktop: [], imgsMobile: [] };
   let selGram = null, selCor = null, selCorCss = null, qtd = 1;
 
-  const pedidoOverlay       = document.getElementById('pedidoOverlay');
-  const pedidoSheet         = document.getElementById('pedidoSheet');
-  const sheetClose          = document.getElementById('sheetClose');
-  const sheetNome           = document.getElementById('sheetProdutoNome');
-  const sheetGramOpts       = document.getElementById('sheetGramOpts');
-  const sheetCoresGrid      = document.getElementById('sheetCoresGrid');
-  const qtdMinus            = document.getElementById('qtdMinus');
-  const qtdPlus             = document.getElementById('qtdPlus');
-  const qtdNumEl            = document.getElementById('qtdNum');
-  const pedidoConfirmar     = document.getElementById('pedidoConfirmar');
-  const resumoTexto         = document.getElementById('resumoTexto');
-  const carrinhoFab         = document.getElementById('carrinhoFab');
-  const carrinhoFabBtn      = document.getElementById('carrinhoFabBtn');
-  const carrinhoCount       = document.getElementById('carrinhoCount');
-  const carrinhoOverlay     = document.getElementById('carrinhoOverlay');
-  const carrinhoPainel      = document.getElementById('carrinhoPainel');
+  const pedidoOverlay = document.getElementById('pedidoOverlay');
+  const pedidoSheet = document.getElementById('pedidoSheet');
+  const sheetClose = document.getElementById('sheetClose');
+  const sheetNome = document.getElementById('sheetProdutoNome');
+  const sheetGramOpts = document.getElementById('sheetGramOpts');
+  const sheetCoresGrid = document.getElementById('sheetCoresGrid');
+  const qtdMinus = document.getElementById('qtdMinus');
+  const qtdPlus = document.getElementById('qtdPlus');
+  const qtdNumEl = document.getElementById('qtdNum');
+  const pedidoConfirmar = document.getElementById('pedidoConfirmar');
+  const resumoTexto = document.getElementById('resumoTexto');
+  const carrinhoFab = document.getElementById('carrinhoFab');
+  const carrinhoFabBtn = document.getElementById('carrinhoFabBtn');
+  const carrinhoCount = document.getElementById('carrinhoCount');
+  const carrinhoOverlay = document.getElementById('carrinhoOverlay');
+  const carrinhoPainel = document.getElementById('carrinhoPainel');
   const carrinhoPainelClose = document.getElementById('carrinhoPainelClose');
-  const carrinhoPainelBody  = document.getElementById('carrinhoPainelBody');
-  const carrinhoTotalItens  = document.getElementById('carrinhoTotalItens');
-  const carrinhoEnviar      = document.getElementById('carrinhoEnviar');
-  const carrinhoLimpar      = document.getElementById('carrinhoLimpar');
+  const carrinhoPainelBody = document.getElementById('carrinhoPainelBody');
+  const carrinhoTotalItens = document.getElementById('carrinhoTotalItens');
+  const carrinhoEnviar = document.getElementById('carrinhoEnviar');
+  const carrinhoLimpar = document.getElementById('carrinhoLimpar');
 
   // ── Abrir bottom sheet ──────────────────────
   document.querySelectorAll('.btn-add-pedido').forEach(btn => {
@@ -293,14 +293,14 @@ document.addEventListener('DOMContentLoaded', () => {
       e.stopPropagation();
       const card = btn.closest('.produto-card');
 
-      sheetData.nome       = card.dataset.nome || '';
+      sheetData.nome = card.dataset.nome || '';
       sheetData.gramaturas = (card.dataset.gramaturas || '').split(',').filter(Boolean);
-      sheetData.cores      = (card.dataset.cores || '').split(',').filter(Boolean);
-      sheetData.coresCss   = (card.dataset.coresCss || '').split('|').filter(Boolean);
+      sheetData.cores = (card.dataset.cores || '').split(',').filter(Boolean);
+      sheetData.coresCss = (card.dataset.coresCss || '').split('|').filter(Boolean);
 
       const corItems = Array.from(card.querySelectorAll('.cor-item'));
       sheetData.imgsDesktop = corItems.map(el => el.dataset.imgDesktop || '');
-      sheetData.imgsMobile  = corItems.map(el => el.dataset.imgMobile  || '');
+      sheetData.imgsMobile = corItems.map(el => el.dataset.imgMobile || '');
 
       selGram = sheetData.gramaturas.length === 1 ? sheetData.gramaturas[0] : null;
       selCor = null; selCorCss = null; qtd = 1;
@@ -344,10 +344,10 @@ document.addEventListener('DOMContentLoaded', () => {
   function buildCores() {
     sheetCoresGrid.innerHTML = '';
     sheetData.cores.forEach((cor, i) => {
-      const css    = sheetData.coresCss[i] || '#888';
+      const css = sheetData.coresCss[i] || '#888';
       const imgSrc = isMobile
-        ? (sheetData.imgsMobile[i]  || sheetData.imgsDesktop[i] || '')
-        : (sheetData.imgsDesktop[i] || sheetData.imgsMobile[i]  || '');
+        ? (sheetData.imgsMobile[i] || sheetData.imgsDesktop[i] || '')
+        : (sheetData.imgsDesktop[i] || sheetData.imgsMobile[i] || '');
 
       const el = document.createElement('div');
       el.className = 'sheet-cor-item';
@@ -359,7 +359,7 @@ document.addEventListener('DOMContentLoaded', () => {
       el.innerHTML = `<div class="sheet-cor-swatch" style="${swatchStyle}"></div><span>${cor}</span>`;
 
       el.addEventListener('click', () => {
-        selCor    = cor;
+        selCor = cor;
         selCorCss = css;
         sheetCoresGrid.querySelectorAll('.sheet-cor-item').forEach(e => e.classList.remove('active'));
         el.classList.add('active');
@@ -407,13 +407,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const corIdx = sheetData.cores.indexOf(selCor);
     pedido.push({
-      produto:    sheetData.nome,
-      gramatura:  selGram,
-      cor:        selCor,
-      corCss:     selCorCss,
+      produto: sheetData.nome,
+      gramatura: selGram,
+      cor: selCor,
+      corCss: selCorCss,
       quantidade: qtd,
       imgDesktop: sheetData.imgsDesktop[corIdx] || '',
-      imgMobile:  sheetData.imgsMobile[corIdx]  || '',
+      imgMobile: sheetData.imgsMobile[corIdx] || '',
     });
 
     savePedido(pedido);
@@ -431,7 +431,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const total = pedido.reduce((s, i) => s + i.quantidade, 0);
 
     carrinhoFab.style.display = total > 0 ? 'flex' : 'none';
-    navCartBtn.style.display  = total > 0 ? 'flex' : 'none';
+    navCartBtn.style.display = total > 0 ? 'flex' : 'none';
     carrinhoCount.textContent = total;
     const navCount = navCartBtn.querySelector('.nav__cart-count');
     if (navCount) navCount.textContent = total;
@@ -452,8 +452,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     carrinhoPainelBody.innerHTML = pedido.map((it, idx) => {
       const imgSrc = isMobile
-        ? (it.imgMobile  || it.imgDesktop || '')
-        : (it.imgDesktop || it.imgMobile  || '');
+        ? (it.imgMobile || it.imgDesktop || '')
+        : (it.imgDesktop || it.imgMobile || '');
 
       const thumb = imgSrc
         ? `<img src="${imgSrc}" alt="${it.cor}" class="carrinho-item__thumb" loading="lazy" decoding="async">`
@@ -504,7 +504,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  function openCarrinho()  {
+  function openCarrinho() {
     carrinhoPainel.classList.add('open');
     carrinhoOverlay.classList.add('open');
     document.body.style.overflow = 'hidden';
@@ -522,7 +522,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let cTouchStart = 0;
   carrinhoPainel.addEventListener('touchstart', e => { cTouchStart = e.touches[0].clientY; }, { passive: true });
-  carrinhoPainel.addEventListener('touchend',   e => { if (e.changedTouches[0].clientY - cTouchStart > 80) closeCarrinho(); });
+  carrinhoPainel.addEventListener('touchend', e => { if (e.changedTouches[0].clientY - cTouchStart > 80) closeCarrinho(); });
 
   carrinhoLimpar.addEventListener('click', () => {
     if (!pedido.length) return;
