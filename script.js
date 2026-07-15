@@ -342,9 +342,7 @@ document.addEventListener('DOMContentLoaded', () => {
     sheetCoresGrid.innerHTML = '';
     sheetData.cores.forEach((cor, i) => {
       const css = sheetData.coresCss[i] || '#888';
-      const imgSrc = isMobile
-        ? (sheetData.imgsMobile[i] || sheetData.imgsDesktop[i] || '')
-        : (sheetData.imgsDesktop[i] || sheetData.imgsMobile[i] || '');
+      const imgSrc = sheetData.imgs[i] || '';
 
       const el = document.createElement('div');
       el.className = 'sheet-cor-item';
