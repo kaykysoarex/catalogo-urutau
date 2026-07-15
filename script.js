@@ -211,9 +211,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const isPriority = card.dataset.priority === 'true';
 
     function imgPath(item) {
-      if (isMobile && item.dataset.imgMobile) return item.dataset.imgMobile;
-      if (!isMobile && item.dataset.imgDesktop) return item.dataset.imgDesktop;
-      return `iscas/${isMobile ? 'mobile' : 'desktop'}/${slug}-${colorSlug(item.dataset.nome || '')}.jpg`;
+      return item.dataset.img || `iscas/${slug}-${colorSlug(item.dataset.nome || '')}.jpg`;
     }
 
     // Galeria para o modal
@@ -299,8 +297,7 @@ document.addEventListener('DOMContentLoaded', () => {
       sheetData.coresCss = (card.dataset.coresCss || '').split('|').filter(Boolean);
 
       const corItems = Array.from(card.querySelectorAll('.cor-item'));
-      sheetData.imgsDesktop = corItems.map(el => el.dataset.imgDesktop || '');
-      sheetData.imgsMobile = corItems.map(el => el.dataset.imgMobile || '');
+      sheetData.imgs = corItems.map(el => el.dataset.img || '');
 
       selGram = sheetData.gramaturas.length === 1 ? sheetData.gramaturas[0] : null;
       selCor = null; selCorCss = null; qtd = 1;
@@ -412,8 +409,7 @@ document.addEventListener('DOMContentLoaded', () => {
       cor: selCor,
       corCss: selCorCss,
       quantidade: qtd,
-      imgDesktop: sheetData.imgsDesktop[corIdx] || '',
-      imgMobile: sheetData.imgsMobile[corIdx] || '',
+      img: sheetData.imgs[corIdx] || '',
     });
 
     savePedido(pedido);
@@ -451,9 +447,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     carrinhoPainelBody.innerHTML = pedido.map((it, idx) => {
-      const imgSrc = isMobile
-        ? (it.imgMobile || it.imgDesktop || '')
-        : (it.imgDesktop || it.imgMobile || '');
+      const imgSrc = it.img || '';
 
       const thumb = imgSrc
         ? `<img src="${imgSrc}" alt="${it.cor}" class="carrinho-item__thumb" loading="lazy" decoding="async">`
